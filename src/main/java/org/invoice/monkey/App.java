@@ -21,12 +21,13 @@ public class App extends Application {
     public void start(Stage stage){
         try {
             mainStage = stage;
-            File appConfig = new File("Invoice-Monkey\\org.data\\app.json");
+            File appConfig = new File("org.data/appConfig.json");
             if(appConfig.exists())
             {
                 System.out.println("File Exists");
             }
             else {
+                System.out.println(getClass().getName());
                 Parent companyDetails = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("companyDetails.fxml")));
                 scene = new Scene(companyDetails);
                 stage.setTitle("Getting Started");
@@ -40,13 +41,25 @@ public class App extends Application {
         }
     }
 
-    public static void changeScene(Parent root, String title)
+    public static void changeScene(String fxml, String title)
     {
-        scene = new Scene(root);
-        mainStage.setTitle(title);
-        mainStage.setResizable(false);
-        mainStage.setScene(scene);
-        mainStage.show();
+        try {
+            Parent root = FXMLLoader.load(Objects.requireNonNull(org.invoice.monkey.App.class.getResource(fxml)));
+            scene = new Scene(root);
+            mainStage.setTitle(title);
+            mainStage.setResizable(false);
+            mainStage.setScene(scene);
+//            mainStage.show();
+        }catch(Exception e)
+        {
+            System.out.println(e.getClass().getName() + ": " + e.getCause());
+            e.printStackTrace();
+        }
+    }
+
+    public static Stage getstage()
+    {
+        return mainStage;
     }
 
     public static void main(String[] args) {

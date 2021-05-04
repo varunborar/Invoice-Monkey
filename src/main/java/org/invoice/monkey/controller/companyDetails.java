@@ -2,16 +2,17 @@ package org.invoice.monkey.controller;
 
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.DirectoryChooser;
 import org.invoice.monkey.App;
 
-import java.util.Objects;
-
+import java.io.File;
+import java.io.FileWriter;
+import org.json.simple.JSONObject;
 
 public class companyDetails {
+    // Company Details Form
     @FXML
     private TextField orgName;
     @FXML
@@ -23,6 +24,40 @@ public class companyDetails {
     @FXML
     private Button nextButton;
 
+    // Address Details Form
+    @FXML
+    private TextField orgAdd;
+    @FXML
+    private TextField orgCity;
+    @FXML
+    private TextField orgState;
+    @FXML
+    private TextField orgPostalCode;
+    @FXML
+    private Button nextButtonAdd;
+
+    // App Configurations
+    @FXML
+    private TextField folderPath;
+    @FXML
+    private Button FinishButton;
+
+
+
+    private static JSONObject orgDetails;
+    private static JSONObject appConfig;
+    private static JSONObject orgDetail;
+    private static JSONObject address;
+
+
+    static{
+        orgDetails = new JSONObject();
+        appConfig = new JSONObject();
+        orgDetail = new JSONObject();
+        address = new JSONObject();
+    }
+
+
     public void validate()
     {
         if (!orgName.getText().equals("")  && !orgNumber.getText().equals("") && !orgEmail.getText().equals("") && !orgSignatory.getText().equals(""))
@@ -31,6 +66,7 @@ public class companyDetails {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void nextButtonClicked() {
         try {
             // Retrieving Data
@@ -60,12 +96,82 @@ public class companyDetails {
                 this.orgNumber.getStyleClass().clear();
                 this.orgNumber.getStyleClass().add("text-input");
 
-                Parent companyDetails = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("src/main/resources/org/invoice/monkey/addressForm.fxml")));
-                App.changeScene(companyDetails, "Getting Started");
+
+                orgDetail.put("Org-Name", orgName);
+                orgDetail.put("Org-Email", orgEmail);
+                orgDetail.put("Org-Number", orgNumber);
+                orgDetail.put("Org-Signatory", orgSignatory);
+
+
+                App.changeScene("addressForm.fxml", "Getting Started");
 
             }
         } catch (Exception e) {
             System.out.println(e.getClass().getName() + ": " + e.getCause());
         }
     }
+
+    public void validateAddressForm()
+    {
+        if (!orgAdd.getText().equals("")  && !orgCity.getText().equals("") && !orgState.getText().equals("") && !orgPostalCode.getText().equals(""))
+        {
+            nextButtonAdd.setDisable(false);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public void nextButtonAddClicked()
+    {
+        try{
+            String orgAdd = this.orgAdd.getText();
+            String orgCity= this.orgCity.getText();
+            String orgState = this.orgState.getText();
+            String orgPostalCode = this.orgPostalCode.getText();
+
+
+            address.put("Building", orgAdd);
+            address.put("City", orgCity);
+            address.put("State", orgState);
+            address.put("Postal-Code", orgPostalCode);
+
+            App.changeScene("appConfig.fxml", "Getting Started");
+
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void selectDefaultLocation()
+    {
+        DirectoryChooser folderLoc = new DirectoryChooser();
+        folderLoc.setTitle("Choose Folder");
+        File folder = folderLoc.showDialog(App.getstage());
+
+        folderPath.setText(folder.getAbsolutePath());
+        FinishButton.setDisable(false);
+
+    }
+
+    @SuppressWarnings("unchecked")
+    public void finishButtonClicked()
+    {
+
+        appConfig.put("default-folder", folderPath.getText());
+        orgDetails.put("Org-Details", orgDetail);
+        orgDetails.put("Address", address);
+        orgDetails.put("App-Configurations", appConfig);
+        System.out.println(orgDetails.toJSONString());
+
+        try{
+            FileWriter file = new FileWriter("org.data/appConfig.json");
+            file.write(orgDetails.toJSONString());
+            file.flush();
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+
 }
