@@ -60,7 +60,7 @@ public class companyDetails {
                 this.orgNumber.getStyleClass().clear();
                 this.orgNumber.getStyleClass().add("text-input");
 
-                Parent companyDetails = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("src\\main\\resources\\org\\invoice\\monkey\\addressForm.fxml")));
+                Parent companyDetails = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("src/main/resources/org/invoice/monkey/addressForm.fxml")));
                 App.changeScene(companyDetails, "Getting Started");
 
             }
