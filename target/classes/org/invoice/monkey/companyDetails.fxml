@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.companyDetails">
+<AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.companyDetails">
    <children>
       <Label layoutX="32.0" layoutY="46.0" prefHeight="90.0" prefWidth="336.0" styleClass="heading" stylesheets="@primary.css" text="Hey! Let's get you started." AnchorPane.topAnchor="46.0">
          <font>
@@ -14,13 +14,13 @@
          </font>
       </Label>
       <Label layoutX="47.0" layoutY="174.0" styleClass="sub-heading" stylesheets="@primary.css" text="Organization Name:" />
-      <TextField layoutX="47.0" layoutY="212.0" prefHeight="28.0" prefWidth="306.0" styleClass="text-input" stylesheets="@primary.css" />
+      <TextField fx:id="orgName" layoutX="47.0" layoutY="212.0" onKeyTyped="#validate" prefHeight="28.0" prefWidth="306.0" styleClass="text-input" stylesheets="@primary.css" />
       <Label layoutX="47.0" layoutY="253.0" styleClass="sub-heading" stylesheets="@primary.css" text="Email:" />
-      <TextField layoutX="47.0" layoutY="291.0" prefHeight="28.0" prefWidth="306.0" styleClass="text-input" stylesheets="@primary.css" />
+      <TextField fx:id="orgEmail" layoutX="47.0" layoutY="291.0" onKeyTyped="#validate" prefHeight="28.0" prefWidth="306.0" styleClass="text-input" stylesheets="@primary.css" />
       <Label layoutX="47.0" layoutY="333.0" styleClass="sub-heading" stylesheets="@primary.css" text="Phone Number:" />
-      <TextField layoutX="47.0" layoutY="371.0" prefHeight="28.0" prefWidth="306.0" styleClass="text-input" stylesheets="@primary.css" />
+      <TextField fx:id="orgNumber" layoutX="47.0" layoutY="371.0" onKeyTyped="#validate" prefHeight="28.0" prefWidth="306.0" styleClass="text-input" stylesheets="@primary.css" />
       <Label layoutX="47.0" layoutY="410.0" styleClass="sub-heading" stylesheets="@primary.css" text="Signatory:" />
-      <TextField layoutX="47.0" layoutY="448.0" prefHeight="28.0" prefWidth="306.0" styleClass="text-input" stylesheets="@primary.css" />
-      <Button disable="true" layoutX="157.0" layoutY="518.0" mnemonicParsing="false" styleClass="next-button" stylesheets="@primary.css" text="Next" />
+      <TextField fx:id="orgSignatory" layoutX="47.0" layoutY="448.0" onKeyTyped="#validate" prefHeight="28.0" prefWidth="306.0" styleClass="text-input" stylesheets="@primary.css" />
+      <Button fx:id="nextButton" disable="true" layoutX="157.0" layoutY="518.0" mnemonicParsing="false" onAction="#nextButtonClicked" styleClass="next-button" stylesheets="@primary.css" text="Next" />
    </children>
 </AnchorPane>

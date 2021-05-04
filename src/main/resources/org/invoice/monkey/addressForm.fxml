@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.companyDetails">
+   <children>
+      <Label layoutX="32.0" layoutY="46.0" prefHeight="90.0" prefWidth="336.0" styleClass="heading" stylesheets="@primary.css" text="Just a little more." AnchorPane.topAnchor="46.0">
+         <font>
+            <Font name="Calibri" size="10.0" />
+         </font>
+      </Label>
+      <Label layoutX="47.0" layoutY="174.0" styleClass="sub-heading" stylesheets="@primary.css" text="Building/Flat/Street Name" />
+      <TextField fx:id="orgAdd" layoutX="47.0" layoutY="212.0" onKeyTyped="#validateAddressForm" prefHeight="28.0" prefWidth="306.0" styleClass="text-input" stylesheets="@primary.css" />
+      <Label layoutX="47.0" layoutY="253.0" styleClass="sub-heading" stylesheets="@primary.css" text="City" />
+      <TextField fx:id="orgCity" layoutX="47.0" layoutY="291.0" onKeyTyped="#validateAddressForm" prefHeight="28.0" prefWidth="306.0" styleClass="text-input" stylesheets="@primary.css" />
+      <Label layoutX="47.0" layoutY="333.0" styleClass="sub-heading" stylesheets="@primary.css" text="State" />
+      <TextField fx:id="orgState" layoutX="47.0" layoutY="371.0" onKeyTyped="#validateAddressForm" prefHeight="28.0" prefWidth="306.0" styleClass="text-input" stylesheets="@primary.css" />
+      <Label layoutX="47.0" layoutY="410.0" styleClass="sub-heading" stylesheets="@primary.css" text="Postal Code" />
+      <TextField fx:id="orgPostalCode" layoutX="47.0" layoutY="448.0" onKeyTyped="#validateAddressForm" prefHeight="28.0" prefWidth="306.0" styleClass="text-input" stylesheets="@primary.css" />
+      <Button fx:id="nextButtonAdd" disable="true" layoutX="157.0" layoutY="518.0" mnemonicParsing="false" onAction="#nextButtonAddClicked" styleClass="next-button" stylesheets="@primary.css" text="Next" />
+   </children>
+</AnchorPane>
