@@ -5,10 +5,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import org.invoice.monkey.App;
 
-import java.io.File;
-import java.io.FileWriter;
+import java.io.*;
+
 import org.json.simple.JSONObject;
 
 public class companyDetails {
@@ -39,6 +40,8 @@ public class companyDetails {
     // App Configurations
     @FXML
     private TextField folderPath;
+    @FXML
+    private TextField logoPath;
     @FXML
     private Button FinishButton;
 
@@ -149,8 +152,19 @@ public class companyDetails {
         File folder = folderLoc.showDialog(App.getstage());
 
         folderPath.setText(folder.getAbsolutePath());
-        FinishButton.setDisable(false);
+    }
 
+    public void selectLogoLoc()
+    {
+        FileChooser logoLoc = new FileChooser();
+        logoLoc.setTitle("Choose Logo");
+        logoLoc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files","*.png"));
+        File logo = logoLoc.showOpenDialog(App.getstage());
+
+        if(logo != null) {
+            logoPath.setText(logo.getAbsolutePath());
+            FinishButton.setDisable(false);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -158,20 +172,35 @@ public class companyDetails {
     {
 
         appConfig.put("default-folder", folderPath.getText());
+        appConfig.put("Logo", logoPath.getText());
+
+
         orgDetails.put("Org-Details", orgDetail);
         orgDetails.put("Address", address);
         orgDetails.put("App-Configurations", appConfig);
-        System.out.println(orgDetails.toJSONString());
+//        System.out.println(orgDetails.toJSONString());
 
         try{
+            File folder = new File("org.data");
+            boolean result = folder.mkdir();
             FileWriter file = new FileWriter("org.data/appConfig.json");
             file.write(orgDetails.toJSONString());
             file.flush();
+
+            //Copying logo to org.data
+            try (InputStream logoOriginal = new FileInputStream(new File(logoPath.getText())); OutputStream logoCopy = new FileOutputStream(new File("org.data/logo.png"))) {
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = logoOriginal.read(buffer)) > 0) {
+                    logoCopy.write(buffer, 0, length);
+                }
+            }
+
+            // Initializing configuration for the application
+
         }catch(Exception e)
         {
             e.printStackTrace();
         }
     }
-
-
 }

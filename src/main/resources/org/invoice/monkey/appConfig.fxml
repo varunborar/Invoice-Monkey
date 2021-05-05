@@ -6,17 +6,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="442.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.companyDetails">
+<AnchorPane prefHeight="455.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.companyDetails">
    <children>
       <Label layoutX="32.0" layoutY="46.0" prefHeight="90.0" prefWidth="336.0" styleClass="heading" stylesheets="@primary.css" text="Just a little more." AnchorPane.topAnchor="46.0">
          <font>
             <Font name="Calibri" size="10.0" />
          </font>
       </Label>
-      <Button fx:id="FinishButton" disable="true" layoutX="166.0" layoutY="347.0" mnemonicParsing="false" onAction="#finishButtonClicked" styleClass="next-button" stylesheets="@primary.css" text="Finish" />
+      <Button fx:id="FinishButton" disable="true" layoutX="166.0" layoutY="368.0" mnemonicParsing="false" onAction="#finishButtonClicked" styleClass="next-button" stylesheets="@primary.css" text="Finish" />
       <Label layoutX="35.0" layoutY="167.0" styleClass="sub-heading" stylesheets="@primary.css" text="Choose where you want to save invoices by default" />
       <TextField fx:id="folderPath" layoutX="35.0" layoutY="210.0" prefHeight="25.0" prefWidth="228.0" styleClass="text-input" stylesheets="@primary.css" />
       <Button layoutX="275.0" layoutY="210.0" mnemonicParsing="false" onAction="#selectDefaultLocation" prefHeight="28.0" prefWidth="80.0" styleClass="select-button" stylesheets="@primary.css" text="Browse" />
-      <Label layoutX="67.0" layoutY="309.0" prefHeight="24.0" prefWidth="265.0" styleClass="sub-heading-small" stylesheets="@primary.css" text="You can choose to change these details at anytime." />
+      <Label layoutX="67.0" layoutY="337.0" prefHeight="24.0" prefWidth="265.0" styleClass="sub-heading-small" stylesheets="@primary.css" text="You can choose to change these details at anytime." />
+      <Label layoutX="32.0" layoutY="256.0" styleClass="sub-heading" stylesheets="@primary.css" text="Choose organization's Logo" />
+      <TextField fx:id="logoPath" layoutX="32.0" layoutY="299.0" prefHeight="25.0" prefWidth="228.0" styleClass="text-input" stylesheets="@primary.css" />
+      <Button layoutX="272.0" layoutY="299.0" mnemonicParsing="false" onAction="#selectLogoLoc" prefHeight="28.0" prefWidth="80.0" styleClass="select-button" stylesheets="@primary.css" text="Browse" />
    </children>
 </AnchorPane>

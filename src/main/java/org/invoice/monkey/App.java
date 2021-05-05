@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.invoice.monkey.model.Configuration;
 
 import java.io.File;
 import java.util.Objects;
@@ -25,6 +26,7 @@ public class App extends Application {
             if(appConfig.exists())
             {
                 System.out.println("File Exists");
+                Configuration configure = new Configuration();
             }
             else {
                 System.out.println(getClass().getName());
