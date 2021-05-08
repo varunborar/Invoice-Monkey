@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.invoice.monkey.mainApp.MainApplication;
 import org.invoice.monkey.model.Configuration;
 
 import java.io.File;
@@ -17,6 +18,8 @@ public class App extends Application {
 
     private static Scene scene;
     private static Stage mainStage;
+    private static Configuration configuration;
+
 
     @Override
     public void start(Stage stage){
@@ -26,10 +29,12 @@ public class App extends Application {
             if(appConfig.exists())
             {
                 System.out.println("File Exists");
-                Configuration configure = new Configuration();
+                configuration = new Configuration();
+
+
+                MainApplication app = new MainApplication();
             }
             else {
-                System.out.println(getClass().getName());
                 Parent companyDetails = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("companyDetails.fxml")));
                 scene = new Scene(companyDetails);
                 stage.setTitle("Getting Started");
@@ -39,7 +44,8 @@ public class App extends Application {
             }
         }catch(Exception e)
         {
-            System.out.println(e.getClass().getName() +": " + e.getCause());
+            System.out.println("App" + e.getClass().getName() +": " + e.getCause());
+            e.printStackTrace();
         }
     }
 
@@ -62,6 +68,11 @@ public class App extends Application {
     public static Stage getstage()
     {
         return mainStage;
+    }
+
+    public static Configuration getConfiguration()
+    {
+        return configuration;
     }
 
     public static void main(String[] args) {

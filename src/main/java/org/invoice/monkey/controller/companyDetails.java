@@ -10,6 +10,9 @@ import org.invoice.monkey.App;
 
 import java.io.*;
 
+import org.invoice.monkey.utils.Validator;
+
+import org.invoice.monkey.mainApp.MainApplication;
 import org.json.simple.JSONObject;
 
 public class companyDetails {
@@ -51,6 +54,8 @@ public class companyDetails {
     private static JSONObject appConfig;
     private static JSONObject orgDetail;
     private static JSONObject address;
+    private static JSONObject database;
+    private static JSONObject email;
 
 
     static{
@@ -58,6 +63,8 @@ public class companyDetails {
         appConfig = new JSONObject();
         orgDetail = new JSONObject();
         address = new JSONObject();
+        database = new JSONObject();
+        email = new JSONObject();
     }
 
 
@@ -84,11 +91,11 @@ public class companyDetails {
 
             boolean validData = true;
 
-            if (!orgEmail.matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")) {
+            if (!Validator.isEmailValid(orgEmail)) {
                 validData = false;
                 this.orgEmail.getStyleClass().add("text-input-error");
             }
-            if (!orgNumber.matches("[0-9]+")) {
+            if (!Validator.isPhoneNumberValid(orgNumber)) {
                 validData = false;
                 this.orgNumber.getStyleClass().add("text-input-error");
             }
@@ -170,14 +177,27 @@ public class companyDetails {
     @SuppressWarnings("unchecked")
     public void finishButtonClicked()
     {
-
+        // App configuration
         appConfig.put("default-folder", folderPath.getText());
-        appConfig.put("Logo", logoPath.getText());
+        appConfig.put("Logo", "org.data/logo.png");
+
+        // Database details
+        database.put("is-custom-database-set", false);
+        database.put("local-database-path", "org.data/InvoiceMonkey.db");
+        database.put("custom-database", false);
+
+        // Email setup configurations
+        email.put("is-email-service-ready", false);
+        email.put("email", "none");
 
 
         orgDetails.put("Org-Details", orgDetail);
         orgDetails.put("Address", address);
         orgDetails.put("App-Configurations", appConfig);
+        orgDetails.put("Database", database);
+        orgDetails.put("Email", email);
+
+
 //        System.out.println(orgDetails.toJSONString());
 
         try{
@@ -197,6 +217,8 @@ public class companyDetails {
             }
 
             // Initializing configuration for the application
+            App.getstage().close();
+            MainApplication app = new MainApplication();
 
         }catch(Exception e)
         {

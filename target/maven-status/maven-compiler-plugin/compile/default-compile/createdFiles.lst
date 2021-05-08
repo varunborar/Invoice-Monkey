@@ -1,1 +1,3 @@
+org\invoice\monkey\mainApp\MainApplication.class
 org\invoice\monkey\model\Configuration.class
+org\invoice\monkey\controller\homeScreen.class
