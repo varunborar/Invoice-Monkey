@@ -61,7 +61,7 @@ public class App extends Application {
         }catch(Exception e)
         {
             System.out.println(e.getClass().getName() + ": " + e.getCause());
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 
@@ -73,6 +73,10 @@ public class App extends Application {
     public static Configuration getConfiguration()
     {
         return configuration;
+    }
+
+    public static void refreshConfiguration(){
+        configuration = new Configuration();
     }
 
     public static void main(String[] args) {

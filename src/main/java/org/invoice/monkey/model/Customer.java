@@ -4,7 +4,7 @@ import org.invoice.monkey.App;
 
 public class Customer {
 
-    private final String customerID;
+    private final Long customerID;
     private String name;
     private String phoneNumber;
     private String email;
@@ -16,13 +16,12 @@ public class Customer {
         this.phoneNumber = null;
         this.email = null;
         this.address = null;
-        this.customerID = "CS" + (10000 + App.getConfiguration().getLastCustomerCount());
-        App.getConfiguration().increaseCustomerCount();
+        this.customerID = 0l;
     }
 
     // GETTERS
 
-    public String getCustomerID()
+    public Long getCustomerID()
     {
         return this.customerID;
     }

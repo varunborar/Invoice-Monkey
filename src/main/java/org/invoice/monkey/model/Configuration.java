@@ -25,8 +25,6 @@ public class Configuration {
     private String logoLocation;
 
     // Database details
-    private int lastItemCount;
-    private int lastCustomerCount;
     private boolean isCustomDatabaseSet;
     private String localDatabasePath;
 
@@ -161,15 +159,11 @@ public class Configuration {
         return this.isEmailServiceReady;
     }
 
-    public int getLastItemCount()
+    public String getLocalDatabasePath()
     {
-        return this.lastItemCount;
+        return this.localDatabasePath;
     }
 
-    public int getLastCustomerCount()
-    {
-        return this.lastCustomerCount;
-    }
 
 
     // SETTERS
@@ -219,15 +213,7 @@ public class Configuration {
         this.defaultLocation = defaultLocation;
     }
 
-    public void increaseItemCount()
-    {
-        this.lastItemCount++;
-    }
 
-    public void increaseCustomerCount()
-    {
-        this.lastCustomerCount++;
-    }
 
 
 }

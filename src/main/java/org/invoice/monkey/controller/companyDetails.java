@@ -10,6 +10,8 @@ import org.invoice.monkey.App;
 
 import java.io.*;
 
+import org.invoice.monkey.Database.database;
+import org.invoice.monkey.utils.Copy;
 import org.invoice.monkey.utils.Validator;
 
 import org.invoice.monkey.mainApp.MainApplication;
@@ -179,11 +181,11 @@ public class companyDetails {
     {
         // App configuration
         appConfig.put("default-folder", folderPath.getText());
-        appConfig.put("Logo", "org.data/logo.png");
+        appConfig.put("Logo", "org.data\\logo.png");
 
         // Database details
         database.put("is-custom-database-set", false);
-        database.put("local-database-path", "org.data/InvoiceMonkey.db");
+        database.put("local-database-path", "org.data\\InvoiceMonkey.db");
         database.put("custom-database", false);
 
         // Email setup configurations
@@ -203,20 +205,18 @@ public class companyDetails {
         try{
             File folder = new File("org.data");
             boolean result = folder.mkdir();
-            FileWriter file = new FileWriter("org.data/appConfig.json");
+            FileWriter file = new FileWriter("org.data\\appConfig.json");
             file.write(orgDetails.toJSONString());
             file.flush();
 
             //Copying logo to org.data
-            try (InputStream logoOriginal = new FileInputStream(new File(logoPath.getText())); OutputStream logoCopy = new FileOutputStream(new File("org.data/logo.png"))) {
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = logoOriginal.read(buffer)) > 0) {
-                    logoCopy.write(buffer, 0, length);
-                }
-            }
+            Copy.copyFile(logoPath.getText(), "org.data/logo.png");
 
             // Initializing configuration for the application
+            App.refreshConfiguration();
+            org.invoice.monkey.Database.database db = new database();
+            db.configureAllTables();
+
             App.getstage().close();
             MainApplication app = new MainApplication();
 

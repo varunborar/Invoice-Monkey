@@ -8,10 +8,16 @@ public class MainApplication {
 
     public MainApplication()
     {
-        App.changeScene("homeScreen.fxml", "Invoice Monkey");
-        App.getstage().setResizable(false);
-        App.getstage().setMaximized(true);
-        App.getstage().show();
+        try {
+            App.changeScene("homeScreen.fxml", "Invoice Monkey");
+            App.getstage().setResizable(false);
+            App.getstage().setMaximized(true);
+            App.getstage().show();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getClass().getName() + ": " + e.getCause() + ", " + e.getMessage());
+        }
     }
 
 

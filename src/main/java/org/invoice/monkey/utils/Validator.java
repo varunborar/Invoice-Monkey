@@ -2,6 +2,7 @@ package org.invoice.monkey.utils;
 
 public class Validator {
 
+
     public static boolean isEmailValid(String email)
     {
         return email.matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$");
