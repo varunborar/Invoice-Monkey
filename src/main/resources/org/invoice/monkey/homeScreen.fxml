@@ -15,6 +15,7 @@
           <Menu mnemonicParsing="false" text="File">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#openItemScreen" text="Items" />
+                  <MenuItem mnemonicParsing="false" text="Customer" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">

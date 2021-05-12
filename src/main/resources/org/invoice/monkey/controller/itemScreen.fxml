@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
@@ -12,18 +14,35 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 
 <AnchorPane prefHeight="643.0" prefWidth="1282.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.itemScreen">
    <children>
       <HBox layoutX="2.0" layoutY="-8.0" prefHeight="650.0" prefWidth="1280.0">
          <children>
-            <TableView fx:id="itemTable" focusTraversable="false" onMouseClicked="#itemSelected" prefHeight="641.0" prefWidth="944.0" stylesheets="@default.css">
+            <TableView fx:id="itemTable" focusTraversable="false" prefHeight="641.0" prefWidth="944.0" stylesheets="@default.css">
               <columns>
-                  <TableColumn fx:id="ITEM_ID" editable="false" prefWidth="167.33334851264954" styleClass="center" text="Item ID" />
-                <TableColumn fx:id="ITEM_NAME" editable="false" prefWidth="379.99998474121094" text="Item Name" />
-                  <TableColumn fx:id="ITEM_PRICE" editable="false" prefWidth="140.66668701171875" styleClass="right" text="Price" />
-                  <TableColumn fx:id="ITEM_TYPE" editable="false" prefWidth="125.333251953125" styleClass="center" text="Type" />
-                  <TableColumn fx:id="ITEM_INVENTORY" editable="false" prefWidth="122.666748046875" styleClass="right" text="Inventory" />
+                  <TableColumn fx:id="ITEM_ID" editable="false" prefWidth="167.33334851264954" text="Item ID">
+                     <styleClass>
+                        <String fx:value="center" />
+                        <String fx:value="column-header" />
+                     </styleClass></TableColumn>
+                <TableColumn fx:id="ITEM_NAME" editable="false" prefWidth="379.99998474121094" styleClass="column-header" text="Item Name" />
+                  <TableColumn fx:id="ITEM_PRICE" editable="false" prefWidth="140.66668701171875" text="Price">
+                     <styleClass>
+                        <String fx:value="right" />
+                        <String fx:value="column-header" />
+                     </styleClass></TableColumn>
+                  <TableColumn fx:id="ITEM_SIZE" editable="false" prefWidth="122.666748046875" text="Size">
+                     <styleClass>
+                        <String fx:value="right" />
+                        <String fx:value="column-header" />
+                     </styleClass></TableColumn>
+                  <TableColumn fx:id="ITEM_TYPE" editable="false" prefWidth="129.33333333333337" text="Type">
+                     <styleClass>
+                        <String fx:value="center" />
+                        <String fx:value="column-header" />
+                     </styleClass></TableColumn>
               </columns>
                <HBox.margin>
                   <Insets top="9.0" />
@@ -44,14 +63,25 @@
                   <RadioButton fx:id="Product" layoutX="23.0" layoutY="522.0" mnemonicParsing="false" selected="true" stylesheets="@default.css" text="Product">
                      <toggleGroup>
                         <ToggleGroup fx:id="Type" />
-                     </toggleGroup></RadioButton>
+                     </toggleGroup>
+                  </RadioButton>
                   <RadioButton fx:id="Service" layoutX="129.0" layoutY="522.0" mnemonicParsing="false" stylesheets="@default.css" text="Service" toggleGroup="$Type" />
                   <Label layoutX="15.0" layoutY="477.0" styleClass="input-headings" stylesheets="@default.css" text="Type " />
                   <RadioButton fx:id="Other" layoutX="232.0" layoutY="522.0" mnemonicParsing="false" stylesheets="@default.css" text="Other" toggleGroup="$Type" />
-                  <Button id="create-button" layoutX="11.0" layoutY="567.0" mnemonicParsing="false" onAction="#createItem" prefHeight="35.0" prefWidth="306.0" stylesheets="@default.css" text="Create Item" />
-                  <Label layoutX="13.0" layoutY="401.0" styleClass="input-headings" stylesheets="@default.css" text="Inventory Quantity" />
-                  <TextField fx:id="Inventory" layoutX="15.0" layoutY="441.0" prefHeight="31.0" prefWidth="306.0" styleClass="input-field" stylesheets="@default.css" />
-                  <Label fx:id="infoLabel" layoutX="9.0" layoutY="618.0" prefHeight="17.0" prefWidth="316.0" styleClass="info-label" stylesheets="@default.css" text="Label" />
+                  <StackPane layoutX="11.0" layoutY="567.0">
+                     <children>
+                        <Button id="create-button" fx:id="updateButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#updateItem" prefHeight="35.0" prefWidth="306.0" stylesheets="@default.css" text="Update Item" />
+                        <Button id="create-button" fx:id="createButton" mnemonicParsing="false" onAction="#createItem" prefHeight="35.0" prefWidth="306.0" stylesheets="@default.css" text="Create Item" />
+                     </children>
+                  </StackPane>
+                  <Label layoutX="13.0" layoutY="401.0" styleClass="input-headings" stylesheets="@default.css" text="Size" />
+                  <TextField fx:id="Size" layoutX="15.0" layoutY="441.0" prefHeight="31.0" prefWidth="193.0" promptText="Optional" styleClass="input-field" stylesheets="@default.css" />
+                  <Label fx:id="infoLabel" layoutX="9.0" layoutY="618.0" prefHeight="17.0" prefWidth="316.0" styleClass="info-label" stylesheets="@default.css" />
+                  <ChoiceBox fx:id="SizeType" layoutX="215.0" layoutY="441.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="99.0" styleClass="input-choice-box" stylesheets="@default.css" />
+                  <Button id="close-button" layoutX="299.0" layoutY="11.0" mnemonicParsing="false" onAction="#itemScreenClosed" prefHeight="23.0" prefWidth="23.0" stylesheets="@default.css" />
+                  <Button id="refresh-button" layoutX="265.0" layoutY="11.0" mnemonicParsing="false" onAction="#refreshItemTable" prefHeight="23.0" prefWidth="23.0" stylesheets="@default.css" />
+                  <TextField fx:id="searchBar" layoutX="11.0" layoutY="63.0" prefHeight="25.0" prefWidth="231.0" styleClass="input-field" stylesheets="@default.css" />
+                  <Button layoutX="251.0" layoutY="63.0" mnemonicParsing="false" onAction="#performSearch" prefHeight="25.0" prefWidth="73.0" text="Search" />
                </children>
             </Pane>
          </children>

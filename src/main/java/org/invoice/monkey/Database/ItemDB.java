@@ -16,12 +16,13 @@ public class ItemDB extends database{
         try{
 
             Connection con = getCon();
-            String addItemSQLQuery = "INSERT INTO Item(Item_Name,Item_Price,Item_Type,Item_Inventory) VALUES(?,?,?,?);";
+            String addItemSQLQuery = "INSERT INTO Item(Item_Name,Item_Price,Item_Type,Item_Size,Item_Size_Type) VALUES(?,?,?,?,?);";
             PreparedStatement insert = con.prepareStatement(addItemSQLQuery);
             insert.setString(1,item.getName());
             insert.setFloat(2,item.getPrice());
             insert.setString(3,item.getType());
-            insert.setInt(4,item.getInventory());
+            insert.setFloat(4,item.getRawSize());
+            insert.setString(5, item.getRawSizeType());
 
             insert.executeUpdate();
             insert.close();
@@ -55,7 +56,8 @@ public class ItemDB extends database{
                 item.updateName(items.getString("Item_Name"));
                 item.updatePrice(items.getFloat("Item_Price"));
                 item.updateType(items.getString("Item_Type"));
-                item.updateInventory(items.getInt("Item_Inventory"));
+                item.updateSize(items.getFloat("Item_Size"));
+                item.updateSizeType(items.getString("Item_Size_Type"));
             }
 
 
@@ -72,7 +74,7 @@ public class ItemDB extends database{
         return item;
     }
 
-    public Vector<Item> getAllItems()
+    public Vector<Item> getAllItems(Integer limit)
     {
         Vector<Item> itemList = new Vector<Item>();
 
@@ -81,11 +83,9 @@ public class ItemDB extends database{
             String getItemQuery = "SELECT * FROM Item " +
                     "LIMIT ?";
             PreparedStatement query = con.prepareStatement(getItemQuery);
-            query.setLong(1,100);
+            query.setLong(1, limit);
 
             ResultSet items = query.executeQuery();
-
-
             while(items.next())
             {
                 Item item = new Item();
@@ -93,17 +93,14 @@ public class ItemDB extends database{
                 item.updateName(items.getString("Item_Name"));
                 item.updatePrice(items.getFloat("Item_Price"));
                 item.updateType(items.getString("Item_Type"));
-                item.updateInventory(items.getInt("Item_Inventory"));
+                item.updateSize(items.getFloat("Item_Size"));
+                item.updateSizeType(items.getString("Item_Size_Type"));
                 itemList.add(item);
             }
-
-
-
-
-
+            con.close();
         }catch(SQLException se)
         {
-            System.out.println(se.getClass().getName() + ": " + se.getMessage());
+            System.out.println("Get All Items:" + se.getClass().getName() + ": " + se.getMessage());
         }
         catch(Exception e)
         {
@@ -111,4 +108,98 @@ public class ItemDB extends database{
         }
         return itemList;
     }
+
+    public Vector<Item> getSearchList(String searchString, Integer limit)
+    {
+        Vector<Item> searchResultList = new Vector<Item>();
+
+        try{
+            Connection con = getCon();
+
+            String searchQuery = "SELECT * FROM Item " +
+                                    "WHERE Item_Name LIKE ?" +
+                                    "LIMIT ?;";
+            PreparedStatement search = con.prepareStatement(searchQuery);
+            search.setString(1, "%" + searchString + "%");
+            search.setInt(2,limit);
+
+            ResultSet items = search.executeQuery();
+
+            while(items.next())
+            {
+                Item item = new Item();
+                item.setItemID(items.getLong("Item_ID"));
+                item.updateName(items.getString("ITEM_NAME"));
+                item.updatePrice(items.getFloat("Item_Price"));
+                item.updateType(items.getString("Item_Type"));
+                item.updateSize(items.getFloat("Item_Size"));
+                item.updateSizeType(items.getString("Item_Size_Type"));
+                searchResultList.add(item);
+            }
+
+            con.close();
+
+        }catch(SQLException se)
+        {
+            System.out.println(se.getClass().getName() +": " + se.getMessage());
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return  searchResultList;
+    }
+
+    public void updateItem(Item item)
+    {
+        try{
+            Connection con = getCon();
+
+            String updateQuery = "UPDATE Item " +
+                                    "SET Item_Name = ?, "+
+                                    "Item_Price = ?,"+
+                                    "Item_Type = ?," +
+                                    "Item_Size = ?," +
+                                    "Item_Size_Type = ? " +
+                                    "WHERE Item_ID = ?;";
+
+            PreparedStatement update = con.prepareStatement(updateQuery);
+            update.setString(1, item.getName());
+            update.setFloat(2, item.getPrice());
+            update.setString(3, item.getType());
+            update.setFloat(4, item.getRawSize());
+            update.setString(5,item.getRawSizeType());
+            update.setLong(6, item.getRawItemID());
+            update.executeUpdate();
+            con.close();
+
+        }catch(SQLException se)
+        {
+            System.out.println(se.getClass().getName() +": " + se.getMessage());
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteItem(Item item)
+    {
+        try{
+            Connection con = getCon();
+
+            String deleteQuery = "DELETE FROM Item WHERE Item_ID = ?";
+            PreparedStatement delete = con.prepareStatement(deleteQuery);
+            delete.setLong(1, item.getRawItemID());
+
+            delete.executeUpdate();
+            con.close();
+        }catch(SQLException se)
+        {
+            System.out.println(se.getClass().getName() +": " + se.getMessage());
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 }

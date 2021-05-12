@@ -61,7 +61,8 @@ public class database {
                     "Item_Name VARCHAR(30) NOT NULL," +
                     "Item_Price DECIMAL(9,2) NOT NULL," +
                     "Item_Type VARCHAR(10) NOT NULL," +
-                    "Item_Inventory INT DEFAULT 0);";
+                    "Item_Size DECIMAL(9,2)," +
+                    "Item_Size_Type VARCHAR(4));";
         }else
         {
             itemTableSQLQuery = "CREATE TABLE IF NOT EXISTS Item(" +
@@ -69,7 +70,8 @@ public class database {
                     "Item_Name VARCHAR(30) NOT NULL," +
                     "Item_Price DECIMAL(9,2) NOT NULL," +
                     "Item_Type VARCHAR(10) NOT NULL," +
-                    "Item_Inventory INT DEFAULT 0);";
+                    "Item_Size DECIMAL(9,2),"+
+                    "Item_Size_Type VARCHAR(4));";
         }
         try {
             con = getCon();

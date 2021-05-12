@@ -4,6 +4,7 @@ module org.invoice.monkey {
     requires json.simple;
     requires java.sql;
     requires sqlite.jdbc;
+    requires org.controlsfx.controls;
 
     opens org.invoice.monkey to javafx.fxml;
     opens org.invoice.monkey.model to javafx.base;
