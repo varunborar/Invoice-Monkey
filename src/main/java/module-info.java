@@ -10,5 +10,7 @@ module org.invoice.monkey {
     opens org.invoice.monkey.model to javafx.base;
     exports org.invoice.monkey;
     exports org.invoice.monkey.controller;
+    exports org.invoice.monkey.model.Configurations;
     opens org.invoice.monkey.controller to javafx.fxml;
+    opens org.invoice.monkey.model.Configurations to javafx.base;
 }

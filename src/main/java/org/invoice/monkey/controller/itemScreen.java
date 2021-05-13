@@ -4,10 +4,12 @@ import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import org.invoice.monkey.App;
 import org.invoice.monkey.Database.ItemDB;
 import org.invoice.monkey.model.Item;
-
+import org.invoice.monkey.utils.Validator;
 
 
 import java.util.Vector;
@@ -127,6 +129,10 @@ public class itemScreen {
             ITEM_TYPE.setCellValueFactory(new PropertyValueFactory<>("type"));
             ITEM_SIZE.setCellValueFactory(new PropertyValueFactory<>("size"));
 
+            createButton.setDisable(true);
+            updateButton.setDisable(true);
+            updateButton.setVisible(false);
+
             SizeType.getItems().addAll("N/A","mL", "L", "g", "Kg", "cm", "m", "inch");
             SizeType.setValue("N/A");
             infoLabel.setText("");
@@ -158,6 +164,37 @@ public class itemScreen {
         }
     }
 
+    public void validatePrice()
+    {
+        if(!Validator.isFloatValid(Price.getText()))
+        {
+            Price.getStyleClass().add("input-error");
+            createButton.setDisable(true);
+            updateButton.setDisable(true);
+        }
+        else{
+            Price.getStyleClass().removeAll("input-error");
+            createButton.setDisable(false);
+            updateButton.setDisable(false);
+        }
+    }
+
+    public void validateSize()
+    {
+        if(!Validator.isFloatValid(Size.getText()))
+        {
+            Size.getStyleClass().add("input-error");
+            createButton.setDisable(true);
+            updateButton.setDisable(true);
+        }
+        else
+        {
+            Size.getStyleClass().removeAll("input-error");
+            createButton.setDisable(false);
+            updateButton.setDisable(false);
+        }
+    }
+
     private Item getItem() {
         Item item = new Item();
         try {
@@ -171,14 +208,18 @@ public class itemScreen {
             item.updateName(itemName);
             item.updatePrice(Float.parseFloat(itemPrice));
             item.updateType(itemType);
-            item.updateSize(Float.parseFloat(itemSize));
-            item.updateSizeType(itemSizeType);
+            if (!itemSize.equals(""))
+            {   item.updateSize(Float.parseFloat(itemSize));
+                item.updateSizeType(itemSizeType);
+            }
+
 
             Name.setText("");
             Price.setText("");
             Size.setText("");
             SizeType.setValue("N/A");
             Type.selectToggle(Product);
+
         }catch(Exception e)
         {
             System.out.println(e.getClass().getName() + ": " + e.getMessage());
@@ -217,6 +258,14 @@ public class itemScreen {
             infoLabel.setText("No items matched your search");
         else
             refreshItemTable(resultList);
+    }
+
+    public void searchEvent(KeyEvent k)
+    {
+        if(k.getCode() == KeyCode.ENTER)
+        {
+            performSearch();
+        }
     }
 
     public void itemScreenClosed()

@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.invoice.monkey.mainApp.MainApplication;
-import org.invoice.monkey.model.Configuration;
+import org.invoice.monkey.model.Configurations.Configuration;
 
 import java.io.File;
 import java.util.Objects;

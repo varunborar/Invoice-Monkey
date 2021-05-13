@@ -13,4 +13,9 @@ public class Validator {
         return phoneNumber.matches("(0/91)?[7-9][0-9]{9}");
     }
 
+    public static boolean isFloatValid(String price)
+    {
+        return price.matches("[0-9]+(.[0-9]+)?");
+    }
+
 }

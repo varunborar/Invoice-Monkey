@@ -15,9 +15,9 @@ public class database {
         Connection con;
         con = null;
         String path;
-        if(!App.getConfiguration().isCustomDatabaseSet()) {
+        if(!App.getConfiguration().getDatabaseDetails().isCustomDatabaseSet()) {
             try {
-                path = App.getConfiguration().getLocalDatabasePath();
+                path = App.getConfiguration().getDatabaseDetails().getLocalDatabasePath();
                 Class.forName("org.sqlite.JDBC");
                 con = DriverManager.getConnection("jdbc:sqlite:" + path);
 
@@ -35,8 +35,8 @@ public class database {
 
     protected Connection getCon() throws java.sql.SQLException
     {
-        if(!App.getConfiguration().isCustomDatabaseSet()) {
-            String path = App.getConfiguration().getLocalDatabasePath();
+        if(!App.getConfiguration().getDatabaseDetails().isCustomDatabaseSet()) {
+            String path = App.getConfiguration().getDatabaseDetails().getLocalDatabasePath();
             return DriverManager.getConnection("jdbc:sqlite:" + path);
         }
         else
@@ -55,7 +55,7 @@ public class database {
     {
         Connection con;
         String itemTableSQLQuery;
-        if(!App.getConfiguration().isCustomDatabaseSet()) {
+        if(!App.getConfiguration().getDatabaseDetails().isCustomDatabaseSet()) {
             itemTableSQLQuery = "CREATE TABLE IF NOT EXISTS Item(" +
                     "Item_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "Item_Name VARCHAR(30) NOT NULL," +
@@ -93,7 +93,7 @@ public class database {
     {
         Connection con;
         String customerTableSQLQuery;
-        if(!App.getConfiguration().isCustomDatabaseSet()) {
+        if(!App.getConfiguration().getDatabaseDetails().isCustomDatabaseSet()) {
             customerTableSQLQuery = "CREATE TABLE IF NOT EXISTS Customer(" +
                     "Customer_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "Customer_Name VARCHAR(30) NOT NULL," +
