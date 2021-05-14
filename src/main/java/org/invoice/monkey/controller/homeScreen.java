@@ -3,10 +3,13 @@ package org.invoice.monkey.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Stage;
 
 
 import java.util.Objects;
@@ -58,6 +61,42 @@ public class homeScreen {
         }catch(Exception e)
         {
             System.out.println(e.getClass().getName() + ": " + e.getCause() + ", " + e.getMessage());
+        }
+    }
+
+
+    public void openEditOrgDetails()
+    {
+        try{
+            Stage secondaryStage = new Stage();
+
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("editCompanyDetails.fxml")));
+            Scene scene = new Scene(root);
+            secondaryStage.setTitle("Edit Organization Details");
+            secondaryStage.setScene(scene);
+            secondaryStage.setResizable(false);
+            secondaryStage.show();
+
+        }catch(Exception e)
+        {
+            System.out.println("Exception in home-screen:" + e.getClass().getName() + ": " + e.getMessage());
+        }
+    }
+
+    public void openSetupDatabase()
+    {
+        try {
+            Stage secondaryStage = new Stage();
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("setupDatabase.fxml")));
+            Scene scene = new Scene(root);
+            secondaryStage.setTitle("Setup Database");
+            secondaryStage.setResizable(false);
+            secondaryStage.setScene(scene);
+            secondaryStage.show();
+
+        }catch(Exception e)
+        {
+            System.out.println("Exception in home-screen:" + e.getClass().getName() + ": " + e.getMessage());
         }
     }
 

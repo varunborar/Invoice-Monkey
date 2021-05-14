@@ -11,7 +11,7 @@ import org.invoice.monkey.App;
 import java.io.*;
 
 import org.invoice.monkey.Database.database;
-import org.invoice.monkey.utils.Copy;
+import org.invoice.monkey.utils.File;
 import org.invoice.monkey.utils.Validator;
 
 import org.invoice.monkey.mainApp.MainApplication;
@@ -158,7 +158,7 @@ public class companyDetails {
     {
         DirectoryChooser folderLoc = new DirectoryChooser();
         folderLoc.setTitle("Choose Folder");
-        File folder = folderLoc.showDialog(App.getstage());
+        java.io.File folder = folderLoc.showDialog(App.getstage());
 
         folderPath.setText(folder.getAbsolutePath());
     }
@@ -168,7 +168,7 @@ public class companyDetails {
         FileChooser logoLoc = new FileChooser();
         logoLoc.setTitle("Choose Logo");
         logoLoc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files","*.png"));
-        File logo = logoLoc.showOpenDialog(App.getstage());
+        java.io.File logo = logoLoc.showOpenDialog(App.getstage());
 
         if(logo != null) {
             logoPath.setText(logo.getAbsolutePath());
@@ -203,14 +203,14 @@ public class companyDetails {
 //        System.out.println(orgDetails.toJSONString());
 
         try{
-            File folder = new File("org.data");
+            java.io.File folder = new java.io.File("org.data");
             boolean result = folder.mkdir();
             FileWriter file = new FileWriter("org.data\\appConfig.json");
             file.write(orgDetails.toJSONString());
             file.flush();
 
             //Copying logo to org.data
-            Copy.copyFile(logoPath.getText(), "org.data/logo.png");
+            File.copyFile(logoPath.getText(), "org.data\\logo.png");
 
             // Initializing configuration for the application
             App.refreshConfiguration();

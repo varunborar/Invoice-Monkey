@@ -1,7 +1,15 @@
+org\invoice\monkey\utils\File.class
 org\invoice\monkey\mainApp\MainApplication.class
-org\invoice\monkey\model\Configuration.class
 org\invoice\monkey\controller\itemScreen.class
+org\invoice\monkey\Database\CustomerDB.class
+org\invoice\monkey\model\Configurations\OrgDetails.class
 org\invoice\monkey\Database\ItemDB.class
+org\invoice\monkey\model\Configurations\Address.class
 org\invoice\monkey\controller\homeScreen.class
-org\invoice\monkey\utils\Copy.class
+org\invoice\monkey\model\Configurations\DatabaseDetails.class
+org\invoice\monkey\model\Configurations\EmailDetails.class
+org\invoice\monkey\model\Configurations\Configuration.class
+org\invoice\monkey\controller\SetupDatabase.class
 org\invoice\monkey\controller\defaultWidgetScreen.class
+org\invoice\monkey\model\Configurations\AppConfigurations.class
+org\invoice\monkey\controller\EditCompanyDetails.class

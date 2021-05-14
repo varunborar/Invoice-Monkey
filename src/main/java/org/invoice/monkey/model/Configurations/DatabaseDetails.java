@@ -1,5 +1,6 @@
 package org.invoice.monkey.model.Configurations;
 
+import org.invoice.monkey.utils.File;
 import org.json.simple.JSONObject;
 
 public class DatabaseDetails{
@@ -43,14 +44,29 @@ public class DatabaseDetails{
         return String.format("jdbc:mysql//%s:%d/%s",this.host, this.port, this.databaseName);
     }
 
+    public String getHost()
+    {
+        return this.host;
+    }
+
+    public String getDatabaseName()
+    {
+        return this.databaseName;
+    }
+
+    public String getPort()
+    {
+        return this.port.toString();
+    }
+
     public String getUserName()
     {
-        return this.userName;
+        return File.decryptString64(this.userName);
     }
 
     public String getPassword()
     {
-        return this.password;
+        return File.decryptString64(this.password);
     }
 
     @SuppressWarnings("unchecked")
@@ -76,9 +92,14 @@ public class DatabaseDetails{
         this.host = host;
         this.port = port;
         this.databaseName = databaseName;
-        this.userName = userName;
-        this.password = password;
+        this.userName = File.encryptString64(userName);
+        this.password = File.encryptString64(password);
 
         this.isCustomDatabaseSet = true;
+    }
+
+    public void setCustomDatabase(Boolean set)
+    {
+        isCustomDatabaseSet = set;
     }
 }
