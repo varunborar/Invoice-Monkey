@@ -10,7 +10,7 @@ public class DatabaseDetails{
 
     //CUSTOM DATABASE DETAILS (MYSQL)
     private String host;
-    private Integer port;
+    private Long port;
     private String databaseName;
     private String userName;
     private String password;
@@ -23,7 +23,7 @@ public class DatabaseDetails{
         if (isCustomDatabaseSet()){
              customDatabaseDetails = (JSONObject) database.get("custom-database");
              this.host = (String) customDatabaseDetails.get("host");
-             this.port = (Integer) customDatabaseDetails.get("port");
+             this.port = (Long) customDatabaseDetails.get("port");
              this.databaseName = (String) customDatabaseDetails.get("database-name");
              this.userName = (String) customDatabaseDetails.get("user-name");
              this.password = (String) customDatabaseDetails.get("password");
@@ -41,7 +41,7 @@ public class DatabaseDetails{
 
     public String getFormattedURL()
     {
-        return String.format("jdbc:mysql//%s:%d/%s",this.host, this.port, this.databaseName);
+        return String.format("//%s:%d/%s",this.host, this.port, this.databaseName);
     }
 
     public String getHost()
@@ -87,7 +87,7 @@ public class DatabaseDetails{
         return obj;
     }
 
-    public void setCustomDatabase(String host, Integer port, String databaseName, String userName, String password)
+    public void setCustomDatabase(String host, Long port, String databaseName, String userName, String password)
     {
         this.host = host;
         this.port = port;

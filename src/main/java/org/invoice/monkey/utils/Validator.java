@@ -18,4 +18,14 @@ public class Validator {
         return price.matches("[0-9]+(.[0-9]+)?");
     }
 
+    public static boolean isNonEmpty(String str)
+    {
+        return !str.equals("");
+    }
+
+    public static boolean isNumeric(String str)
+    {
+        return str.matches("[0-9]+");
+    }
+
 }

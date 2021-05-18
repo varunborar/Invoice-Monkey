@@ -1,8 +1,15 @@
 package org.invoice.monkey.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
+import org.invoice.monkey.Database.database;
 import org.invoice.monkey.model.Configurations.Configuration;
+import org.invoice.monkey.utils.Validator;
 
 public class SetupDatabase {
 
@@ -28,8 +35,6 @@ public class SetupDatabase {
     private TextField password;
 
     @FXML
-    private Button connect;
-    @FXML
     private Button save;
     @FXML
     private Button cancel;
@@ -43,6 +48,12 @@ public class SetupDatabase {
         configuration = new Configuration();
         if(configuration.getDatabaseDetails().isCustomDatabaseSet())
         {
+            databaseName.setDisable(false);
+            host.setDisable(false);
+            port.setDisable(false);
+            userName.setDisable(false);
+            password.setDisable(false);
+
             Database.selectToggle(customDatabase);
             databaseName.setText(configuration.getDatabaseDetails().getDatabaseName());
             host.setText(configuration.getDatabaseDetails().getHost());
@@ -55,7 +66,6 @@ public class SetupDatabase {
         else
         {
             Database.selectToggle(localDatabase);
-            connect.setVisible(false);
         }
         save.setDisable(true);
     }
@@ -74,12 +84,8 @@ public class SetupDatabase {
         port.setDisable(true);
 
         save.setDisable(false);
-        connect.setVisible(false);
 
         connectString.setText("");
-
-        configuration.getDatabaseDetails().setCustomDatabase(false);
-        configuration.refresh();
     }
 
     public void chooseCustomDatabase()
@@ -90,8 +96,56 @@ public class SetupDatabase {
         userName.setDisable(false);
         password.setDisable(false);
 
-        connect.setVisible(true);
         save.setDisable(false);
+    }
+
+    public void saveSettings(ActionEvent event)
+    {
+        if(Database.getSelectedToggle() == customDatabase)
+        {
+            configuration.getDatabaseDetails().setCustomDatabase(
+                    host.getText(),
+                    Long.parseLong(port.getText()),
+                    databaseName.getText(),
+                    userName.getText(),
+                    password.getText()
+            );
+
+            configuration.getDatabaseDetails().setCustomDatabase(true);
+        }
+        else{
+            configuration.getDatabaseDetails().setCustomDatabase(false);
+        }
+
+        configuration.refresh();
+
+        //Setting up database
+        database db = new database();
+        db.configureAllTables();
+        cancel(event);
+    }
+
+    public void cancel(ActionEvent event)
+    {
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
+    }
+
+    public void validateNonEmpty(KeyEvent ke)
+    {
+        Node node = (Node) ke.getSource();
+        TextField tf = (TextField) node;
+        if(Validator.isNonEmpty(tf.getText()))
+        {
+            save.setDisable(false);
+            tf.getStyleClass().removeAll("input-error");
+        }
+        else
+        {
+            save.setDisable(true);
+            tf.getStyleClass().add("input-error");
+        }
     }
 
 }

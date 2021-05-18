@@ -12,37 +12,27 @@ public class database {
 
     public database()
     {
-        Connection con;
-        con = null;
-        String path;
-        if(!App.getConfiguration().getDatabaseDetails().isCustomDatabaseSet()) {
-            try {
-                path = App.getConfiguration().getDatabaseDetails().getLocalDatabasePath();
-                Class.forName("org.sqlite.JDBC");
-                con = DriverManager.getConnection("jdbc:sqlite:" + path);
-
-                con.close();
-
-            } catch (Exception e) {
-                System.out.println("Error Connecting to database\n" + e.getClass().getName() + ": " + e.getCause() + ", " + e.getMessage());
-            }
-        }else
-        {
-            // Code for MySQL Server
-        }
 
     }
 
-    protected Connection getCon() throws java.sql.SQLException
+    protected Connection getCon()
     {
-        if(!App.getConfiguration().getDatabaseDetails().isCustomDatabaseSet()) {
-            String path = App.getConfiguration().getDatabaseDetails().getLocalDatabasePath();
-            return DriverManager.getConnection("jdbc:sqlite:" + path);
-        }
-        else
+        try {
+            if (!App.getConfiguration().getDatabaseDetails().isCustomDatabaseSet()) {
+                String path = App.getConfiguration().getDatabaseDetails().getLocalDatabasePath();
+                return DriverManager.getConnection("jdbc:sqlite:" + path);
+            } else {
+                String url = App.getConfiguration().getDatabaseDetails().getFormattedURL();
+                return DriverManager.getConnection("jdbc:mysql:" + url,
+                        App.getConfiguration().getDatabaseDetails().getUserName(),
+                        App.getConfiguration().getDatabaseDetails().getPassword()
+                );
+            }
+        }catch(SQLException se)
         {
-            return null;
+            System.out.println(se.getClass().getName() + ": " + se.getMessage());
         }
+        return null;
     }
 
     public void configureAllTables()

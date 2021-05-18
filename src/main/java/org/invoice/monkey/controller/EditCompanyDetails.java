@@ -3,13 +3,16 @@ package org.invoice.monkey.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.invoice.monkey.App;
 import org.invoice.monkey.model.Configurations.Configuration;
 import org.invoice.monkey.utils.File;
+import org.invoice.monkey.utils.Validator;
 
 public class EditCompanyDetails {
 
@@ -38,6 +41,9 @@ public class EditCompanyDetails {
     private TextField defaultLocation;
     @FXML
     private TextField logoLocation;
+
+    @FXML
+    private Button save;
 
     @FXML
     public void initialize()
@@ -92,7 +98,7 @@ public class EditCompanyDetails {
         configuration.getAddress().setOrgAddress(building.getText());
         configuration.getAddress().setOrgCity(city.getText());
         configuration.getAddress().setOrgState(state.getText());
-        configuration.getAddress().setOrgAddress(postalCode.getText());
+        configuration.getAddress().setOrgPostalCode(postalCode.getText());
 
         configuration.getAppConfigurations().setDefaultLocation(defaultLocation.getText());
 
@@ -112,5 +118,50 @@ public class EditCompanyDetails {
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
         stage.close();
+    }
+
+    public void isNumeric(KeyEvent ke)
+    {
+        TextField tf = (TextField) ke.getSource();
+        if(Validator.isNumeric(tf.getText()))
+        {
+            save.setDisable(false);
+            tf.getStyleClass().removeAll("input-error");
+        }
+        else
+        {
+            save.setDisable((true));
+            tf.getStyleClass().add("input-error");
+        }
+    }
+
+    public void validateEmail(KeyEvent ke)
+    {
+        TextField tf = (TextField) ke.getSource();
+        if(Validator.isEmailValid(tf.getText()))
+        {
+            save.setDisable(false);
+            tf.getStyleClass().removeAll("input-error");
+        }
+        else
+        {
+            save.setDisable((true));
+            tf.getStyleClass().add("input-error");
+        }
+    }
+
+    public void validateNumber(KeyEvent ke)
+    {
+        TextField tf = (TextField) ke.getSource();
+        if(Validator.isPhoneNumberValid(tf.getText()))
+        {
+            save.setDisable(false);
+            tf.getStyleClass().removeAll("input-error");
+        }
+        else
+        {
+            save.setDisable((true));
+            tf.getStyleClass().add("input-error");
+        }
     }
 }

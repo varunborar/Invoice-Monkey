@@ -50,12 +50,12 @@ public class File {
     public static String encryptString64(String str)
     {
         Base64.Encoder encoder = Base64.getEncoder();
-        return encoder.encodeToString(str.getBytes(StandardCharsets.UTF_8));
+        return encoder.encodeToString(str.getBytes());
     }
 
     public static String decryptString64(String str)
     {
         Base64.Decoder decoder = Base64.getDecoder();
-        return Arrays.toString(decoder.decode(str));
+        return new String(decoder.decode(str));
     }
 }
