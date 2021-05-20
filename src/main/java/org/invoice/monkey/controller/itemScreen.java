@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.ScrollEvent;
 import org.invoice.monkey.App;
 import org.invoice.monkey.Database.ItemDB;
 import org.invoice.monkey.model.Item;
@@ -123,6 +124,7 @@ public class itemScreen {
                         return row;
                     });
 
+
             ITEM_ID.setCellValueFactory(new PropertyValueFactory<>("itemID"));
             ITEM_NAME.setCellValueFactory(new PropertyValueFactory<>("name"));
             ITEM_PRICE.setCellValueFactory(new PropertyValueFactory<>("price"));
@@ -136,6 +138,8 @@ public class itemScreen {
             SizeType.getItems().addAll("N/A","mL", "L", "g", "Kg", "cm", "m", "inch");
             SizeType.setValue("N/A");
             infoLabel.setText("");
+
+
         }catch(Exception se)
         {
             System.out.println(se.getClass().getName() + ": " + se.getMessage() + " " + se.getCause());
@@ -155,9 +159,10 @@ public class itemScreen {
         }
     }
 
-    public void refreshItemTable(Vector<Item> itemList)
+    public void refreshItemTable(Vector<Item> itemList, Boolean Clear)
     {
-        itemTable.getItems().clear();
+        if(Clear)
+            itemTable.getItems().clear();
         for (Item i: itemList)
         {
             itemTable.getItems().add(i);
@@ -179,21 +184,6 @@ public class itemScreen {
         }
     }
 
-    public void validateSize()
-    {
-        if(!Validator.isFloatValid(Size.getText()))
-        {
-            Size.getStyleClass().add("input-error");
-            createButton.setDisable(true);
-            updateButton.setDisable(true);
-        }
-        else
-        {
-            Size.getStyleClass().removeAll("input-error");
-            createButton.setDisable(false);
-            updateButton.setDisable(false);
-        }
-    }
 
     private Item getItem() {
         Item item = new Item();
@@ -209,7 +199,7 @@ public class itemScreen {
             item.updatePrice(Float.parseFloat(itemPrice));
             item.updateType(itemType);
             if (!itemSize.equals(""))
-            {   item.updateSize(Float.parseFloat(itemSize));
+            {   item.updateSize(itemSize);
                 item.updateSizeType(itemSizeType);
             }
 
@@ -257,7 +247,7 @@ public class itemScreen {
         if(resultList.size() == 0)
             infoLabel.setText("No items matched your search");
         else
-            refreshItemTable(resultList);
+            refreshItemTable(resultList, true);
     }
 
     public void searchEvent(KeyEvent k)
@@ -273,4 +263,18 @@ public class itemScreen {
         App.changeScene("homeScreen.fxml", "Invoice Monkey");
     }
 
+    public void scroll(ScrollEvent sc)
+    {
+        ScrollBar Sc = (ScrollBar) itemTable.lookup(".scroll-bar:vertical");
+        if(Sc.getValue() == 1.0)
+        {
+
+            itemTable.getSelectionModel().selectLast();
+            Item item = itemTable.getSelectionModel().getSelectedItem();
+            ItemDB idb = new ItemDB();
+            Vector<Item> result = idb.getNext(item.getRawItemID(), 25);
+            refreshItemTable(result, false);
+            itemTable.scrollTo(item);
+        }
+    }
 }

@@ -19,7 +19,7 @@
    <children>
       <HBox layoutX="2.0" layoutY="-8.0" prefHeight="650.0" prefWidth="1280.0">
          <children>
-            <TableView fx:id="itemTable" focusTraversable="false" prefHeight="641.0" prefWidth="944.0" stylesheets="@default.css">
+            <TableView fx:id="itemTable" focusTraversable="false" onScroll="#scroll" prefHeight="641.0" prefWidth="944.0" stylesheets="@default.css">
               <columns>
                   <TableColumn fx:id="ITEM_ID" editable="false" prefWidth="167.33334851264954" styleClass="center" text="Item ID" />
                 <TableColumn fx:id="ITEM_NAME" editable="false" prefWidth="379.99998474121094" text="Item Name" />
@@ -58,7 +58,7 @@
                      </children>
                   </StackPane>
                   <Label layoutX="13.0" layoutY="401.0" styleClass="input-headings" stylesheets="@default.css" text="Size" />
-                  <TextField fx:id="Size" layoutX="15.0" layoutY="441.0" onKeyTyped="#validateSize" prefHeight="31.0" prefWidth="193.0" promptText="Optional" styleClass="input-field" stylesheets="@default.css" />
+                  <TextField fx:id="Size" layoutX="15.0" layoutY="441.0" prefHeight="31.0" prefWidth="193.0" promptText="Optional" styleClass="input-field" stylesheets="@default.css" />
                   <Label fx:id="infoLabel" layoutX="10.0" layoutY="610.0" prefHeight="25.0" prefWidth="306.0" styleClass="info-label" stylesheets="@default.css" />
                   <ChoiceBox fx:id="SizeType" layoutX="215.0" layoutY="441.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="99.0" styleClass="input-choice-box" stylesheets="@default.css" />
                   <Button id="close-button" layoutX="299.0" layoutY="11.0" mnemonicParsing="false" onAction="#itemScreenClosed" prefHeight="23.0" prefWidth="23.0" stylesheets="@default.css" />

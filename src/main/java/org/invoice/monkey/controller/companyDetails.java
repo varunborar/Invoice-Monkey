@@ -217,6 +217,11 @@ public class companyDetails {
             org.invoice.monkey.Database.database db = new database();
             db.configureAllTables();
 
+            //Creating directories for saving invoices at default location
+            File.createDir(App.getConfiguration().getAppConfigurations().getDefaultLocation(),
+                    App.getConfiguration().getOrgDetails().getOrgName());
+
+
             App.getstage().close();
             MainApplication app = new MainApplication();
 

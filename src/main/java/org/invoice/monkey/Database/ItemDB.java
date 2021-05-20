@@ -1,6 +1,7 @@
 package org.invoice.monkey.Database;
 
 import org.invoice.monkey.model.Item;
+import org.invoice.monkey.utils.UIExceptions.DatabaseConnectionException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,7 +22,7 @@ public class ItemDB extends database{
             insert.setString(1,item.getName());
             insert.setFloat(2,item.getPrice());
             insert.setString(3,item.getType());
-            insert.setFloat(4,item.getRawSize());
+            insert.setString(4,item.getRawSize());
             insert.setString(5, item.getRawSizeType());
 
             insert.executeUpdate();
@@ -31,10 +32,6 @@ public class ItemDB extends database{
         }catch(SQLException se)
         {
             System.out.println(se.getClass().getName() + ": " + se.getMessage());
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
         }
     }
 
@@ -56,7 +53,7 @@ public class ItemDB extends database{
                 item.updateName(items.getString("Item_Name"));
                 item.updatePrice(items.getFloat("Item_Price"));
                 item.updateType(items.getString("Item_Type"));
-                item.updateSize(items.getFloat("Item_Size"));
+                item.updateSize(items.getString("Item_Size"));
                 item.updateSizeType(items.getString("Item_Size_Type"));
             }
 
@@ -67,10 +64,6 @@ public class ItemDB extends database{
         {
             System.out.println(se.getClass().getName() + ": " + se.getMessage());
         }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
         return item;
     }
 
@@ -80,8 +73,16 @@ public class ItemDB extends database{
 
         try {
             Connection con = getCon();
-            String getItemQuery = "SELECT * FROM Item " +
-                    "LIMIT ?";
+            String getItemQuery;
+            if(limit == -1)
+            {
+                getItemQuery = "SELECT * FROM Item;";
+            }else
+            {
+                getItemQuery = "SELECT * FROM Item " +
+                        "LIMIT ?;";
+            }
+
             PreparedStatement query = con.prepareStatement(getItemQuery);
             query.setLong(1, limit);
 
@@ -93,7 +94,7 @@ public class ItemDB extends database{
                 item.updateName(items.getString("Item_Name"));
                 item.updatePrice(items.getFloat("Item_Price"));
                 item.updateType(items.getString("Item_Type"));
-                item.updateSize(items.getFloat("Item_Size"));
+                item.updateSize(items.getString("Item_Size"));
                 item.updateSizeType(items.getString("Item_Size_Type"));
                 itemList.add(item);
             }
@@ -102,9 +103,38 @@ public class ItemDB extends database{
         {
             System.out.println("Get All Items:" + se.getClass().getName() + ": " + se.getMessage());
         }
-        catch(Exception e)
+        return itemList;
+    }
+
+    public Vector<Item> getNext(Long start, Integer next)
+    {
+        Vector<Item> itemList = new Vector<Item>();
+
+        try {
+            Connection con = getCon();
+            String getItemQuery = "SELECT * FROM Item " +
+                        "WHERE ITEM_ID > ? " +
+                        "LIMIT ?;";
+            PreparedStatement query = con.prepareStatement(getItemQuery);
+            query.setLong(1, start);
+            query.setLong(2, next);
+
+            ResultSet items = query.executeQuery();
+            while(items.next())
+            {
+                Item item = new Item();
+                item.setItemID(items.getLong("Item_ID"));
+                item.updateName(items.getString("Item_Name"));
+                item.updatePrice(items.getFloat("Item_Price"));
+                item.updateType(items.getString("Item_Type"));
+                item.updateSize(items.getString("Item_Size"));
+                item.updateSizeType(items.getString("Item_Size_Type"));
+                itemList.add(item);
+            }
+            con.close();
+        }catch(SQLException se)
         {
-            e.printStackTrace();
+            System.out.println("Get All Items:" + se.getClass().getName() + ": " + se.getMessage());
         }
         return itemList;
     }
@@ -132,7 +162,7 @@ public class ItemDB extends database{
                 item.updateName(items.getString("ITEM_NAME"));
                 item.updatePrice(items.getFloat("Item_Price"));
                 item.updateType(items.getString("Item_Type"));
-                item.updateSize(items.getFloat("Item_Size"));
+                item.updateSize(items.getString("Item_Size"));
                 item.updateSizeType(items.getString("Item_Size_Type"));
                 searchResultList.add(item);
             }
@@ -142,9 +172,6 @@ public class ItemDB extends database{
         }catch(SQLException se)
         {
             System.out.println(se.getClass().getName() +": " + se.getMessage());
-        }catch(Exception e)
-        {
-            e.printStackTrace();
         }
 
         return  searchResultList;
@@ -167,7 +194,7 @@ public class ItemDB extends database{
             update.setString(1, item.getName());
             update.setFloat(2, item.getPrice());
             update.setString(3, item.getType());
-            update.setFloat(4, item.getRawSize());
+            update.setString(4, item.getRawSize());
             update.setString(5,item.getRawSizeType());
             update.setLong(6, item.getRawItemID());
             update.executeUpdate();
@@ -176,9 +203,6 @@ public class ItemDB extends database{
         }catch(SQLException se)
         {
             System.out.println(se.getClass().getName() +": " + se.getMessage());
-        }catch(Exception e)
-        {
-            e.printStackTrace();
         }
     }
 
@@ -196,9 +220,6 @@ public class ItemDB extends database{
         }catch(SQLException se)
         {
             System.out.println(se.getClass().getName() +": " + se.getMessage());
-        }catch(Exception e)
-        {
-            e.printStackTrace();
         }
     }
 

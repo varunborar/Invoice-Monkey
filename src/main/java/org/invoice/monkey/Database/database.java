@@ -1,6 +1,8 @@
 package org.invoice.monkey.Database;
 
 import org.invoice.monkey.App;
+import org.invoice.monkey.model.Configurations.Configuration;
+import org.invoice.monkey.utils.UIExceptions.DatabaseConnectionException;
 
 
 import java.sql.*;
@@ -9,10 +11,26 @@ public class database {
 
 
 
-
-    public database()
+    public static Boolean checkConnection(Configuration config) throws DatabaseConnectionException
     {
+        try {
+            if (!config.getDatabaseDetails().isCustomDatabaseSet()) {
+                String path = config.getDatabaseDetails().getLocalDatabasePath();
+                DriverManager.getConnection("jdbc:sqlite:" + path);
+            } else {
+                String url = config.getDatabaseDetails().getFormattedURL();
 
+                DriverManager.getConnection("jdbc:mysql:" + url,
+                        App.getConfiguration().getDatabaseDetails().getUserName(),
+                        App.getConfiguration().getDatabaseDetails().getPassword()
+                );
+            }
+        }catch(SQLException se)
+        {
+            System.out.println(se.getClass().getName() + ": " + se.getMessage());
+            throw new DatabaseConnectionException(se.getMessage());
+        }
+        return true;
     }
 
     protected Connection getCon()
@@ -48,19 +66,19 @@ public class database {
         if(!App.getConfiguration().getDatabaseDetails().isCustomDatabaseSet()) {
             itemTableSQLQuery = "CREATE TABLE IF NOT EXISTS Item(" +
                     "Item_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    "Item_Name VARCHAR(30) NOT NULL," +
+                    "Item_Name VARCHAR(50) NOT NULL," +
                     "Item_Price DECIMAL(9,2) NOT NULL," +
                     "Item_Type VARCHAR(10) NOT NULL," +
-                    "Item_Size DECIMAL(9,2)," +
+                    "Item_Size VARCHAR(8)," +
                     "Item_Size_Type VARCHAR(4));";
         }else
         {
             itemTableSQLQuery = "CREATE TABLE IF NOT EXISTS Item(" +
                     "Item_ID INTEGER PRIMARY KEY AUTO_INCREMENT," +
-                    "Item_Name VARCHAR(30) NOT NULL," +
+                    "Item_Name VARCHAR(50) NOT NULL," +
                     "Item_Price DECIMAL(9,2) NOT NULL," +
                     "Item_Type VARCHAR(10) NOT NULL," +
-                    "Item_Size DECIMAL(9,2),"+
+                    "Item_Size VARCHAR(8),"+
                     "Item_Size_Type VARCHAR(4));";
         }
         try {
@@ -114,13 +132,5 @@ public class database {
         }
     }
 
-
-
-    public static void main(String[] Args)
-    {
-        database db = new database();
-        db.configureItemTable();
-        db.configureCustomerTable();
-    }
 
 }

@@ -3,13 +3,15 @@ package org.invoice.monkey.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.invoice.monkey.Database.database;
 import org.invoice.monkey.model.Configurations.Configuration;
+import org.invoice.monkey.utils.UIExceptions.DatabaseConnectionException;
 import org.invoice.monkey.utils.Validator;
+
+import java.sql.SQLException;
 
 public class SetupDatabase {
 
@@ -38,9 +40,12 @@ public class SetupDatabase {
     private Button save;
     @FXML
     private Button cancel;
+    @FXML
+    private Button connect;
 
 
     private Configuration configuration;
+    private Configuration newConfig;
 
     @FXML
     public void initialize()
@@ -66,8 +71,11 @@ public class SetupDatabase {
         else
         {
             Database.selectToggle(localDatabase);
+            connect.setVisible(false);
         }
+        connect.setDisable(true);
         save.setDisable(true);
+
     }
 
     public void chooseLocalDatabase()
@@ -84,6 +92,7 @@ public class SetupDatabase {
         port.setDisable(true);
 
         save.setDisable(false);
+        connect.setVisible(false);
 
         connectString.setText("");
     }
@@ -95,15 +104,27 @@ public class SetupDatabase {
         port.setDisable(false);
         userName.setDisable(false);
         password.setDisable(false);
+        connect.setVisible(true);
 
-        save.setDisable(false);
+        save.setDisable(true);
     }
 
     public void saveSettings(ActionEvent event)
     {
-        if(Database.getSelectedToggle() == customDatabase)
-        {
-            configuration.getDatabaseDetails().setCustomDatabase(
+            newConfig.refresh();
+
+            //Setting up database
+            database db = new database();
+            db.configureAllTables();
+            cancel(event);
+
+    }
+
+    public void connect()
+    {
+        newConfig = new Configuration();
+        if (Database.getSelectedToggle() == customDatabase) {
+            newConfig.getDatabaseDetails().setCustomDatabase(
                     host.getText(),
                     Long.parseLong(port.getText()),
                     databaseName.getText(),
@@ -111,18 +132,27 @@ public class SetupDatabase {
                     password.getText()
             );
 
-            configuration.getDatabaseDetails().setCustomDatabase(true);
-        }
-        else{
-            configuration.getDatabaseDetails().setCustomDatabase(false);
+            newConfig.getDatabaseDetails().setCustomDatabase(true);
+        } else {
+            newConfig.getDatabaseDetails().setCustomDatabase(false);
         }
 
-        configuration.refresh();
+        try{
+            database.checkConnection(newConfig);
+            save.setDisable(false);
 
-        //Setting up database
-        database db = new database();
-        db.configureAllTables();
-        cancel(event);
+            connectString.setText(connectString.getText() + ": Connected");
+        }catch(DatabaseConnectionException d)
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR, d.getMessage(),ButtonType.OK ,ButtonType.CLOSE);
+            alert.showAndWait();
+
+            if(alert.getResult() == ButtonType.CLOSE)
+            {
+                initialize();
+            }
+        }
+
     }
 
     public void cancel(ActionEvent event)
@@ -136,13 +166,20 @@ public class SetupDatabase {
     {
         Node node = (Node) ke.getSource();
         TextField tf = (TextField) node;
-        if(Validator.isNonEmpty(tf.getText()))
+        if(Validator.isNonEmpty(tf.getText()) && Database.getSelectedToggle() == customDatabase)
         {
+            connect.setDisable(false);
+            tf.getStyleClass().removeAll("input-error");
+        }
+        else if(Validator.isNonEmpty(tf.getText()) && Database.getSelectedToggle() == localDatabase)
+        {
+            connect.setVisible(false);
             save.setDisable(false);
             tf.getStyleClass().removeAll("input-error");
         }
         else
         {
+            connect.setDisable(true);
             save.setDisable(true);
             tf.getStyleClass().add("input-error");
         }

@@ -11,7 +11,7 @@ public class Item {
     private String type;
 
     // Optional Data
-    private float size;
+    private String size;
     private String sizeType;
 
     public Item()
@@ -20,7 +20,7 @@ public class Item {
         this.price = 0.0f;
         this.type = null;
         this.itemID = 0L;
-        this.size = 0.0f;
+        this.size = null;
         this.sizeType = null;
     }
     public Item(String name, float price, String type)
@@ -29,7 +29,7 @@ public class Item {
         this.price = price;
         this.type = type;
         this.itemID = 0L;
-        this.size = 0.0f;
+        this.size = null;
         this.sizeType = null;
     }
 
@@ -62,12 +62,12 @@ public class Item {
 
     public String getSize()
     {
-        if(this.size == 0.0f || this.sizeType == null || this.sizeType.equals("N/A"))
+        if(this.sizeType == null || this.sizeType.equals("N/A"))
             return "";
-        return String.format("%.2f%s",this.size, this.sizeType);
+        return String.format("%s%s",this.size, this.sizeType);
     }
 
-    public Float getRawSize()
+    public String getRawSize()
     {
         return this.size;
     }
@@ -94,7 +94,7 @@ public class Item {
         this.price = newPrice;
     }
 
-    public void updateSize(Float newSize)
+    public void updateSize(String newSize)
     {
         this.size = newSize;
     }
