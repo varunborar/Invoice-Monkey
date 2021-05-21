@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+
+<AnchorPane prefHeight="643.0" prefWidth="1282.0" stylesheets="@../mainLight.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.CustomerScreen">
+   <children>
+      <HBox layoutX="2.0" layoutY="-8.0" prefHeight="650.0" prefWidth="1280.0">
+         <children>
+            <TableView fx:id="customerTable" focusTraversable="false" prefHeight="641.0" prefWidth="944.0" stylesheets="@default.css">
+              <columns>
+                  <TableColumn fx:id="CUSTOMER_ID" editable="false" prefWidth="140.6666920185089" styleClass="center" text="Customer ID" />
+                <TableColumn fx:id="CUSTOMER_NAME" editable="false" prefWidth="259.33335876464844" text="Customer Name" />
+                  <TableColumn fx:id="CUSTOMER_EMAIL" editable="false" prefWidth="323.3332824707031" styleClass="right" text="Email" />
+                  <TableColumn fx:id="CUSTOMER_PHONENUMBER" editable="false" prefWidth="217.33331298828125" styleClass="right" text="Phone Number" />
+              </columns>
+               <HBox.margin>
+                  <Insets top="9.0" />
+               </HBox.margin>
+               <effect>
+                  <Blend />
+               </effect>
+            </TableView>
+            <Pane prefHeight="620.0" prefWidth="337.0">
+               <HBox.margin>
+                  <Insets top="9.0" />
+               </HBox.margin>
+               <children>
+                  <Label layoutX="11.0" layoutY="194.0" styleClass="input-headings" stylesheets="@default.css" text="Name" />
+                  <TextField fx:id="Name" layoutX="13.0" layoutY="216.0" prefHeight="31.0" prefWidth="306.0" styleClass="input-field" stylesheets="@default.css" />
+                  <Label layoutX="11.0" layoutY="263.0" styleClass="input-headings" stylesheets="@default.css" text="Email" />
+                  <TextField fx:id="Email" layoutX="13.0" layoutY="291.0" prefHeight="31.0" prefWidth="306.0" promptText="Optional" styleClass="input-field" stylesheets="@default.css" />
+                  <Label layoutX="15.0" layoutY="426.0" styleClass="input-headings" stylesheets="@default.css" text="Address" />
+                  <StackPane layoutX="11.0" layoutY="567.0">
+                     <children>
+                        <Button id="update-button" fx:id="updateButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="306.0" style="-fx-font-size: 14px;" styleClass="blue" stylesheets="@default.css" text="Update" />
+                        <Button id="create-button" fx:id="createButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="306.0" style="-fx-font-size: 14px;" styleClass="green" stylesheets="@default.css" text="Add Customer" />
+                     </children>
+                  </StackPane>
+                  <Label layoutX="13.0" layoutY="347.0" styleClass="input-headings" stylesheets="@default.css" text="Phone Number" />
+                  <TextField fx:id="PhoneNumber" layoutX="15.0" layoutY="373.0" prefHeight="31.0" prefWidth="306.0" promptText="Optional" styleClass="input-field" stylesheets="@default.css" />
+                  <Label fx:id="infoLabel" layoutX="10.0" layoutY="610.0" prefHeight="25.0" prefWidth="306.0" styleClass="info-label" stylesheets="@default.css" />
+                  <Button id="close-button" layoutX="299.0" layoutY="11.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="23.0" stylesheets="@default.css">
+                     <styleClass>
+                        <String fx:value="cross" />
+                        <String fx:value="red" />
+                     </styleClass></Button>
+                  <Button id="refresh-button" layoutX="265.0" layoutY="11.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="23.0" stylesheets="@default.css">
+                     <styleClass>
+                        <String fx:value="refresh" />
+                        <String fx:value="dark-grey" />
+                     </styleClass></Button>
+                  <TextField fx:id="searchBar" layoutX="11.0" layoutY="63.0" prefHeight="31.0" prefWidth="273.0" promptText="Search" styleClass="input-field" stylesheets="@default.css" />
+                  <Button id="search-button" layoutX="290.0" layoutY="63.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="34.0" stylesheets="@default.css">
+                     <styleClass>
+                        <String fx:value="search" />
+                        <String fx:value="dark-grey" />
+                     </styleClass></Button>
+                  <TextArea fx:id="Address" layoutX="15.0" layoutY="456.0" prefHeight="96.0" prefWidth="306.0" promptText="Optional" />
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

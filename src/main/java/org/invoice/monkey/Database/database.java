@@ -21,8 +21,8 @@ public class database {
                 String url = config.getDatabaseDetails().getFormattedURL();
 
                 DriverManager.getConnection("jdbc:mysql:" + url,
-                        App.getConfiguration().getDatabaseDetails().getUserName(),
-                        App.getConfiguration().getDatabaseDetails().getPassword()
+                        config.getDatabaseDetails().getUserName(),
+                        config.getDatabaseDetails().getPassword()
                 );
             }
         }catch(SQLException se)

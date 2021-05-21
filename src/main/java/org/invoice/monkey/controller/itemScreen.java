@@ -1,5 +1,6 @@
 package org.invoice.monkey.controller;
 
+import javafx.animation.RotateTransition;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -10,6 +11,7 @@ import javafx.scene.input.ScrollEvent;
 import org.invoice.monkey.App;
 import org.invoice.monkey.Database.ItemDB;
 import org.invoice.monkey.model.Item;
+import org.invoice.monkey.utils.Animation;
 import org.invoice.monkey.utils.Validator;
 
 
@@ -44,6 +46,8 @@ public class itemScreen {
     private Button createButton;
     @FXML
     private Button updateButton;
+    @FXML
+    private Button refresh;
 
     //TABLE
     @FXML
@@ -153,6 +157,8 @@ public class itemScreen {
         itemTable.getItems().clear();
         ItemDB idb = new ItemDB();
         itemList = idb.getAllItems(100);
+        Animation animation = new Animation();
+        animation.simpleRefreshAnimation(refresh);
         for (Item i: itemList)
         {
             itemTable.getItems().add(i);
@@ -173,17 +179,16 @@ public class itemScreen {
     {
         if(!Validator.isFloatValid(Price.getText()))
         {
-            Price.getStyleClass().add("input-error");
+            Price.getStyleClass().add("text-field-error");
             createButton.setDisable(true);
             updateButton.setDisable(true);
         }
         else{
-            Price.getStyleClass().removeAll("input-error");
+            Price.getStyleClass().removeAll("text-field-error");
             createButton.setDisable(false);
             updateButton.setDisable(false);
         }
     }
-
 
     private Item getItem() {
         Item item = new Item();
@@ -268,13 +273,11 @@ public class itemScreen {
         ScrollBar Sc = (ScrollBar) itemTable.lookup(".scroll-bar:vertical");
         if(Sc.getValue() == 1.0)
         {
-
             itemTable.getSelectionModel().selectLast();
             Item item = itemTable.getSelectionModel().getSelectedItem();
             ItemDB idb = new ItemDB();
             Vector<Item> result = idb.getNext(item.getRawItemID(), 25);
             refreshItemTable(result, false);
-            itemTable.scrollTo(item);
         }
     }
 }

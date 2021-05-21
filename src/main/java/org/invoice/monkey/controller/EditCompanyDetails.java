@@ -100,13 +100,15 @@ public class EditCompanyDetails {
         configuration.getAddress().setOrgState(state.getText());
         configuration.getAddress().setOrgPostalCode(postalCode.getText());
 
-        configuration.getAppConfigurations().setDefaultLocation(defaultLocation.getText());
+        configuration.getAppConfigurations().setDefaultLocation(defaultLocation.getText() + "\\" + orgName.getText());
 
         //Copying new logo to org.data
         if(!logoLocation.getText().equals("")) {
             File.deleteFile("org.data\\logo.png");
             File.copyFile(logoLocation.getText(), "org.data\\logo.png");
         }
+
+        File.createDir(defaultLocation.getText(), orgName.getText());
 
         // Writing changes to appConfig
         configuration.refresh();
@@ -126,12 +128,12 @@ public class EditCompanyDetails {
         if(Validator.isNumeric(tf.getText()))
         {
             save.setDisable(false);
-            tf.getStyleClass().removeAll("input-error");
+            tf.getStyleClass().removeAll("text-field-error");
         }
         else
         {
             save.setDisable((true));
-            tf.getStyleClass().add("input-error");
+            tf.getStyleClass().add("text-field-error");
         }
     }
 
@@ -141,12 +143,12 @@ public class EditCompanyDetails {
         if(Validator.isEmailValid(tf.getText()))
         {
             save.setDisable(false);
-            tf.getStyleClass().removeAll("input-error");
+            tf.getStyleClass().removeAll("text-field-error");
         }
         else
         {
             save.setDisable((true));
-            tf.getStyleClass().add("input-error");
+            tf.getStyleClass().add("text-field-error");
         }
     }
 
@@ -156,12 +158,12 @@ public class EditCompanyDetails {
         if(Validator.isPhoneNumberValid(tf.getText()))
         {
             save.setDisable(false);
-            tf.getStyleClass().removeAll("input-error");
+            tf.getStyleClass().removeAll("text-field-error");
         }
         else
         {
             save.setDisable((true));
-            tf.getStyleClass().add("input-error");
+            tf.getStyleClass().add("text-field-error");
         }
     }
 }

@@ -17,6 +17,7 @@ D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\mon
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\model\Item.java
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\model\Configurations\EmailDetails.java
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\controller\defaultWidgetScreen.java
+D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\controller\CustomerScreen.java
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\utils\DateTime.java
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\Database\CustomerDB.java
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\model\Configurations\AppConfigurations.java

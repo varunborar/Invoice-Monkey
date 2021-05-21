@@ -221,6 +221,11 @@ public class companyDetails {
             File.createDir(App.getConfiguration().getAppConfigurations().getDefaultLocation(),
                     App.getConfiguration().getOrgDetails().getOrgName());
 
+            App.getConfiguration().getAppConfigurations().setDefaultLocation(
+                    App.getConfiguration().getAppConfigurations().getDefaultLocation()+ "\\" +
+                    App.getConfiguration().getOrgDetails().getOrgName()
+            );
+            App.getConfiguration().refresh();
 
             App.getstage().close();
             MainApplication app = new MainApplication();

@@ -1,7 +1,6 @@
 package org.invoice.monkey.Database;
 
 import org.invoice.monkey.model.Item;
-import org.invoice.monkey.utils.UIExceptions.DatabaseConnectionException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -56,10 +55,8 @@ public class ItemDB extends database{
                 item.updateSize(items.getString("Item_Size"));
                 item.updateSizeType(items.getString("Item_Size_Type"));
             }
-
-
-
-
+            query.close();
+            con.close();
         }catch(SQLException se)
         {
             System.out.println(se.getClass().getName() + ": " + se.getMessage());
@@ -69,7 +66,7 @@ public class ItemDB extends database{
 
     public Vector<Item> getAllItems(Integer limit)
     {
-        Vector<Item> itemList = new Vector<Item>();
+        Vector<Item> itemList = new Vector<>();
 
         try {
             Connection con = getCon();
@@ -84,7 +81,8 @@ public class ItemDB extends database{
             }
 
             PreparedStatement query = con.prepareStatement(getItemQuery);
-            query.setLong(1, limit);
+            if(limit != -1)
+                query.setLong(1, limit);
 
             ResultSet items = query.executeQuery();
             while(items.next())
@@ -108,7 +106,7 @@ public class ItemDB extends database{
 
     public Vector<Item> getNext(Long start, Integer next)
     {
-        Vector<Item> itemList = new Vector<Item>();
+        Vector<Item> itemList = new Vector<>();
 
         try {
             Connection con = getCon();
@@ -141,7 +139,7 @@ public class ItemDB extends database{
 
     public Vector<Item> getSearchList(String searchString, Integer limit)
     {
-        Vector<Item> searchResultList = new Vector<Item>();
+        Vector<Item> searchResultList = new Vector<>();
 
         try{
             Connection con = getCon();

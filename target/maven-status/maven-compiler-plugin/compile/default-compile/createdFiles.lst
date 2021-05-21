@@ -13,4 +13,6 @@ org\invoice\monkey\controller\SetupDatabase.class
 org\invoice\monkey\controller\defaultWidgetScreen.class
 org\invoice\monkey\model\Configurations\AppConfigurations.class
 org\invoice\monkey\utils\UIExceptions\DatabaseConnectionException.class
+org\invoice\monkey\utils\Animation.class
+org\invoice\monkey\controller\CustomerScreen.class
 org\invoice\monkey\controller\EditCompanyDetails.class

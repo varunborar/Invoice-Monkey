@@ -1,27 +1,39 @@
 package org.invoice.monkey.model;
 
-import org.invoice.monkey.App;
 
 public class Customer {
 
-    private final Long customerID;
+    private Long customerID;
     private String name;
     private String phoneNumber;
     private String email;
     private String address;
 
-    public Customer(String name)
+    public Customer()
     {
+        this.name = null;
+        this.phoneNumber = null;
+        this.email = null;
+        this.address = null;
+        this.customerID = 0L;
+    }
+
+
+    public Customer(String name) {
         this.name = name;
         this.phoneNumber = null;
         this.email = null;
         this.address = null;
-        this.customerID = 0l;
+        this.customerID = 0L;
     }
 
     // GETTERS
 
-    public Long getCustomerID()
+    public String getCustomerID() {
+        return String.format("CU%06d", this.customerID);
+    }
+
+    public Long getRawCustomerID()
     {
         return this.customerID;
     }
@@ -56,6 +68,16 @@ public class Customer {
            return this.address;
         }
         return "";
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public void setCustomerID(Long customerID)
+    {
+        this.customerID = customerID;
     }
 
     public void setPhoneNumber(String phoneNumber)

@@ -10,6 +10,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import org.invoice.monkey.App;
+import org.invoice.monkey.Database.database;
+import org.invoice.monkey.utils.UIExceptions.DatabaseConnectionException;
 
 
 import java.util.Objects;
@@ -44,7 +47,12 @@ public class homeScreen {
             labelC.setText("");
             labelD.setText("");
 
-        } catch (Exception e) {
+            database.checkConnection(App.getConfiguration());
+        }catch(DatabaseConnectionException e)
+        {
+            labelA.setText("Database connection failed: " + e.getMessage());
+        }
+        catch (Exception e) {
             System.out.println(e.getClass().getName() + ": " + e.getCause() + ", " + e.getMessage());
         }
     }
@@ -57,6 +65,17 @@ public class homeScreen {
     public void openItemScreen(){
         try{
             AnchorPane itemScreen = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("itemScreen.fxml")));
+            setHomeScreenArea(itemScreen);
+        }catch(Exception e)
+        {
+            System.out.println(e.getClass().getName() + ": " + e.getCause() + ", " + e.getMessage());
+        }
+    }
+
+    public void openCustomerScreen()
+    {
+        try{
+            AnchorPane itemScreen = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("customerScreen.fxml")));
             setHomeScreenArea(itemScreen);
         }catch(Exception e)
         {

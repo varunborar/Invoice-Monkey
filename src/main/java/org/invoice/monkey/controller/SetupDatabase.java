@@ -34,7 +34,7 @@ public class SetupDatabase {
     @FXML
     private TextField userName;
     @FXML
-    private TextField password;
+    private PasswordField password;
 
     @FXML
     private Button save;
@@ -169,19 +169,19 @@ public class SetupDatabase {
         if(Validator.isNonEmpty(tf.getText()) && Database.getSelectedToggle() == customDatabase)
         {
             connect.setDisable(false);
-            tf.getStyleClass().removeAll("input-error");
+            tf.getStyleClass().removeAll("text-field-error");
         }
         else if(Validator.isNonEmpty(tf.getText()) && Database.getSelectedToggle() == localDatabase)
         {
             connect.setVisible(false);
             save.setDisable(false);
-            tf.getStyleClass().removeAll("input-error");
+            tf.getStyleClass().removeAll("text-field-error");
         }
         else
         {
             connect.setDisable(true);
             save.setDisable(true);
-            tf.getStyleClass().add("input-error");
+            tf.getStyleClass().add("text-field-error");
         }
     }
 
