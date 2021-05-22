@@ -1,7 +1,9 @@
 package org.invoice.monkey.utils;
 
-import javafx.animation.RotateTransition;
+import javafx.animation.*;
 import javafx.scene.Node;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
@@ -18,5 +20,17 @@ public class Animation {
 
         rotate.setNode(node);
         rotate.play();
+    }
+
+    public void slideInLeftAnimation(StackPane parent, AnchorPane child)
+    {
+        child.translateXProperty().set(-parent.getWidth());
+        child.toFront();
+
+        Timeline timeline = new Timeline();
+        KeyValue kv = new KeyValue(child.translateXProperty(), 0, Interpolator.EASE_IN);
+        KeyFrame kf = new KeyFrame(Duration.millis(250), kv);
+        timeline.getKeyFrames().add(kf);
+        timeline.play();
     }
 }

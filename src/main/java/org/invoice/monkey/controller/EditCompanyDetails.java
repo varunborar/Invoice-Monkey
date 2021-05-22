@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -18,6 +19,9 @@ public class EditCompanyDetails {
 
 
     Configuration configuration;
+
+    @FXML
+    private AnchorPane container;
 
     @FXML
     private TextField orgName;
@@ -42,6 +46,12 @@ public class EditCompanyDetails {
     @FXML
     private TextField logoLocation;
 
+
+    @FXML
+    private AnchorPane pane1;
+    @FXML
+    private AnchorPane pane2;
+
     @FXML
     private Button save;
 
@@ -61,6 +71,9 @@ public class EditCompanyDetails {
         postalCode.setText(configuration.getAddress().getOrgPostalCode());
 
         defaultLocation.setText(configuration.getAppConfigurations().getDefaultLocation());
+
+        AnchorPane.setRightAnchor(pane1, 500d);
+        AnchorPane.setLeftAnchor(pane2, 500d);
     }
 
     public void browseFolder(ActionEvent ae)
@@ -117,9 +130,7 @@ public class EditCompanyDetails {
 
     public void cancel(ActionEvent event)
     {
-        Node node = (Node) event.getSource();
-        Stage stage = (Stage) node.getScene().getWindow();
-        stage.close();
+        homeScreen.setWorkSpaceArea("defaultWidgetScreen.fxml");
     }
 
     public void isNumeric(KeyEvent ke)

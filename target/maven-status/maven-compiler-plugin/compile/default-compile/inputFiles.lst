@@ -8,6 +8,7 @@ D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\mon
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\model\Configurations\DatabaseDetails.java
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\utils\Validator.java
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\Database\ItemDB.java
+D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\utils\Animation.java
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\controller\homeScreen.java
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\model\Reminder.java
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\utils\UIExceptions\DatabaseConnectionException.java

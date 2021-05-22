@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="437.0" prefWidth="342.0" stylesheets="@../mainLight.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.SetupDatabase">
+<AnchorPane prefHeight="437.0" prefWidth="342.0" styleClass="setup-database" stylesheets="@../mainLight.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.SetupDatabase">
    <children>
       <Label layoutX="14.0" layoutY="131.0" text="Host/IP address:" />
-      <TextField fx:id="host" disable="true" layoutX="126.0" layoutY="128.0" onKeyTyped="#validateNonEmpty" prefHeight="23.0" prefWidth="195.0" promptText="localhost" />
       <Label layoutX="14.0" layoutY="175.0" text="Port:" />
-      <TextField fx:id="port" disable="true" layoutX="126.0" layoutY="172.0" onKeyTyped="#validateNonEmpty" prefHeight="23.0" prefWidth="195.0" promptText="3306" />
       <Label layoutX="14.0" layoutY="219.0" text="Database Name:" />
-      <TextField fx:id="databaseName" disable="true" layoutX="126.0" layoutY="216.0" onKeyTyped="#validateNonEmpty" prefHeight="23.0" prefWidth="195.0" promptText="Please use a new database" />
       <Label layoutX="14.0" layoutY="265.0" text="User Name:" />
-      <TextField fx:id="userName" disable="true" layoutX="126.0" layoutY="262.0" onKeyTyped="#validateNonEmpty" prefHeight="23.0" prefWidth="195.0" />
       <Label layoutX="14.0" layoutY="310.0" text="Password:" />
-      <Button fx:id="save" layoutX="185.0" layoutY="398.0" mnemonicParsing="false" onAction="#saveSettings" prefHeight="23.0" prefWidth="61.0" styleClass="input-field" text="Save " />
-      <Button fx:id="cancel" layoutX="259.0" layoutY="398.0" mnemonicParsing="false" onAction="#cancel" prefHeight="23.0" prefWidth="61.0" styleClass="input-field" text="Cancel" />
-      <RadioButton fx:id="localDatabase" layoutX="18.0" layoutY="25.0" mnemonicParsing="false" onAction="#chooseLocalDatabase" text="Use this computer as database">
+      <Label fx:id="connectString" layoutX="13.0" layoutY="88.0" prefHeight="31.0" prefWidth="307.0" />
+      <JFXButton fx:id="connect" layoutX="103.0" layoutY="398.0" onAction="#connect" prefHeight="23.0" prefWidth="70.0" styleClass="green" text="Connect" />
+      <JFXButton fx:id="save" layoutX="182.0" layoutY="398.0" onAction="#saveSettings" prefHeight="23.0" prefWidth="70.0" styleClass="buttons" text="Save" />
+      <JFXButton fx:id="cancel" layoutX="260.0" layoutY="398.0" onAction="#cancel" prefHeight="23.0" prefWidth="70.0" styleClass="buttons" text="Cancel" />
+      <JFXRadioButton fx:id="localDatabase" layoutX="4.0" layoutY="26.0" onAction="#chooseLocalDatabase" selected="true" styleClass="radio-buttons" text="Use this computer as database">
          <toggleGroup>
             <ToggleGroup fx:id="Database" />
          </toggleGroup>
-      </RadioButton>
-      <RadioButton fx:id="customDatabase" layoutX="18.0" layoutY="61.0" mnemonicParsing="false" onAction="#chooseCustomDatabase" text="Setup MYSQL database " toggleGroup="$Database" />
-      <Label fx:id="connectString" layoutX="13.0" layoutY="88.0" prefHeight="31.0" prefWidth="307.0" />
-      <Button fx:id="connect" layoutX="114.0" layoutY="398.0" mnemonicParsing="false" onAction="#connect" prefHeight="23.0" prefWidth="61.0" styleClass="green" text="Connect" />
-      <PasswordField fx:id="password" disable="true" layoutX="126.0" layoutY="305.0" prefHeight="24.0" prefWidth="195.0" />
+      </JFXRadioButton>
+      <JFXRadioButton fx:id="customDatabase" layoutX="4.0" layoutY="62.0" onAction="#chooseCustomDatabase" styleClass="radio-buttons" text="Setup MYSQL database" toggleGroup="$Database" />
+      <JFXTextField fx:id="host" layoutX="126.0" layoutY="126.0" onKeyTyped="#validateNonEmpty" prefHeight="23.0" prefWidth="195.0" />
+      <JFXTextField fx:id="port" layoutX="126.0" layoutY="168.0" onKeyTyped="#validateNonEmpty" prefHeight="23.0" prefWidth="195.0" />
+      <JFXTextField fx:id="databaseName" layoutX="126.0" layoutY="214.0" onKeyTyped="#validateNonEmpty" prefHeight="23.0" prefWidth="195.0" />
+      <JFXTextField fx:id="userName" layoutX="127.0" layoutY="259.0" onKeyTyped="#validateNonEmpty" prefHeight="23.0" prefWidth="195.0" />
+      <JFXPasswordField fx:id="password" layoutX="126.0" layoutY="305.0" onKeyTyped="#validateNonEmpty" prefHeight="23.0" prefWidth="195.0" />
    </children>
 </AnchorPane>

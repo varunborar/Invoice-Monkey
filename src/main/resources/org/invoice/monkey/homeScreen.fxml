@@ -1,46 +1,141 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 
-<VBox prefHeight="720.0" prefWidth="1280.0" stylesheets="@mainLight.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.homeScreen">
+<AnchorPane fx:id="container" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.homeScreen">
    <children>
-      <MenuBar>
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#openEditOrgDetails" text="Edit Organization Details" />
-                  <MenuItem mnemonicParsing="false" text="Setup Email Service" />
-                  <MenuItem mnemonicParsing="false" onAction="#openSetupDatabase" text="Setup Database" />
-               </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Data">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#openItemScreen" text="Items" />
-                  <MenuItem mnemonicParsing="false" onAction="#openCustomerScreen" text="Customer" />
-            </items>
-          </Menu>
-            <Menu mnemonicParsing="false" text="Orders" />
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <AnchorPane fx:id="homeScreenArea" prefHeight="675.0" prefWidth="1280.0" />
-      <TextFlow fx:id="labelPanel" prefHeight="25.0" prefWidth="200.0" VBox.vgrow="NEVER">
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="680.0" prefWidth="1080.0" stylesheets="@mainLight.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="labelA" prefHeight="25.0" prefWidth="270.0" text="Label" />
-            <Label fx:id="labelB" prefHeight="25.0" prefWidth="360.0" text="Label" />
-            <Label fx:id="labelC" prefHeight="25.0" prefWidth="240.0" text="Label" />
-            <Label fx:id="labelD" prefHeight="25.0" prefWidth="240.0" text="Label" />
+            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0">
+               <children>
+                  <StackPane fx:id="optionStack" layoutX="49.33333206176758" prefHeight="680.0" prefWidth="260.0" styleClass="option-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane fx:id="accountPane" prefHeight="680.0" prefWidth="260.0">
+                           <styleClass>
+                              <String fx:value="account-pane" />
+                              <String fx:value="option-pane" />
+                           </styleClass>
+                           <children>
+                              <Label layoutX="79.0" layoutY="48.0" styleClass="headings" text="Account" textFill="WHITE" AnchorPane.leftAnchor="79.0" AnchorPane.rightAnchor="79.0" AnchorPane.topAnchor="48.0" />
+                              <JFXButton layoutY="164.0" onAction="#openEditOrgDetails" prefHeight="40.0" prefWidth="258.0" styleClass="option-button" text="Edit Details" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" />
+                              <JFXButton layoutX="1.0" layoutY="213.0" prefHeight="40.0" prefWidth="258.0" styleClass="option-button" text="Email Service" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" />
+                              <JFXButton layoutY="263.0" prefHeight="40.0" prefWidth="258.0" styleClass="option-button" text="Export Configration" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="orderPane" prefHeight="200.0" prefWidth="260.0">
+                           <styleClass>
+                              <String fx:value="order-pane" />
+                              <String fx:value="option-pane" />
+                           </styleClass>
+                           <children>
+                              <Label layoutX="94.0" layoutY="48.0" styleClass="headings" text="Order" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="94.0" AnchorPane.topAnchor="48.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="analyticsPane" prefHeight="200.0" prefWidth="260.0">
+                           <styleClass>
+                              <String fx:value="analytics-pane" />
+                              <String fx:value="option-pane" />
+                           </styleClass>
+                           <children>
+                              <Label layoutX="75.0" layoutY="48.0" styleClass="headings" text="Analytics" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="48.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="settingsPane" prefHeight="200.0" prefWidth="260.0">
+                           <styleClass>
+                              <String fx:value="settings-pane" />
+                              <String fx:value="option-pane" />
+                           </styleClass>
+                           <children>
+                              <Label layoutX="80.0" layoutY="48.0" styleClass="headings" text="Settings" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="48.0" />
+                              <JFXButton layoutX="7.0" layoutY="160.0" onAction="#openSetupDatabase" prefHeight="61.0" prefWidth="250.0" styleClass="option-button" text="Setup Database" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="dataPane" prefHeight="200.0" prefWidth="260.0">
+                           <styleClass>
+                              <String fx:value="data-pane" />
+                              <String fx:value="option-pane" />
+                           </styleClass>
+                           <children>
+                              <Label layoutX="101.0" layoutY="48.0" styleClass="headings" text="Data" AnchorPane.leftAnchor="101.0" AnchorPane.rightAnchor="101.0" AnchorPane.topAnchor="48.0" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </StackPane>
+                  <AnchorPane id="menu-bar" fx:id="menuBar" prefHeight="680.0" prefWidth="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Pane layoutX="5.0" layoutY="5.0" styleClass="menu-button-pane" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="6.0">
+                           <children>
+                              <Button fx:id="homeButton" layoutX="6.0" layoutY="4.0" mnemonicParsing="false" onAction="#homeButton" prefHeight="38.0" prefWidth="38.0">
+                                 <styleClass>
+                                    <String fx:value="menu-button" />
+                                    <String fx:value="home" />
+                                 </styleClass>
+                              </Button>
+                           </children>
+                        </Pane>
+                        <Pane layoutX="5.0" layoutY="633.0" styleClass="menu-button-pane" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <Button fx:id="settingsButton" layoutX="6.0" layoutY="6.0" mnemonicParsing="false" onAction="#showSettingsPane" prefHeight="38.0" prefWidth="38.0">
+                                 <styleClass>
+                                    <String fx:value="menu-button" />
+                                    <String fx:value="settings" />
+                                 </styleClass>
+                              </Button>
+                           </children>
+                        </Pane>
+                        <Pane layoutX="5.0" layoutY="245.0" styleClass="menu-button-pane" AnchorPane.bottomAnchor="396.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <Button fx:id="databaseButton" layoutX="6.0" layoutY="7.0" mnemonicParsing="false" onAction="#showDataPane" prefHeight="38.0" prefWidth="38.0">
+                                 <styleClass>
+                                    <String fx:value="menu-button" />
+                                    <String fx:value="database" />
+                                 </styleClass>
+                              </Button>
+                           </children>
+                        </Pane>
+                        <Pane layoutX="5.0" layoutY="299.0" styleClass="menu-button-pane" AnchorPane.bottomAnchor="342.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <Button fx:id="orderButton" layoutX="6.0" layoutY="6.0" mnemonicParsing="false" onAction="#showOrderPane" prefHeight="38.0" prefWidth="38.0">
+                                 <styleClass>
+                                    <String fx:value="menu-button" />
+                                    <String fx:value="order" />
+                                 </styleClass>
+                              </Button>
+                           </children>
+                        </Pane>
+                        <Pane layoutX="5.0" layoutY="357.0" styleClass="menu-button-pane" AnchorPane.bottomAnchor="284.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <Button fx:id="analyticsButton" layoutX="6.0" layoutY="7.0" mnemonicParsing="false" onAction="#showAnalyticsPane" prefHeight="38.0" prefWidth="38.0">
+                                 <styleClass>
+                                    <String fx:value="menu-button" />
+                                    <String fx:value="analytics" />
+                                 </styleClass>
+                              </Button>
+                           </children>
+                        </Pane>
+                        <Pane layoutX="5.0" layoutY="577.0" styleClass="menu-button-pane" AnchorPane.bottomAnchor="64.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <Button fx:id="accountButton" layoutX="7.0" layoutY="6.0" mnemonicParsing="false" onAction="#showAccountPane" prefHeight="38.0" prefWidth="38.0">
+                                 <styleClass>
+                                    <String fx:value="menu-button" />
+                                    <String fx:value="account" />
+                                 </styleClass>
+                              </Button>
+                           </children>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="workSpace" prefHeight="680.0" prefWidth="772.0" />
          </children>
-      </TextFlow>
+      </HBox>
    </children>
-</VBox>
+</AnchorPane>
