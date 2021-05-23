@@ -1,5 +1,6 @@
 package org.invoice.monkey.controller;
 
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -46,18 +47,14 @@ public class EditCompanyDetails {
     @FXML
     private TextField logoLocation;
 
-
-    @FXML
-    private AnchorPane pane1;
-    @FXML
-    private AnchorPane pane2;
-
     @FXML
     private Button save;
 
     @FXML
     public void initialize()
     {
+
+
         configuration = new Configuration();
 
         orgName.setText(configuration.getOrgDetails().getOrgName());
@@ -71,9 +68,6 @@ public class EditCompanyDetails {
         postalCode.setText(configuration.getAddress().getOrgPostalCode());
 
         defaultLocation.setText(configuration.getAppConfigurations().getDefaultLocation());
-
-        AnchorPane.setRightAnchor(pane1, 500d);
-        AnchorPane.setLeftAnchor(pane2, 500d);
     }
 
     public void browseFolder(ActionEvent ae)

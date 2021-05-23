@@ -8,7 +8,6 @@ public class Item {
     private long itemID;
     private String name;
     private float price;
-    private String type;
 
     // Optional Data
     private String size;
@@ -18,16 +17,14 @@ public class Item {
     {
         this.name = null;
         this.price = 0.0f;
-        this.type = null;
         this.itemID = 0L;
         this.size = null;
         this.sizeType = null;
     }
-    public Item(String name, float price, String type)
+    public Item(String name, float price)
     {
         this.name = name;
         this.price = price;
-        this.type = type;
         this.itemID = 0L;
         this.size = null;
         this.sizeType = null;
@@ -53,11 +50,6 @@ public class Item {
     public Float getPrice()
     {
         return this.price;
-    }
-
-    public String getType()
-    {
-        return this.type;
     }
 
     public String getSize()
@@ -104,16 +96,11 @@ public class Item {
         this.sizeType = newSizeType;
     }
 
-    public void updateType(String type)
-    {
-        this.type = type;
-    }
-
     @Override
     public String toString()
     {
         //return this.name;
-        return String.format("%s, %s, %f, %s, %s", getItemID(),getName(),getPrice(),getSize(),getType());
+        return String.format("%s, %s, %f, %s", getItemID(),getName(),getPrice(),getSize());
     }
 
 }

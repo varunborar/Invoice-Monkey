@@ -102,7 +102,7 @@ public class CustomerDB extends database{
         return customerList;
     }
 
-    public Vector<Customer> getNext(Integer start, Integer next)
+    public Vector<Customer> getNext(Long start, Integer next)
     {
         Vector<Customer> customerList = new Vector<>();
 
@@ -114,7 +114,7 @@ public class CustomerDB extends database{
                     "LIMIT ?;";
 
             PreparedStatement query = con.prepareStatement(getCustomerQuery);
-            query.setInt(1, start);
+            query.setLong(1, start);
             query.setInt(2, next);
 
             ResultSet customers = query.executeQuery();
@@ -139,7 +139,7 @@ public class CustomerDB extends database{
     return customerList;
     }
 
-    public Vector<Customer> gerSearchList(String searchString, Integer limit)
+    public Vector<Customer> getSearchList(String searchString, Integer limit)
     {
         Vector<Customer> customerList = new Vector<>();
 
@@ -151,8 +151,8 @@ public class CustomerDB extends database{
                     "LIMIT ?;";
 
             PreparedStatement query = con.prepareStatement(searchQuery);
-            query.setString(1, searchString);
-            query.setString(2, searchString);
+            query.setString(1, "%" + searchString + "%");
+            query.setString(2, searchString + "%");
             query.setInt(3, limit);
 
             ResultSet customers = query.executeQuery();

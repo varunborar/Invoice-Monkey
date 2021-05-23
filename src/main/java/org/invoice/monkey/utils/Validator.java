@@ -10,7 +10,7 @@ public class Validator {
 
     public static boolean isPhoneNumberValid(String phoneNumber)
     {
-        return phoneNumber.matches("(0/91)?[7-9][0-9]{9}");
+        return phoneNumber.matches("((0)?(91)?)?[7-9][0-9]{9}");
     }
 
     public static boolean isFloatValid(String price)

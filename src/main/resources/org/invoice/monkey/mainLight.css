@@ -1,6 +1,17 @@
+*{
+    -fx-base-color: #2C3531;
+    -fx-accent-color: #116466;
+    -fx-light-accent-color: #FFCB9A;
+    -fx-dark-accent-color: #D9B08C;
+
+    -fx-supp-color: #D1E8E2;
+    -fx-text-color: #CECECE;
+}
+
+
 .root{
     -fx-font-family: "Segoe UI", SansSerif, Calibri;
-    -fx-font-size: 12px;
+    -fx-font-size: 16px;
     -fx-text-fill: black;
     -fx-text-background-color: black;
 }
@@ -9,34 +20,52 @@
     -fx-box-border: none;
 }
 
+/*Font*/
+.font-18{
+    -fx-font-family: "Segoe UI" !important;
+    -fx-font-size: 18px !important;
+}
+/*Font*/
+/*Context Menu*/
+.context-menu{
+    -fx-font-family: "Segoe UI" !important;
+    -fx-font-size: 16px !important;
+}
+
+.menu-item .label{
+    -fx-font-family: "Segoe UI" !important;
+    -fx-font-size: 16px !important;
+}
+
+/*Context Menu*/
 
 /*Menu Bar*/
 
 #menu-bar{
-    -fx-background-color: #2C3531;
-    -fx-fill: #2C3531;
+    -fx-background-color: -fx-base-color;
+    -fx-fill: -fx-base-color;
 }
 
 .menu-button{
-    -fx-background-color: #cecece;
+    -fx-background-color: -fx-text-color;
 }
 
 .menu-button-selected{
-    -fx-background-color: #116466 !important;
+    -fx-background-color: -fx-accent-color !important;
 }
 
 .menu-button-pane{
-    -fx-background-color: #2C3531;
+    -fx-background-color: -fx-base-color;
     -fx-background-insets: 0, 0 3 0 0 ;
     -fx-padding: 4px;
 }
 
 .menu-button-pane:hover{
-    -fx-background-color: #116466, #2C3531;
+    -fx-background-color: -fx-accent-color, -fx-base-color;
 }
 
 .menu-button-pane-selected{
-    -fx-background-color: #116466, #2C3531;
+    -fx-background-color: -fx-accent-color, -fx-base-color;
 }
 
 
@@ -44,23 +73,23 @@
 
 /*OptionPane*/
 .option-pane{
-    -fx-background-color: #116466;
+    -fx-background-color: -fx-accent-color;
 }
 
 .option-pane .headings{
     -fx-font-size: 28px;
-    -fx-text-fill: #CECECE;
+    -fx-text-fill: -fx-text-color;
 }
 
 .option-button{
     -fx-font-size: 18px;
-    -fx-text-fill: #CECECE;
-    -fx-background-color: #116466 !important;
+    -fx-text-fill: -fx-text-color;
+    -fx-background-color: -fx-accent-color !important;
 }
 
 .option-button:hover{
-    -fx-background-color: #FFCB9A !important;
-    -fx-text-fill: #2C3531;
+    -fx-background-color: -fx-light-accent-color !important;
+    -fx-text-fill: -fx-base-color;
 }
 
 /*OptionPane*/
@@ -71,21 +100,21 @@
 
 .edit-org-details .labels{
     -fx-font-size: 16px;
-    -fx-text-fill: #2C3531;
+    -fx-text-fill: -fx-base-color;
     -fx-padding: 4px;
 }
 
 .edit-org-details .text-fields{
     -fx-font-size: 16px;
-    -fx-text-fill: #2C3531;
+    -fx-text-fill: -fx-base-color;
     -fx-padding: 3px;
 }
 
 .edit-org-details .buttons{
     -fx-font-size: 16px;
-    -fx-text-fill: #2C3531;
+    -fx-text-fill: -fx-base-color;
     -fx-padding: 2px;
-    -fx-background-color: #D1E8E2;
+    -fx-background-color: -fx-supp-color;
 }
 
 
@@ -93,9 +122,9 @@
 /*Setup Database*/
 
 .setup-database .buttons{
-    -fx-text-fill: #2C3531;
+    -fx-text-fill: -fx-base-color;
     -fx-padding: 2px;
-    -fx-background-color: #D1E8E2;
+    -fx-background-color: -fx-supp-color;
 }
 
 /*Setup Database*/
@@ -104,38 +133,41 @@
 
 
 /* Table View*/
-.table-view{
+.table-view, .tree-table-view {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 16px;
+    -fx-table-header-border-color: transparent;
     -fx-background-color: transparent;
 }
 
-.table-view .column-header-background .filler,
-.table-view .corner{
+.table-view .filler, .tree-table-view .filler, .table-view .column-header,
+.tree-table-view .column-header {
+    -fx-size: 65px;
+    -fx-border-style: null;
+    -fx-background-color: transparent;
+    -fx-font-weight: lighter;
+}
+
+.table-view .show-hide-columns-button, .tree-table-view .show-hide-columns-button
+{
     -fx-background-color: transparent;
 }
 
-.table-view .column-header-background{
-    -fx-background-color: linear-gradient(to bottom right, #ffffff, #fefefe);
-}
 
-.table-view .column-header {
+.table-view .column-header-background, .tree-table-view .column-header-background
+{
     -fx-background-color: transparent;
 }
 
-.table-view .table-cell{
+.table-row-cell, .tree-table-row-cell {
+    -fx-cell-size: 40px;
+}
+
+.table-cell {
     -fx-border-color: transparent;
-    -fx-padding: 2 0 2 0;
+    -fx-border-width: 1;
 }
-.table-row-cell :hover {
-    -fx-background-color: derive(#eee, 50%);
-}
-.table-row-cell :odd{
-    -fx-background-color: #ffffff55, #ffffff88;
-    -fx-background-insets: 0, 0 0 1 0;
-}
-.table-row-cell :even{
-    -fx-background-color: #fefefe66, #fefefe99;
-    -fx-background-insets: 0, 0 0 1 0;
-}
+
 
 /* Colors */
 
@@ -164,21 +196,23 @@
 
 /*Error*/
 .text-field-error{
-    -fx-background-color: #ff000077;
+    /*-fx-background-color: #ff000077;*/
+    -jfx-focus-color: #ff000077;
+    -jfx-unfocus-color: #ff000077;
 }
 
 /* Alignment */
 
 .center{
-    -fx-text-alignment: center;
+    -fx-text-alignment: center !important;
 }
 
 .right{
-    -fx-text-alignment: right;
+    -fx-text-alignment: right !important;
 }
 
 .left{
-    -fx-text-alignment: left;
+    -fx-text-alignment: left !important;
 }
 
 
@@ -218,4 +252,8 @@
 
 .order{
     -fx-shape:"M 33.5 11 C 26.3 11 20.5 16.8 20.5 24 L 20.5 104 C 20.5 111.2 26.3 117 33.5 117 L 94.5 117 C 101.7 117 107.5 111.2 107.5 104 L 107.5 24 C 107.5 16.8 101.7 11 94.5 11 L 33.5 11 z M 33.5 17 L 94.5 17 C 98.4 17 101.5 20.1 101.5 24 L 101.5 104 C 101.5 107.9 98.4 111 94.5 111 L 33.5 111 C 29.6 111 26.5 107.9 26.5 104 L 26.5 24 C 26.5 20.1 29.6 17 33.5 17 z M 40.5 33 C 38.8 33 37.5 34.3 37.5 36 C 37.5 37.7 38.8 39 40.5 39 L 85.5 39 C 87.2 39 88.5 37.7 88.5 36 C 88.5 34.3 87.2 33 85.5 33 L 40.5 33 z M 40.5 48 C 38.8 48 37.5 49.3 37.5 51 C 37.5 52.7 38.8 54 40.5 54 L 85.5 54 C 87.2 54 88.5 52.7 88.5 51 C 88.5 49.3 87.2 48 85.5 48 L 40.5 48 z M 40.5 63 C 38.8 63 37.5 64.3 37.5 66 C 37.5 67.7 38.8 69 40.5 69 L 61 69 C 62.7 69 64 67.7 64 66 C 64 64.3 62.7 63 61 63 L 40.5 63 z M 81 93.074219 C 80.225 93.074219 79.450391 93.350391 78.900391 93.900391 C 78.300391 94.400391 78 95.2 78 96 C 78 96.8 78.300391 97.599609 78.900391 98.099609 C 79.500391 98.699609 80.2 99 81 99 C 81.8 99 82.599609 98.699609 83.099609 98.099609 C 83.699609 97.499609 84 96.8 84 96 C 84 95.2 83.699609 94.400391 83.099609 93.900391 C 82.549609 93.350391 81.775 93.074219 81 93.074219 z";
+}
+
+.minimize{
+    -fx-shape:"M 45.585938 1.585938 L 31 16.171875 L 31 9 L 27 9 L 27 23 L 41 23 L 41 19 L 33.828125 19 L 48.414063 4.414063 Z M 9 27 L 9 31 L 16.171875 31 L 1.585938 45.585938 L 4.414063 48.414063 L 19 33.828125 L 19 41 L 23 41 L 23 27 Z";
 }

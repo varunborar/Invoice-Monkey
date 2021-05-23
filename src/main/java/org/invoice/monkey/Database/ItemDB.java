@@ -16,13 +16,12 @@ public class ItemDB extends database{
         try{
 
             Connection con = getCon();
-            String addItemSQLQuery = "INSERT INTO Item(Item_Name,Item_Price,Item_Type,Item_Size,Item_Size_Type) VALUES(?,?,?,?,?);";
+            String addItemSQLQuery = "INSERT INTO Item(Item_Name,Item_Price,Item_Size,Item_Size_Type) VALUES(?,?,?,?);";
             PreparedStatement insert = con.prepareStatement(addItemSQLQuery);
             insert.setString(1,item.getName());
             insert.setFloat(2,item.getPrice());
-            insert.setString(3,item.getType());
-            insert.setString(4,item.getRawSize());
-            insert.setString(5, item.getRawSizeType());
+            insert.setString(3,item.getRawSize());
+            insert.setString(4, item.getRawSizeType());
 
             insert.executeUpdate();
             insert.close();
@@ -51,7 +50,6 @@ public class ItemDB extends database{
                 item.setItemID(items.getLong("Item_ID"));
                 item.updateName(items.getString("Item_Name"));
                 item.updatePrice(items.getFloat("Item_Price"));
-                item.updateType(items.getString("Item_Type"));
                 item.updateSize(items.getString("Item_Size"));
                 item.updateSizeType(items.getString("Item_Size_Type"));
             }
@@ -91,7 +89,6 @@ public class ItemDB extends database{
                 item.setItemID(items.getLong("Item_ID"));
                 item.updateName(items.getString("Item_Name"));
                 item.updatePrice(items.getFloat("Item_Price"));
-                item.updateType(items.getString("Item_Type"));
                 item.updateSize(items.getString("Item_Size"));
                 item.updateSizeType(items.getString("Item_Size_Type"));
                 itemList.add(item);
@@ -124,7 +121,6 @@ public class ItemDB extends database{
                 item.setItemID(items.getLong("Item_ID"));
                 item.updateName(items.getString("Item_Name"));
                 item.updatePrice(items.getFloat("Item_Price"));
-                item.updateType(items.getString("Item_Type"));
                 item.updateSize(items.getString("Item_Size"));
                 item.updateSizeType(items.getString("Item_Size_Type"));
                 itemList.add(item);
@@ -159,7 +155,6 @@ public class ItemDB extends database{
                 item.setItemID(items.getLong("Item_ID"));
                 item.updateName(items.getString("ITEM_NAME"));
                 item.updatePrice(items.getFloat("Item_Price"));
-                item.updateType(items.getString("Item_Type"));
                 item.updateSize(items.getString("Item_Size"));
                 item.updateSizeType(items.getString("Item_Size_Type"));
                 searchResultList.add(item);
@@ -183,7 +178,6 @@ public class ItemDB extends database{
             String updateQuery = "UPDATE Item " +
                                     "SET Item_Name = ?, "+
                                     "Item_Price = ?,"+
-                                    "Item_Type = ?," +
                                     "Item_Size = ?," +
                                     "Item_Size_Type = ? " +
                                     "WHERE Item_ID = ?;";
@@ -191,10 +185,9 @@ public class ItemDB extends database{
             PreparedStatement update = con.prepareStatement(updateQuery);
             update.setString(1, item.getName());
             update.setFloat(2, item.getPrice());
-            update.setString(3, item.getType());
-            update.setString(4, item.getRawSize());
-            update.setString(5,item.getRawSizeType());
-            update.setLong(6, item.getRawItemID());
+            update.setString(3, item.getRawSize());
+            update.setString(4,item.getRawSizeType());
+            update.setLong(5, item.getRawItemID());
             update.executeUpdate();
             con.close();
 

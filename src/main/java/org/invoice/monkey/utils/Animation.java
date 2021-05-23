@@ -29,8 +29,21 @@ public class Animation {
 
         Timeline timeline = new Timeline();
         KeyValue kv = new KeyValue(child.translateXProperty(), 0, Interpolator.EASE_IN);
-        KeyFrame kf = new KeyFrame(Duration.millis(250), kv);
+        KeyFrame kf = new KeyFrame(Duration.millis(400), kv);
         timeline.getKeyFrames().add(kf);
         timeline.play();
     }
+
+    public void menuBarOpenAnimation(AnchorPane parent, StackPane child)
+    {
+        child.translateXProperty().set(-parent.getWidth());
+        child.setVisible(true);
+
+        Timeline timeline = new Timeline();
+        KeyValue kv = new KeyValue(child.translateXProperty(), 0, Interpolator.EASE_IN);
+        KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
+        timeline.getKeyFrames().add(kf);
+        timeline.play();
+    }
+
 }

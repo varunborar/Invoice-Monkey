@@ -68,7 +68,6 @@ public class database {
                     "Item_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "Item_Name VARCHAR(50) NOT NULL," +
                     "Item_Price DECIMAL(9,2) NOT NULL," +
-                    "Item_Type VARCHAR(10) NOT NULL," +
                     "Item_Size VARCHAR(8)," +
                     "Item_Size_Type VARCHAR(4));";
         }else
@@ -77,7 +76,6 @@ public class database {
                     "Item_ID INTEGER PRIMARY KEY AUTO_INCREMENT," +
                     "Item_Name VARCHAR(50) NOT NULL," +
                     "Item_Price DECIMAL(9,2) NOT NULL," +
-                    "Item_Type VARCHAR(10) NOT NULL," +
                     "Item_Size VARCHAR(8),"+
                     "Item_Size_Type VARCHAR(4));";
         }

@@ -1,14 +1,13 @@
 package org.invoice.monkey.controller;
 
-import javafx.animation.RotateTransition;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.ScrollEvent;
-import org.invoice.monkey.App;
 import org.invoice.monkey.Database.ItemDB;
 import org.invoice.monkey.model.Item;
 import org.invoice.monkey.utils.Animation;
@@ -31,17 +30,9 @@ public class itemScreen {
     @FXML
     private TextField Size;
     @FXML
-    private ToggleGroup Type;
-    @FXML
-    private RadioButton Product;
-    @FXML
-    private RadioButton Service;
-    @FXML
-    private RadioButton Other;
-    @FXML
     private Label infoLabel;
     @FXML
-    private ChoiceBox<String> SizeType;
+    private ComboBox<String> SizeType;
     @FXML
     private Button createButton;
     @FXML
@@ -58,8 +49,6 @@ public class itemScreen {
     private TableColumn<Item, String> ITEM_NAME;
     @FXML
     private TableColumn<Item, Float> ITEM_PRICE;
-    @FXML
-    private TableColumn<Item, String> ITEM_TYPE;
     @FXML
     private TableColumn<Item, Integer> ITEM_SIZE;
 
@@ -78,32 +67,27 @@ public class itemScreen {
                     tableView -> {
                         final TableRow<Item> row = new TableRow<>();
                         final ContextMenu rowMenu = new ContextMenu();
+
                         MenuItem updateItem = new MenuItem("Update");
                         updateItem.setOnAction(actionEvent -> {
                             createButton.setVisible(false);
                             updateButton.setVisible(true);
+                            updateButton.setDisable(false);
 
                             selectedItem = itemTable.getSelectionModel().getSelectedItem();
                             Name.setText(selectedItem.getName());
                             Price.setText(selectedItem.getPrice() + "");
                             Size.setText(selectedItem.getRawSize() + "");
                             SizeType.setValue(selectedItem.getRawSizeType());
-                            if(selectedItem.getType().equals("Product"))
-                            {
-                                Type.selectToggle(Product);
-                            }
-                            else if(selectedItem.getType().equals("Service"))
-                            {
-                                Type.selectToggle(Service);
-                            }
-                            else{
-                                Type.selectToggle(Other);
-                            }
                         });
+                        updateItem.getStyleClass().add("context-menu");
+
                         MenuItem removeItem = new MenuItem("Delete");
                         removeItem.setOnAction(actionEvent -> {
 
-                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete " + itemTable.getSelectionModel().getSelectedItem().getName() + " ?", ButtonType.YES, ButtonType.CANCEL);
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete " +
+                                    itemTable.getSelectionModel().getSelectedItem().getName() + " ?",
+                                    ButtonType.YES, ButtonType.CANCEL);
                             alert.setTitle("Confirm Delete");
                             alert.showAndWait();
 
@@ -118,8 +102,8 @@ public class itemScreen {
                             }
 
                         });
-                        rowMenu.getItems().addAll(updateItem, removeItem);
 
+                        rowMenu.getItems().addAll(updateItem, removeItem);
                         // only display context menu for non-null items:
                         row.contextMenuProperty().bind(
                                 Bindings.when(Bindings.isNotNull(row.itemProperty()))
@@ -132,7 +116,6 @@ public class itemScreen {
             ITEM_ID.setCellValueFactory(new PropertyValueFactory<>("itemID"));
             ITEM_NAME.setCellValueFactory(new PropertyValueFactory<>("name"));
             ITEM_PRICE.setCellValueFactory(new PropertyValueFactory<>("price"));
-            ITEM_TYPE.setCellValueFactory(new PropertyValueFactory<>("type"));
             ITEM_SIZE.setCellValueFactory(new PropertyValueFactory<>("size"));
 
             createButton.setDisable(true);
@@ -141,6 +124,7 @@ public class itemScreen {
 
             SizeType.getItems().addAll("N/A","mL", "L", "g", "Kg", "cm", "m", "inch");
             SizeType.setValue("N/A");
+            SizeType.getStyleClass().add("font-18");
             infoLabel.setText("");
 
 
@@ -195,14 +179,11 @@ public class itemScreen {
         try {
             String itemName = Name.getText();
             String itemPrice = Price.getText();
-            RadioButton rb = (RadioButton) Type.getSelectedToggle();
-            String itemType = rb.getText();
             String itemSize = Size.getText();
             String itemSizeType = SizeType.getValue();
 
             item.updateName(itemName);
             item.updatePrice(Float.parseFloat(itemPrice));
-            item.updateType(itemType);
             if (!itemSize.equals(""))
             {   item.updateSize(itemSize);
                 item.updateSizeType(itemSizeType);
@@ -213,7 +194,6 @@ public class itemScreen {
             Price.setText("");
             Size.setText("");
             SizeType.setValue("N/A");
-            Type.selectToggle(Product);
 
         }catch(Exception e)
         {
@@ -265,7 +245,7 @@ public class itemScreen {
 
     public void itemScreenClosed()
     {
-        App.changeScene("homeScreen.fxml", "Invoice Monkey");
+        homeScreen.setWorkSpaceArea("defaultWidgetScreen.fxml");
     }
 
     public void scroll(ScrollEvent sc)
@@ -280,4 +260,21 @@ public class itemScreen {
             refreshItemTable(result, false);
         }
     }
+
+    public void validateNonEmpty(KeyEvent ke)
+    {
+        Node node = (Node) ke.getSource();
+        TextField tf = (TextField) node;
+        if(Validator.isNonEmpty(tf.getText()))
+        {
+            tf.getStyleClass().removeAll("text-field-error");
+        }
+        else
+        {
+            tf.getStyleClass().add("text-field-error");
+        }
+    }
+
+
+
 }

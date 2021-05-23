@@ -2,39 +2,84 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 
 <AnchorPane id="container" fx:id="container" prefHeight="680.0" prefWidth="770.0" styleClass="edit-org-details" stylesheets="@../mainLight.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.EditCompanyDetails">
    <children>
-      <AnchorPane fx:id="pane1" layoutX="14.0" layoutY="63.0" AnchorPane.leftAnchor="14.0">
+      <HBox layoutX="-1.0" layoutY="63.0" prefHeight="27.0" prefWidth="770.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0">
          <children>
-            <Label layoutY="3.0" styleClass="labels" text="Organization Name:" AnchorPane.leftAnchor="1.0" />
-            <Label layoutX="1.0" layoutY="63.0" styleClass="labels" text="Contact Number:" AnchorPane.leftAnchor="1.0" />
-            <Label layoutX="1.0" layoutY="125.0" styleClass="labels" text="Email:" AnchorPane.leftAnchor="1.0" />
-            <Label layoutX="7.0" layoutY="195.0" styleClass="labels" text="Signatory:" AnchorPane.leftAnchor="1.0" />
-            <JFXTextField fx:id="orgName" layoutX="174.0" prefHeight="24.0" prefWidth="181.0" styleClass="text-fields" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="-2.8421709430404007E-14" />
-            <JFXTextField fx:id="orgNumber" layoutX="173.0" layoutY="59.0" onKeyTyped="#validateNumber" prefHeight="24.0" prefWidth="181.0" styleClass="text-fields" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="-2.8421709430404007E-14" />
-            <JFXTextField fx:id="orgEmail" layoutX="173.0" layoutY="125.0" onKeyTyped="#validateEmail" prefHeight="24.0" prefWidth="181.0" styleClass="text-fields" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="-2.8421709430404007E-14" />
-            <JFXTextField fx:id="orgSignatory" layoutX="174.0" layoutY="193.0" prefHeight="24.0" prefWidth="181.0" styleClass="text-fields" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="-2.8421709430404007E-14" />
+            <Label prefWidth="117.0" styleClass="labels" text="Name" HBox.hgrow="NEVER">
+               <padding>
+                  <Insets left="12.0" right="6.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets left="35.0" right="12.0" />
+               </HBox.margin>
+            </Label>
+            <JFXTextField fx:id="orgName" prefHeight="24.0" prefWidth="180.0" styleClass="text-fields" HBox.hgrow="ALWAYS" />
+            <Label prefHeight="27.0" prefWidth="117.0" styleClass="labels" text="Building/Street:">
+               <HBox.margin>
+                  <Insets left="35.0" right="12.0" />
+               </HBox.margin>
+            </Label>
+            <JFXTextField fx:id="building" prefHeight="24.0" prefWidth="180.0" styleClass="text-fields" HBox.hgrow="ALWAYS" />
          </children>
-      </AnchorPane>
-      <AnchorPane fx:id="pane2" layoutX="395.0" layoutY="63.0" prefHeight="225.0" prefWidth="355.0" AnchorPane.rightAnchor="20.0">
+      </HBox>
+      <HBox layoutY="122.0" prefHeight="27.0" prefWidth="769.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0">
          <children>
-            <Label layoutX="2.0" layoutY="2.0" styleClass="labels" text="Building/Street:" AnchorPane.leftAnchor="1.0" />
-            <Label layoutX="1.0" layoutY="64.0" prefHeight="27.0" prefWidth="117.0" styleClass="labels" text="City:" AnchorPane.leftAnchor="1.0" />
-            <Label layoutY="128.0" prefHeight="27.0" prefWidth="117.0" styleClass="labels" text="State:" AnchorPane.leftAnchor="1.0" />
-            <Label layoutX="1.666656494140625" layoutY="197.0" prefHeight="27.0" prefWidth="117.0" styleClass="labels" text="Postal Code:" AnchorPane.leftAnchor="1.0" />
-            <JFXTextField fx:id="building" layoutX="150.0" prefHeight="24.0" prefWidth="181.0" styleClass="text-fields" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="-2.8421709430404007E-14" />
-            <JFXTextField fx:id="city" layoutX="149.0" layoutY="59.0" prefHeight="24.0" prefWidth="181.0" styleClass="text-fields" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="-2.8421709430404007E-14" />
-            <JFXTextField fx:id="state" layoutX="149.0" layoutY="124.0" prefHeight="24.0" prefWidth="181.0" styleClass="text-fields" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="-2.8421709430404007E-14" />
-            <JFXTextField fx:id="postalCode" layoutX="150.0" layoutY="193.0" onKeyTyped="#isNumeric" prefHeight="24.0" prefWidth="181.0" styleClass="text-fields" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="-2.8421709430404007E-14" />
+            <Label prefWidth="117.0" styleClass="labels" text="Number:">
+               <HBox.margin>
+                  <Insets left="35.0" right="12.0" />
+               </HBox.margin>
+            </Label>
+            <JFXTextField fx:id="orgNumber" onKeyTyped="#validateNumber" prefHeight="24.0" prefWidth="180.0" styleClass="text-fields" HBox.hgrow="ALWAYS" />
+            <Label prefHeight="27.0" prefWidth="117.0" styleClass="labels" text="City:">
+               <HBox.margin>
+                  <Insets left="35.0" right="12.0" />
+               </HBox.margin>
+            </Label>
+            <JFXTextField fx:id="city" prefHeight="24.0" prefWidth="180.0" styleClass="text-fields" HBox.hgrow="ALWAYS" />
          </children>
-      </AnchorPane>
-      <Label layoutX="16.0" layoutY="371.0" styleClass="labels" text="Choose default location to save invoice:" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="466.0" />
-      <Label layoutX="16.0" layoutY="470.0" styleClass="labels" text="Choose Logo:" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="466.0" />
-      <JFXTextField fx:id="defaultLocation" layoutX="14.0" layoutY="428.0" prefHeight="25.0" prefWidth="601.0" styleClass="text-fields" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="154.66666666666663" />
-      <JFXTextField fx:id="logoLocation" layoutX="14.0" layoutY="532.0" prefHeight="25.0" prefWidth="601.0" styleClass="text-fields" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="154.66666666666663" />
+      </HBox>
+      <HBox layoutY="187.0" prefHeight="27.0" prefWidth="770.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0">
+         <children>
+            <Label prefWidth="117.0" styleClass="labels" text="Email:">
+               <HBox.margin>
+                  <Insets left="35.0" right="12.0" />
+               </HBox.margin>
+            </Label>
+            <JFXTextField fx:id="orgEmail" onKeyTyped="#validateEmail" prefHeight="24.0" prefWidth="180.0" styleClass="text-fields" HBox.hgrow="ALWAYS" />
+            <Label prefHeight="27.0" prefWidth="117.0" styleClass="labels" text="State:">
+               <HBox.margin>
+                  <Insets left="35.0" right="12.0" />
+               </HBox.margin>
+            </Label>
+            <JFXTextField fx:id="state" prefHeight="24.0" prefWidth="180.0" styleClass="text-fields" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <HBox layoutY="256.0" prefHeight="27.0" prefWidth="769.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0">
+         <children>
+            <Label prefWidth="117.0" styleClass="labels" text="Signatory:">
+               <HBox.margin>
+                  <Insets left="35.0" right="12.0" />
+               </HBox.margin>
+            </Label>
+            <JFXTextField fx:id="orgSignatory" prefHeight="24.0" prefWidth="180.0" styleClass="text-fields" HBox.hgrow="ALWAYS" />
+            <Label prefHeight="27.0" prefWidth="117.0" styleClass="labels" text="Postal Code:">
+               <HBox.margin>
+                  <Insets left="35.0" right="12.0" />
+               </HBox.margin>
+            </Label>
+            <JFXTextField fx:id="postalCode" onKeyTyped="#isNumeric" prefHeight="24.0" prefWidth="180.0" styleClass="text-fields" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <Label layoutX="16.0" layoutY="371.0" styleClass="labels" text="Choose default location to save invoice:" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="466.0" />
+      <Label layoutX="16.0" layoutY="470.0" styleClass="labels" text="Choose Logo:" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="466.0" />
+      <JFXTextField fx:id="defaultLocation" layoutX="14.0" layoutY="428.0" prefHeight="25.0" prefWidth="601.0" styleClass="text-fields" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="154.66666666666663" />
+      <JFXTextField fx:id="logoLocation" layoutX="14.0" layoutY="532.0" prefHeight="25.0" prefWidth="601.0" styleClass="text-fields" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="154.66666666666663" />
       <JFXButton layoutX="628.0" layoutY="409.0" onAction="#browseFolder" prefHeight="34.0" prefWidth="120.0" styleClass="buttons" text="Browse" AnchorPane.bottomAnchor="237.0" AnchorPane.rightAnchor="22.0" />
       <JFXButton layoutX="628.0" layoutY="512.0" onAction="#browseLogo" prefHeight="34.0" prefWidth="120.0" styleClass="buttons" text="Browse" AnchorPane.bottomAnchor="134.0" AnchorPane.rightAnchor="22.0" />
       <JFXButton fx:id="save" layoutX="494.0" layoutY="684.6666666666666" onAction="#saveChanges" prefHeight="34.0" prefWidth="120.0" styleClass="buttons" text="Save " AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="156.0" />

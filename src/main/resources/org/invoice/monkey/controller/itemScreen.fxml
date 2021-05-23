@@ -1,99 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import java.lang.String?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.Blend?>
-<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="643.0" prefWidth="1282.0" stylesheets="@../mainLight.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.itemScreen">
-   <children>
-      <HBox layoutX="2.0" layoutY="-8.0" prefHeight="650.0" prefWidth="1280.0">
-         <children>
-            <TableView fx:id="itemTable" focusTraversable="false" onScroll="#scroll" prefHeight="641.0" prefWidth="947.0">
+<AnchorPane prefHeight="680.0" prefWidth="1169.0" stylesheets="@../mainLight.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.itemScreen">
+    <children>
+          <TableView fx:id="itemTable" focusTraversable="false" onScroll="#scroll" prefHeight="634.0" prefWidth="825.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="338.0" AnchorPane.topAnchor="0.0">
               <columns>
                   <TableColumn fx:id="ITEM_ID" editable="false" prefWidth="167.33334851264954" styleClass="center" text="Item ID" />
-                <TableColumn fx:id="ITEM_NAME" editable="false" prefWidth="379.99998474121094" styleClass="left" text="Item Name" />
+                  <TableColumn fx:id="ITEM_NAME" editable="false" prefWidth="379.99998474121094" styleClass="left" text="Item Name" />
                   <TableColumn fx:id="ITEM_PRICE" editable="false" prefWidth="140.66668701171875" styleClass="right" text="Price" />
                   <TableColumn fx:id="ITEM_SIZE" editable="false" prefWidth="122.666748046875" styleClass="right" text="Size" />
-                  <TableColumn fx:id="ITEM_TYPE" editable="false" prefWidth="129.33333333333337" styleClass="center" text="Type" />
               </columns>
-               <HBox.margin>
-                  <Insets top="9.0" />
-               </HBox.margin>
-               <effect>
+              <effect>
                   <Blend />
-               </effect>
-            </TableView>
-            <Pane prefHeight="620.0" prefWidth="337.0">
-               <HBox.margin>
-                  <Insets top="9.0" />
-               </HBox.margin>
-               <children>
-                  <Label layoutX="11.0" layoutY="236.0" text="Name" />
-                  <TextField fx:id="Name" layoutX="13.0" layoutY="276.0" prefHeight="31.0" prefWidth="306.0">
-                     <effect>
-                        <Glow />
-                     </effect></TextField>
-                  <Label layoutX="11.0" layoutY="320.0" text="Price" />
-                  <TextField fx:id="Price" layoutX="13.0" layoutY="360.0" onKeyTyped="#validatePrice" prefHeight="31.0" prefWidth="306.0">
-                     <effect>
-                        <Glow />
-                     </effect></TextField>
-                  <RadioButton fx:id="Product" layoutX="23.0" layoutY="522.0" mnemonicParsing="false" selected="true" text="Product">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="Type" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton fx:id="Service" layoutX="129.0" layoutY="522.0" mnemonicParsing="false" text="Service" toggleGroup="$Type" />
-                  <Label layoutX="15.0" layoutY="477.0" text="Type " />
-                  <RadioButton fx:id="Other" layoutX="232.0" layoutY="522.0" mnemonicParsing="false" text="Other" toggleGroup="$Type" />
-                  <StackPane layoutX="11.0" layoutY="567.0">
-                     <children>
-                        <Button fx:id="updateButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#updateItem" prefHeight="35.0" prefWidth="306.0" styleClass="blue" stylesheets="@../mainLight.css" text="Update Item" />
-                        <Button fx:id="createButton" mnemonicParsing="false" onAction="#createItem" prefHeight="35.0" prefWidth="306.0" styleClass="green" text="Create Item" />
-                     </children>
+              </effect>
+          </TableView>
+          <Pane prefHeight="620.0" prefWidth="337.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <children>
+                  <StackPane layoutX="16.0" layoutY="594.0">
+                      <children>
+                  <JFXButton fx:id="updateButton" onAction="#updateItem" prefHeight="46.0" prefWidth="306.0" styleClass="blue" text="Update">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <ripplerFill>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="1.0" opacity="0.504273533821106" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </ripplerFill>
+                  </JFXButton>
+                  <JFXButton fx:id="createButton" onAction="#createItem" prefHeight="46.0" prefWidth="306.0" styleClass="green" text="Create">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <ripplerFill>
+                        <LinearGradient cycleMethod="REPEAT" endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color red="0.3176470696926117" green="1.0" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </ripplerFill>
+                  </JFXButton>
+                      </children>
                   </StackPane>
-                  <Label layoutX="13.0" layoutY="401.0" text="Size" />
-                  <TextField fx:id="Size" layoutX="15.0" layoutY="441.0" prefHeight="31.0" prefWidth="193.0" promptText="Optional">
-                     <effect>
-                        <Glow />
-                     </effect></TextField>
-                  <Label fx:id="infoLabel" layoutX="10.0" layoutY="610.0" prefHeight="25.0" prefWidth="306.0" styleClass="info-label" />
-                  <ChoiceBox fx:id="SizeType" layoutX="215.0" layoutY="441.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" prefWidth="99.0" styleClass="input-choice-box" />
-                  <Button layoutX="299.0" layoutY="11.0" mnemonicParsing="false" onAction="#itemScreenClosed" prefHeight="23.0" prefWidth="23.0">
-                     <styleClass>
-                        <String fx:value="cross" />
-                        <String fx:value="red" />
-                     </styleClass></Button>
-                  <Button fx:id="refresh" layoutX="265.0" layoutY="11.0" mnemonicParsing="false" onAction="#refreshItemTable" prefHeight="23.0" prefWidth="23.0">
-                     <styleClass>
-                        <String fx:value="refresh" />
-                        <String fx:value="dark-grey" />
-                     </styleClass></Button>
-                  <TextField fx:id="searchBar" layoutX="11.0" layoutY="63.0" onKeyPressed="#searchEvent" prefHeight="31.0" prefWidth="273.0" promptText="Search">
-                     <effect>
-                        <Glow />
-                     </effect></TextField>
-                  <Button layoutX="290.0" layoutY="63.0" mnemonicParsing="false" onAction="#performSearch" prefHeight="31.0" prefWidth="34.0">
-                     <styleClass>
-                        <String fx:value="search" />
-                        <String fx:value="dark-grey" />
-                     </styleClass></Button>
-               </children>
-            </Pane>
-         </children>
-      </HBox>
-   </children>
+                  <Label fx:id="infoLabel" layoutX="16.0" layoutY="647.0" prefHeight="25.0" prefWidth="306.0">
+               <styleClass>
+                  <String fx:value="info-label" />
+                  <String fx:value="center" />
+               </styleClass>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+                  <Button layoutX="293.0" layoutY="11.0" mnemonicParsing="false" onAction="#itemScreenClosed" prefHeight="31.0" prefWidth="29.0">
+                      <styleClass>
+                          <String fx:value="cross" />
+                          <String fx:value="dark-grey" />
+                      </styleClass>
+            </Button>
+                  <Button fx:id="refresh" layoutX="251.0" layoutY="11.0" mnemonicParsing="false" onAction="#refreshItemTable" prefHeight="31.0" prefWidth="29.0">
+                      <styleClass>
+                          <String fx:value="refresh" />
+                          <String fx:value="dark-grey" />
+                      </styleClass>
+            </Button>
+                  <Button layoutX="286.0" layoutY="73.0" mnemonicParsing="false" onAction="#performSearch" prefHeight="38.0" prefWidth="38.0">
+                      <styleClass>
+                          <String fx:value="search" />
+                          <String fx:value="dark-grey" />
+                      </styleClass>
+            </Button>
+            <JFXTextField fx:id="searchBar" labelFloat="true" layoutX="9.0" layoutY="66.0" onKeyReleased="#searchEvent" prefHeight="36.0" prefWidth="265.0" promptText="Search">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="Name" labelFloat="true" layoutX="14.0" layoutY="362.0" onKeyTyped="#validateNonEmpty" prefHeight="36.0" prefWidth="302.0" promptText="Name">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="Price" labelFloat="true" layoutX="17.0" layoutY="433.0" onKeyReleased="#validateNonEmpty" onKeyTyped="#validatePrice" prefHeight="36.0" prefWidth="302.0" promptText="Price">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="Size" labelFloat="true" layoutX="19.0" layoutY="500.0" prefHeight="36.0" prefWidth="190.0" promptText="Size (Optional)">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </JFXTextField>
+            <JFXComboBox fx:id="SizeType" labelFloat="true" layoutX="224.0" layoutY="501.0" prefHeight="38.0" prefWidth="96.0" promptText="Type" />
+              </children>
+          </Pane>
+    </children>
 </AnchorPane>
