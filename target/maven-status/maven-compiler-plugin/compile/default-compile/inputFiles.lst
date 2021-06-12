@@ -10,6 +10,7 @@ D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\mon
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\Database\ItemDB.java
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\utils\Animation.java
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\controller\homeScreen.java
+D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\controller\InvoiceScreen.java
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\model\Reminder.java
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\utils\UIExceptions\DatabaseConnectionException.java
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\model\Configurations\Address.java
@@ -24,5 +25,7 @@ D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\mon
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\model\Configurations\AppConfigurations.java
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\model\Configurations\Configuration.java
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\controller\itemScreen.java
+D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\model\InvoiceItem.java
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\module-info.java
+D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\Database\InvoiceDB.java
 D:\Code\Super Market Billing System\Invoice-Monkey\src\main\java\org\invoice\monkey\utils\File.java
