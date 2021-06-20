@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0" >
 
+<AnchorPane prefHeight="482.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.SendAttachment">
+   <children>
+      <JFXTextField fx:id="subject" labelFloat="true" layoutX="14.0" layoutY="77.0" prefHeight="25.0" prefWidth="350.0" promptText="Subject" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+      <JFXTextArea fx:id="message" labelFloat="true" layoutX="11.0" layoutY="136.0" prefHeight="185.0" prefWidth="393.0" promptText="Message" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+      <JFXCheckBox fx:id="link" layoutX="14.0" layoutY="365.0" selected="true" text="Include link to application site" />
+      <JFXButton layoutX="226.0" layoutY="441.0" onAction="#send" prefHeight="25.0" prefWidth="60.0" text="Send" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="80.0" />
+      <JFXButton layoutX="314.0" layoutY="441.0" onAction="#cancel" text="Cancel" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0" />
+      <Label layoutX="14.0" layoutY="398.0" prefHeight="25.0" prefWidth="352.0" text="Note: If you are using custom mail server you might need to" />
+      <Label layoutX="14.0" layoutY="414.0" prefHeight="25.0" prefWidth="352.0" text="grant access to less secure apps or/and add exception to firewall." />
+      <JFXTextField fx:id="to" labelFloat="true" layoutX="14.0" layoutY="29.0" prefHeight="25.0" prefWidth="352.0" promptText="To" />
+   </children>
 </AnchorPane>

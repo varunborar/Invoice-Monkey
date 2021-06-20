@@ -119,7 +119,7 @@ public class companyDetails {
 
             }
         } catch (Exception e) {
-            System.out.println(e.getClass().getName() + ": " + e.getCause());
+            System.out.println(e.getClass().getName() + ": " + e.getMessage());
         }
     }
 
@@ -182,6 +182,7 @@ public class companyDetails {
         // App configuration
         appConfig.put("default-folder", folderPath.getText());
         appConfig.put("Logo", "org.data\\logo.png");
+        appConfig.put("Theme", "Light");
 
         // Database details
         database.put("is-custom-database-set", false);
@@ -191,6 +192,8 @@ public class companyDetails {
         // Email setup configurations
         email.put("is-email-service-ready", false);
         email.put("email", "none");
+        email.put("custom", false);
+        email.put("Advanced", null);
 
 
         orgDetails.put("Org-Details", orgDetail);

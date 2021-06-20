@@ -95,4 +95,13 @@ public class Customer {
         this.email = email;
     }
 
+    public String toString()
+    {
+        return String.format("%s", this.name);
+    }
+
+    public String getDescription()
+    {
+        return String.format("%d %s", this.customerID, this.name);
+    }
 }

@@ -58,6 +58,7 @@ public class CustomerScreen {
     @FXML
     public void initialize()
     {
+        customerTable.setPlaceholder(new Label("Customers will show here"));
         refreshCustomerTable();
 
         customerTable.setRowFactory(

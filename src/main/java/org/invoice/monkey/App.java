@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.invoice.monkey.mainApp.MainApplication;
 import org.invoice.monkey.model.Configurations.Configuration;
@@ -31,7 +32,7 @@ public class App extends Application {
                 System.out.println("File Exists");
                 configuration = new Configuration();
 
-
+                stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("icon.png"))));
                 MainApplication app = new MainApplication();
             }
             else {
@@ -54,6 +55,15 @@ public class App extends Application {
         try {
             Parent root = FXMLLoader.load(Objects.requireNonNull(org.invoice.monkey.App.class.getResource(fxml)));
             scene = new Scene(root);
+            try {
+                if (getConfiguration().getAppConfigurations().getAppTheme().equals("Light"))
+                    scene.getStylesheets().add(Objects.requireNonNull(org.invoice.monkey.App.class.getResource("mainLight.css").toString()));
+                else
+                    scene.getStylesheets().add(Objects.requireNonNull(org.invoice.monkey.App.class.getResource("mainDark.css").toString()));
+            }catch(Exception e)
+            {
+                System.out.println(e.getClass().getName() + ": " + e.getCause());
+            }
             mainStage.setTitle(title);
             mainStage.setResizable(false);
             mainStage.setScene(scene);
@@ -63,6 +73,16 @@ public class App extends Application {
             System.out.println(e.getClass().getName() + ": " + e.getCause());
             //e.printStackTrace();
         }
+    }
+
+    public static void setTheme()
+    {
+        scene.getStylesheets().clear();
+
+        if(getConfiguration().getAppConfigurations().getAppTheme().equals("Light"))
+            scene.getStylesheets().add(Objects.requireNonNull(org.invoice.monkey.App.class.getResource("mainLight.css").toString()));
+        else
+            scene.getStylesheets().add(Objects.requireNonNull(org.invoice.monkey.App.class.getResource("mainDark.css").toString()));
     }
 
     public static Stage getstage()

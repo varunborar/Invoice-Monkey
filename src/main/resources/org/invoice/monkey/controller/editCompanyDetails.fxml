@@ -2,12 +2,13 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane id="container" fx:id="container" prefHeight="680.0" prefWidth="770.0" styleClass="edit-org-details" stylesheets="@../mainLight.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.EditCompanyDetails">
+<AnchorPane id="container" fx:id="container" prefHeight="680.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.EditCompanyDetails">
    <children>
       <HBox layoutX="-1.0" layoutY="63.0" prefHeight="27.0" prefWidth="770.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0">
          <children>
@@ -76,7 +77,7 @@
             <JFXTextField fx:id="postalCode" onKeyTyped="#isNumeric" prefHeight="24.0" prefWidth="180.0" styleClass="text-fields" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
-      <Label layoutX="16.0" layoutY="371.0" styleClass="labels" text="Choose default location to save invoice:" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="466.0" />
+      <Label layoutX="16.0" layoutY="371.0" prefHeight="27.0" prefWidth="360.0" styleClass="labels" text="Choose default location to save invoice:" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="363.0" />
       <Label layoutX="16.0" layoutY="470.0" styleClass="labels" text="Choose Logo:" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="466.0" />
       <JFXTextField fx:id="defaultLocation" layoutX="14.0" layoutY="428.0" prefHeight="25.0" prefWidth="601.0" styleClass="text-fields" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="154.66666666666663" />
       <JFXTextField fx:id="logoLocation" layoutX="14.0" layoutY="532.0" prefHeight="25.0" prefWidth="601.0" styleClass="text-fields" AnchorPane.leftAnchor="47.0" AnchorPane.rightAnchor="154.66666666666663" />
@@ -85,4 +86,8 @@
       <JFXButton fx:id="save" layoutX="494.0" layoutY="684.6666666666666" onAction="#saveChanges" prefHeight="34.0" prefWidth="120.0" styleClass="buttons" text="Save " AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="156.0" />
       <JFXButton layoutX="628.0" layoutY="684.6666666666666" onAction="#cancel" prefHeight="34.0" prefWidth="120.0" styleClass="buttons" text="Cancel" AnchorPane.bottomAnchor="25.0" AnchorPane.rightAnchor="22.0" />
    </children>
+   <styleClass>
+      <String fx:value="edit-org-details" />
+      <String fx:value="dark-theme" />
+   </styleClass>
 </AnchorPane>

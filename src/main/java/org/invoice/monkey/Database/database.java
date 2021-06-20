@@ -57,9 +57,12 @@ public class database {
     {
         configureItemTable();
         configureCustomerTable();
+        configureInvoiceTable();
+        configureInvoiceItemTable();
+        configureExpenseTable();
     }
 
-    public void configureItemTable()
+    protected void configureItemTable()
     {
         Connection con;
         String itemTableSQLQuery;
@@ -95,7 +98,7 @@ public class database {
         }
     }
 
-    public void configureCustomerTable()
+    protected void configureCustomerTable()
     {
         Connection con;
         String customerTableSQLQuery;
@@ -130,5 +133,91 @@ public class database {
         }
     }
 
+    protected void configureInvoiceTable()
+    {
+        Connection con;
+        String invoiceTableQuery = "CREATE TABLE IF NOT EXISTS Invoice(" +
+                    "Invoice_ID DECIMAL(12,0) PRIMARY KEY," +
+                    "Customer_ID INTEGER NOT NULL," +
+                    "Invoice_Date DATE NOT NULL," +
+                    "Invoice_Time TIME NOT NULL," +
+                    "Invoice_Type VARCHAR(15) NOT NULL," +
+                    "Invoice_Due VARCHAR(4) NOT NULL," +
+                    "Invoice_Description VARCHAR(120)," +
+                    "Sub_Total DECIMAL(9,2) NOT NULL," +
+                    "Discount DECIMAL(7,2) NOT NULL," +
+                    "FOREIGN KEY(Customer_ID) REFERENCES Customer(Customer_ID));";
+
+        try{
+            con = getCon();
+            Statement createTable = con.createStatement();
+            createTable.executeUpdate(invoiceTableQuery);
+            createTable.close();
+            con.close();
+
+        }catch(SQLException se)
+        {
+            System.out.println("Invoice Item:" + se.getClass().getName() + ": " + se.getMessage());
+        }
+    }
+
+    protected void configureInvoiceItemTable()
+    {
+        Connection con;
+        String invoiceItemTableQuery = "CREATE TABLE IF NOT EXISTS InvoiceItem(" +
+                "Invoice_ID DECIMAL(12,0) NOT NULL," +
+                "Item_ID INTEGER NOT NULL," +
+                "Item_Quantity INTEGER NOT NULL," +
+                "FOREIGN KEY(Invoice_ID) REFERENCES Invoice(Invoice_ID), " +
+                "FOREIGN KEY(Item_ID) REFERENCES Item(Item_ID)," +
+                "PRIMARY KEY(Invoice_ID, Item_ID));";
+
+        try{
+            con = getCon();
+            Statement createTable = con.createStatement();
+            createTable.executeUpdate(invoiceItemTableQuery);
+            createTable.close();
+            con.close();
+
+        }catch(SQLException se)
+        {
+            System.out.println("Invoice Item:" + se.getClass().getName() + ": " + se.getMessage());
+        }
+    }
+
+    protected void configureExpenseTable()
+    {
+        Connection con;
+        String expenseTableSQLQuery;
+        if(!App.getConfiguration().getDatabaseDetails().isCustomDatabaseSet()) {
+            expenseTableSQLQuery = "CREATE TABLE IF NOT EXISTS Expense(" +
+                    "Expense_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "Expense_Description VARCHAR(50) NOT NULL," +
+                    "Expense_Category VARCHAR(15)," +
+                    "Expense_Amount DECIMAL(10,2)," +
+                    "Expense_Date DATE);";
+        }else{
+            expenseTableSQLQuery = "CREATE TABLE IF NOT EXISTS Expense(" +
+                    "Expense_ID INTEGER PRIMARY KEY AUTO_INCREMENT," +
+                    "Expense_Description VARCHAR(50) NOT NULL," +
+                    "Expense_Category VARCHAR(15)," +
+                    "Expense_Amount DECIMAL(10,2)," +
+                    "Expense_Date DATE);";
+        }
+        try {
+            con = getCon();
+            Statement createTable = con.createStatement();
+            createTable.executeUpdate(expenseTableSQLQuery);
+            createTable.close();
+            con.close();
+        }catch(SQLException se)
+        {
+            System.out.println(se.getClass().getName() + ": " + se.getMessage());
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 
 }

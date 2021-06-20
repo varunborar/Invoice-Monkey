@@ -21,6 +21,16 @@ public class Item {
         this.size = null;
         this.sizeType = null;
     }
+
+    public Item(Item item)
+    {
+        this.itemID = item.itemID;
+        this.name = item.name;
+        this.price = item.price;
+        this.size = item.size;
+        this.sizeType = item.sizeType;
+    }
+
     public Item(String name, float price)
     {
         this.name = name;
@@ -61,6 +71,8 @@ public class Item {
 
     public String getRawSize()
     {
+        if (this.size == null || this.sizeType.equals("N/A") || this.sizeType == null)
+            return "";
         return this.size;
     }
 
@@ -100,7 +112,6 @@ public class Item {
     public String toString()
     {
         //return this.name;
-        return String.format("%s, %s, %f, %s", getItemID(),getName(),getPrice(),getSize());
+        return String.format("%s", getName());
     }
-
 }

@@ -92,7 +92,8 @@ public class SetupDatabase {
         port.setDisable(true);
 
         save.setDisable(false);
-        connect.setVisible(false);
+        connect.setVisible(true);
+        connect.setDisable(false);
 
         connectString.setText("");
     }
@@ -141,7 +142,9 @@ public class SetupDatabase {
             database.checkConnection(newConfig);
             save.setDisable(false);
 
-            connectString.setText(connectString.getText() + ": Connected");
+            connectString.setText(connectString.getText() +
+                    newConfig.getDatabaseDetails().getFormattedURL() +
+                    ": Connected");
         }catch(DatabaseConnectionException d)
         {
             Alert alert = new Alert(Alert.AlertType.ERROR, d.getMessage(),ButtonType.OK ,ButtonType.CLOSE);

@@ -3,6 +3,7 @@ package org.invoice.monkey.utils.mail;
 import com.google.api.client.util.Base64;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.Message;
+import org.invoice.monkey.App;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -20,7 +21,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Properties;
 
-public class Mailer {
+public class MailerGmail implements Mailer{
 
     private String sender;
     private String receiver;
@@ -31,7 +32,7 @@ public class Mailer {
 
     private final Gmail service;
 
-    public Mailer() throws GeneralSecurityException, IOException {
+    public MailerGmail() throws GeneralSecurityException, IOException {
         service = MailerFactory.getService();
         sender = service.users().getProfile("me").getUserId();
     }
@@ -39,7 +40,7 @@ public class Mailer {
     private MimeMessage createEmail() throws MessagingException
     {
         Properties props = new Properties();
-        Session session = Session.getDefaultInstance(props, null);
+        Session session = Session.getDefaultInstance(props);
 
         MimeMessage email = new MimeMessage(session);
 
@@ -51,14 +52,17 @@ public class Mailer {
         MimeBodyPart mimeBodyPart = new MimeBodyPart();
         mimeBodyPart.setContent(message, "text/plain");
 
-        MimeBodyPart linkToRepository = new MimeBodyPart();
-        linkToRepository.setContent("<a href=\"https://github.com/varunborar/Invoice-Monkey\"> " +
-                "Invoice was generated using Invoice Monkey. </a>",
-                "text/html");
 
         Multipart multipart = new MimeMultipart();
         multipart.addBodyPart(mimeBodyPart);
+
+        if(App.getConfiguration().getEmailDetails().getLink()) {
+        MimeBodyPart linkToRepository = new MimeBodyPart();
+        linkToRepository.setContent("<br><br><br>This invoice was generated using <a href=\"https://github.com/varunborar/Invoice-Monkey\"> " +
+                        "Invoice Monkey.</a>",
+                "text/html");
         multipart.addBodyPart(linkToRepository);
+    }
 
         MimeBodyPart invoice = new MimeBodyPart();
         File file = new File(attachment);
@@ -98,5 +102,5 @@ public class Mailer {
         this.message = message;
         this.attachment = attachment;
     }
-    
+
 }

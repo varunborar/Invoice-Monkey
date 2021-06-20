@@ -18,17 +18,17 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="680.0" prefWidth="1169.0" stylesheets="@../mainLight.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.CustomerScreen">
+<AnchorPane prefHeight="680.0" prefWidth="1169.0" styleClass="dark-theme" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.CustomerScreen">
     <children>
-      <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="338.0" AnchorPane.topAnchor="0.0">
+      <HBox styleClass="dark-theme" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="338.0" AnchorPane.topAnchor="0.0">
          <children>
                 <TableView fx:id="customerTable" focusTraversable="false" onScroll="#scroll" prefHeight="634.0" prefWidth="825.0" HBox.hgrow="ALWAYS">
                     <columns>
                         <TableColumn fx:id="CUSTOMER_ID" editable="false" prefWidth="100.0" styleClass="center" text="Customer ID" />
                         <TableColumn fx:id="CUSTOMER_NAME" editable="false" prefWidth="200.0" styleClass="left" text="Name" />
-                        <TableColumn fx:id="CUSTOMER_NUMBER" editable="false" prefWidth="160.0" styleClass="right" text="Number" />
-                        <TableColumn fx:id="CUSTOMER_EMAIL" editable="false" prefWidth="220.0" styleClass="right" text="Email" />
-                  <TableColumn fx:id="CUSTOMER_ADDRESS" prefWidth="148.6666259765625" text="Address" />
+                        <TableColumn fx:id="CUSTOMER_NUMBER" editable="false" prefWidth="160.0" styleClass="center" text="Number" />
+                        <TableColumn fx:id="CUSTOMER_EMAIL" editable="false" prefWidth="220.0" styleClass="center" text="Email" />
+                  <TableColumn fx:id="CUSTOMER_ADDRESS" editable="false" prefWidth="148.6666259765625" styleClass="left" text="Address" />
                     </columns>
                     <effect>
                         <Blend />
@@ -36,7 +36,7 @@
                 </TableView>
          </children>
       </HBox>
-          <Pane prefHeight="620.0" prefWidth="337.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <Pane prefHeight="620.0" prefWidth="337.0" styleClass="dark-theme" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
                   <StackPane layoutX="16.0" layoutY="594.0">
                       <children>
@@ -61,26 +61,10 @@
                         </LinearGradient>
                      </ripplerFill>
                   </JFXButton>
-                  <JFXButton fx:id="createButton" onAction="#create" prefHeight="46.0" prefWidth="306.0" styleClass="green" text="Create">
+                  <JFXButton fx:id="createButton" onAction="#create" prefHeight="46.0" prefWidth="306.0" ripplerFill="BLACK" styleClass="green" text="Create">
                      <font>
                         <Font size="24.0" />
                      </font>
-                     <ripplerFill>
-                        <LinearGradient cycleMethod="REPEAT" endX="1.0" endY="1.0">
-                           <stops>
-                              <Stop>
-                                 <color>
-                                    <Color red="0.3176470696926117" green="1.0" />
-                                 </color>
-                              </Stop>
-                              <Stop offset="1.0">
-                                 <color>
-                                    <Color red="1.0" green="1.0" blue="1.0" />
-                                 </color>
-                              </Stop>
-                           </stops>
-                        </LinearGradient>
-                     </ripplerFill>
                   </JFXButton>
                       </children>
                   </StackPane>
@@ -93,24 +77,9 @@
                   <Font size="14.0" />
                </font>
             </Label>
-                  <Button layoutX="293.0" layoutY="11.0" mnemonicParsing="false" onAction="#screenClosed" prefHeight="31.0" prefWidth="29.0">
-                      <styleClass>
-                          <String fx:value="cross" />
-                          <String fx:value="dark-grey" />
-                      </styleClass>
-            </Button>
-                  <Button fx:id="refresh" layoutX="251.0" layoutY="11.0" mnemonicParsing="false" onAction="#refreshCustomerTable" prefHeight="31.0" prefWidth="29.0">
-                      <styleClass>
-                          <String fx:value="refresh" />
-                          <String fx:value="dark-grey" />
-                      </styleClass>
-            </Button>
-                  <Button layoutX="286.0" layoutY="73.0" mnemonicParsing="false" onAction="#performSearch" prefHeight="38.0" prefWidth="38.0">
-                      <styleClass>
-                          <String fx:value="search" />
-                          <String fx:value="dark-grey" />
-                      </styleClass>
-            </Button>
+                  <Button layoutX="293.0" layoutY="11.0" mnemonicParsing="false" onAction="#screenClosed" prefHeight="31.0" prefWidth="29.0" styleClass="cross" />
+                  <Button fx:id="refresh" layoutX="251.0" layoutY="11.0" mnemonicParsing="false" onAction="#refreshCustomerTable" prefHeight="31.0" prefWidth="29.0" styleClass="refresh" />
+                  <Button layoutX="286.0" layoutY="73.0" mnemonicParsing="false" onAction="#performSearch" prefHeight="38.0" prefWidth="38.0" styleClass="search" />
             <JFXTextField fx:id="searchBar" labelFloat="true" layoutX="9.0" layoutY="66.0" onKeyReleased="#searchEvent" prefHeight="36.0" prefWidth="265.0" promptText="Search">
                <font>
                   <Font size="18.0" />

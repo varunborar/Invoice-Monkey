@@ -12,36 +12,32 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.GmailScopes;
-import com.google.api.services.gmail.model.Label;
-import com.google.api.services.gmail.model.ListLabelsResponse;
-
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
 
 import java.io.*;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
-import java.util.Properties;
 
 public class MailerFactory {
     // Authorization
-    private final String APPLICATION_NAME = "Invoice Monkey";
-    private final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-    private final String TOKENS_DIRECTORY_PATH = "tokens";
+    private static final String APPLICATION_NAME = "Invoice Monkey";
+    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+    private static final String TOKENS_DIRECTORY_PATH = "org.data\\tokens";
 
 
-    private final List<String> SCOPES = Collections.singletonList(GmailScopes.GMAIL_SEND);
-    private final String CREDENTIALS_FILE_PATH = "credentials.json";
-
-    // Credentials
+    private static final List<String> SCOPES = Collections.singletonList(GmailScopes.MAIL_GOOGLE_COM);
+    private static final String CREDENTIALS_FILE_PATH = "credentials.json";
 
 
-    private Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
-        InputStream in = Mailer.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
+    private MailerFactory()
+    {
+
+    }
+
+    private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
+        InputStream in = MailerGmail.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
         if (in == null) {
-            throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
+            throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH + " Add the credentials.json file to given path");
         }
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
@@ -54,47 +50,12 @@ public class MailerFactory {
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
-    private Gmail getService() throws GeneralSecurityException, IOException {
+    public static Gmail getService() throws GeneralSecurityException, IOException {
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        Gmail service = new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+        return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
-        return service;
     }
 
-    private MimeMessage createEmail()
-            throws MessagingException, IOException {
-        Properties props = new Properties();
-        Session session = Session.getDefaultInstance(props, null);
-
-        MimeMessage email = new MimeMessage(session);
-
-        email.setFrom(new InternetAddress(from));
-        email.addRecipient(javax.mail.Message.RecipientType.TO,
-                new InternetAddress(to));
-        email.setSubject(subject);
-
-        MimeBodyPart mimeBodyPart = new MimeBodyPart();
-        mimeBodyPart.setContent(bodyText, "text/plain");
-
-        Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(mimeBodyPart);
-
-        mimeBodyPart = new MimeBodyPart();
-        DataSource source = new FileDataSource(file);
-
-        mimeBodyPart.setDataHandler(new DataHandler(source));
-        mimeBodyPart.setFileName(file.getName());
-
-        multipart.addBodyPart(mimeBodyPart);
-        email.setContent(multipart);
-
-        return email;
-    }
-
-    public static void main(String[] args)
-    {
-
-    }
 
 }

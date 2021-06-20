@@ -6,13 +6,13 @@ import java.util.*;
 public class DateTime {
 
 
-    public static String getCurrentDateTimeStamp()
+    public static Long getCurrentDateTimeStamp()
     {
         Formatter fmt = new Formatter();
         Calendar cal = Calendar.getInstance();
 
-        fmt.format("%tF_%tR", cal, cal);
-        return fmt.toString().replace("-", "").replace(":","");
+        fmt.format("%tF%tR", cal, cal);
+        return Long.parseLong(fmt.toString().replace("-", "").replace(":",""));
     }
 
     public static String getFormattedDate()
@@ -42,6 +42,7 @@ public class DateTime {
 
         return Long.parseLong(fmt.toString());
     }
+
     public static long getTime(int hours)
     {
         Formatter fmt = new Formatter();
@@ -54,6 +55,6 @@ public class DateTime {
 
     public static void main(String args[])
     {
-        System.out.println(getFormattedDate());
+        System.out.println(getCurrentDateTimeStamp());
     }
 }

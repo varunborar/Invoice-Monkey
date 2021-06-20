@@ -1,7 +1,9 @@
 package org.invoice.monkey.mainApp;
 
+import javafx.scene.image.Image;
 import org.invoice.monkey.App;
 
+import java.util.Objects;
 
 
 public class MainApplication {

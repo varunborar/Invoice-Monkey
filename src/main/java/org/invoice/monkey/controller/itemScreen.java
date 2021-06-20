@@ -61,6 +61,7 @@ public class itemScreen {
     {
         try {
 
+            itemTable.setPlaceholder(new Label("Items will show here"));
             refreshItemTable();
             //Context Menus
             itemTable.setRowFactory(

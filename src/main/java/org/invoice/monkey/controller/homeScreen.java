@@ -1,12 +1,14 @@
 package org.invoice.monkey.controller;
 
 
+import com.jfoenix.controls.JFXToggleButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
@@ -17,8 +19,10 @@ import org.invoice.monkey.Database.database;
 import org.invoice.monkey.model.Configurations.Configuration;
 import org.invoice.monkey.utils.Animation;
 import org.invoice.monkey.utils.UIExceptions.DatabaseConnectionException;
+import org.invoice.monkey.utils.mail.MailerFactory;
 
-
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.Objects;
 
 
@@ -56,10 +60,16 @@ public class homeScreen {
     private AnchorPane accountPane;
     @FXML
     private AnchorPane settingsPane;
+
     @FXML
-    private AnchorPane orderPane;
+    private JFXToggleButton emailToggle;
     @FXML
-    private AnchorPane analyticsPane;
+    private Button advancedEmailSettings;
+
+    @FXML
+    private JFXToggleButton ThemeSwitch;
+    @FXML
+    private Label ThemeIcon;
 
     private static homeScreen HomeScreen;
     private static Double workSpaceAreaHeight;
@@ -81,7 +91,9 @@ public class homeScreen {
 
 
     @FXML
-    public void initialize() {
+    public void initialize()
+    {
+
 
         isOptionStackVisible = true;
         configuration = new Configuration();
@@ -103,21 +115,72 @@ public class homeScreen {
 
         workSpace.setMinWidth(772);
 
-        try {
+        if(configuration.getAppConfigurations().getAppTheme().equals("Light"))
+        {
+            ThemeSwitch.selectedProperty().set(false);
+            ThemeIcon.getStyleClass().addAll("sun", "white");
+        }
+        else
+        {
+            ThemeSwitch.selectedProperty().set(true);
+            ThemeIcon.getStyleClass().addAll("moon", "white");
+        }
+
+        ThemeSwitch.selectedProperty().addListener(((observable, oldValue, newValue) -> {
+           if(ThemeSwitch.isSelected())
+           {
+               App.getConfiguration().getAppConfigurations().setAppTheme("Dark");
+               ThemeIcon.getStyleClass().clear();
+               ThemeIcon.getStyleClass().addAll("moon", "white");
+           }
+           else
+           {
+               App.getConfiguration().getAppConfigurations().setAppTheme("Light");
+               ThemeIcon.getStyleClass().clear();
+               ThemeIcon.getStyleClass().addAll("sun", "white");
+           }
+           App.getConfiguration().refresh();
+           App.setTheme();
+       }));
+
+        if(!configuration.getEmailDetails().isEmailServiceReady())
+            advancedEmailSettings.setVisible(false);
+
+        emailToggle.selectedProperty().set(configuration.getEmailDetails().isEmailServiceReady());
+
+        emailToggle.selectedProperty().addListener(((observable,oldValue, newValue)->{
+            if(emailToggle.isSelected())
+            {
+                advancedEmailSettings.setVisible(true);
+                configuration.getEmailDetails().setEmailServiceReady(true);
+                try {
+                    MailerFactory.getService();
+                } catch (GeneralSecurityException | IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            else{
+                advancedEmailSettings.setVisible(false);
+                configuration.getEmailDetails().setEmailServiceReady(false);
+            }
+            configuration.refresh();
+        }));
+
+        try
+        {
             AnchorPane test = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("defaultWidgetScreen.fxml")));
             setWorkSpace(test);
 
             database.checkConnection(App.getConfiguration());
-        }catch(DatabaseConnectionException e)
-        {
-
         }
-        catch (Exception e) {
+        catch(Exception e)
+        {
             System.out.println(e.getClass().getName() + ": " + e.getCause() + ", " + e.getMessage());
         }
     }
 
-    public void setWorkSpace(Parent pane) {
+    public void setWorkSpace(Parent pane)
+    {
         resizeWorkSpaceArea();
         AnchorPane.setRightAnchor(pane, 0d);
         AnchorPane.setLeftAnchor(pane, 0d);
@@ -171,20 +234,6 @@ public class homeScreen {
         animation.slideInLeftAnimation(optionStack, dataPane);
     }
 
-    public void showOrderPane(ActionEvent event)
-    {
-        menuButtonClicked(event);
-        Animation animation = new Animation();
-        animation.slideInLeftAnimation(optionStack, orderPane);
-    }
-
-    public void showAnalyticsPane(ActionEvent event)
-    {
-        menuButtonClicked(event);
-        Animation animation = new Animation();
-        animation.slideInLeftAnimation(optionStack, analyticsPane);
-    }
-
     public void showAccountPane(ActionEvent event)
     {
         menuButtonClicked(event);
@@ -216,9 +265,11 @@ public class homeScreen {
         animation.menuBarOpenAnimation(MenuContainer, optionStack);
 
         isOptionStackVisible = true;
+
     }
 
-    public void openItemScreen(){
+    public void openItemScreen()
+    {
         try{
             minimizeOptionsPane();
             AnchorPane itemScreen = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("itemScreen.fxml")));
@@ -241,6 +292,18 @@ public class homeScreen {
         }
     }
 
+    public void openExpenseScreen()
+    {
+        try{
+            minimizeOptionsPane();
+            AnchorPane customerScreen = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("expenseScreen.fxml")));
+            setWorkSpace(customerScreen);
+        }catch(Exception e)
+        {
+//            System.out.println(e.getClass().getName() + ": " + e.getCause() + ", " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     public void openEditOrgDetails()
     {
@@ -260,6 +323,12 @@ public class homeScreen {
             secondaryStage.initModality(Modality.APPLICATION_MODAL);
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("setupDatabase.fxml")));
             Scene scene = new Scene(root);
+
+            if(App.getConfiguration().getAppConfigurations().getAppTheme().equals("Light"))
+                scene.getStylesheets().add(Objects.requireNonNull(org.invoice.monkey.App.class.getResource("mainLight.css").toString()));
+            else
+                scene.getStylesheets().add(Objects.requireNonNull(org.invoice.monkey.App.class.getResource("mainDark.css").toString()));
+
             secondaryStage.setTitle("Setup Database");
             secondaryStage.setResizable(false);
             secondaryStage.setScene(scene);
@@ -271,5 +340,49 @@ public class homeScreen {
         }
     }
 
+    public void openInvoiceScreen(ActionEvent event)
+    {
+        try{
+            menuButtonClicked(event);
+            minimizeOptionsPane();
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("invoice.fxml")));
+            setWorkSpace(root);
+        }catch(Exception e)
+        {
+            //System.out.println("Exception in home-screen:" + e.getClass().getName() + ": " + e.getMessage() + "(" + e.getCause() + ")");
+            e.printStackTrace();
+        }
+    }
+
+    public void showAnalytics(ActionEvent event)
+    {
+        menuButtonClicked(event);
+        minimizeOptionsPane();
+    }
+
+    public void openAdvancedEmailSettings()
+    {
+        try {
+            Stage secondaryStage = new Stage();
+            secondaryStage.initModality(Modality.APPLICATION_MODAL);
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("advancedEmailSettings.fxml")));
+            Scene scene = new Scene(root);
+
+            if(App.getConfiguration().getAppConfigurations().getAppTheme().equals("Light"))
+                scene.getStylesheets().add(Objects.requireNonNull(org.invoice.monkey.App.class.getResource("mainLight.css").toString()));
+            else
+                scene.getStylesheets().add(Objects.requireNonNull(org.invoice.monkey.App.class.getResource("mainDark.css").toString()));
+
+            secondaryStage.setTitle("Setup Email");
+            secondaryStage.setResizable(false);
+            secondaryStage.setScene(scene);
+            secondaryStage.show();
+
+        }catch(Exception e)
+        {
+            //System.out.println("Exception in home-screen:" + e.getClass().getName() + ": " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
 }

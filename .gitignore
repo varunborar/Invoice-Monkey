@@ -3,3 +3,5 @@
 org.data/
 target/
 identifier.sqlite
+credentials.json
+tokens/

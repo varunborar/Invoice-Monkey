@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0" >
-
+<AnchorPane prefHeight="400.0" prefWidth="400.0" styleClass="dark-theme" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.AddExpense">
+   <children>
+      <JFXDatePicker fx:id="date" layoutX="29.0" layoutY="47.0" onKeyReleased="#checkFields" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" />
+      <JFXComboBox fx:id="category" labelFloat="true" layoutX="32.0" layoutY="119.0" onKeyReleased="#checkFields" prefHeight="25.0" prefWidth="336.0" promptText="Category" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" />
+      <JFXTextField fx:id="description" labelFloat="true" layoutX="32.0" layoutY="188.0" onKeyReleased="#checkFields" prefHeight="25.0" prefWidth="336.0" promptText="Description" />
+      <JFXTextField fx:id="amount" labelFloat="true" layoutX="32.0" layoutY="258.0" onKeyReleased="#checkFields" prefHeight="25.0" prefWidth="336.0" promptText="Amount" />
+      <JFXButton fx:id="save" disable="true" layoutX="213.0" layoutY="361.0" onAction="#addExpense" prefHeight="25.0" prefWidth="78.0" text="Save" />
+      <JFXButton layoutX="297.0" layoutY="361.0" onAction="#cancelExpense" prefHeight="25.0" prefWidth="78.0" text="Cancel" />
+   </children>
 </AnchorPane>

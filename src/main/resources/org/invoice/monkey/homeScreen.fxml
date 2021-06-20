@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXToggleButton?>
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,14 +11,27 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 
-<AnchorPane fx:id="container" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.homeScreen">
+<AnchorPane fx:id="container" styleClass="dark-theme" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.homeScreen">
    <children>
-      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="680.0" prefWidth="1080.0" stylesheets="@mainLight.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="680.0" prefWidth="1080.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane fx:id="MenuContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0">
                <children>
-                  <StackPane fx:id="optionStack" layoutX="49.33333206176758" prefHeight="680.0" prefWidth="260.0" styleClass="option-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <StackPane fx:id="optionStack" layoutX="49.33333206176758" prefHeight="680.0" prefWidth="260.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
+                        <AnchorPane fx:id="dataPane" prefHeight="200.0" prefWidth="260.0">
+                           <styleClass>
+                              <String fx:value="data-pane" />
+                              <String fx:value="option-pane" />
+                           </styleClass>
+                           <children>
+                              <Label layoutX="101.0" layoutY="48.0" styleClass="headings" text="Data" AnchorPane.leftAnchor="101.0" AnchorPane.rightAnchor="101.0" AnchorPane.topAnchor="48.0" />
+                              <JFXButton layoutY="174.0" onAction="#openItemScreen" prefHeight="48.0" prefWidth="0.0" ripplerFill="WHITE" styleClass="option-button" text="Items" textAlignment="CENTER" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="180.0" />
+                              <JFXButton layoutX="1.0" layoutY="232.0" onAction="#openCustomerScreen" prefHeight="48.0" prefWidth="0.0" ripplerFill="WHITE" styleClass="option-button" text="Customers" textAlignment="CENTER" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" />
+                              <Button layoutX="224.0" layoutY="10.0" minHeight="-Infinity" mnemonicParsing="false" onAction="#minimizeOptionsPane" prefHeight="25.0" prefWidth="25.0" styleClass="minimize" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0" />
+                              <JFXButton layoutY="284.0" onAction="#openExpenseScreen" prefHeight="48.0" prefWidth="0.0" ripplerFill="WHITE" styleClass="option-button" text="Expense" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
                         <AnchorPane fx:id="settingsPane" prefHeight="200.0" prefWidth="260.0">
                            <styleClass>
                               <String fx:value="settings-pane" />
@@ -24,28 +39,10 @@
                            </styleClass>
                            <children>
                               <Label layoutX="80.0" layoutY="48.0" styleClass="headings" text="Settings" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="48.0" />
-                              <JFXButton layoutX="7.0" layoutY="160.0" onAction="#openSetupDatabase" prefHeight="61.0" prefWidth="250.0" styleClass="option-button" text="Setup Database" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" />
-                              <Button layoutX="226.0" layoutY="6.0" mnemonicParsing="false" onAction="#minimizeOptionsPane" prefHeight="25.0" prefWidth="25.0" styleClass="minimize" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane fx:id="analyticsPane" prefHeight="200.0" prefWidth="260.0">
-                           <styleClass>
-                              <String fx:value="analytics-pane" />
-                              <String fx:value="option-pane" />
-                           </styleClass>
-                           <children>
-                              <Label layoutX="75.0" layoutY="48.0" styleClass="headings" text="Analytics" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="48.0" />
-                              <Button mnemonicParsing="false" onAction="#minimizeOptionsPane" prefHeight="25.0" prefWidth="25.0" styleClass="minimize" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane fx:id="orderPane" prefHeight="200.0" prefWidth="260.0">
-                           <styleClass>
-                              <String fx:value="order-pane" />
-                              <String fx:value="option-pane" />
-                           </styleClass>
-                           <children>
-                              <Label layoutX="94.0" layoutY="48.0" styleClass="headings" text="Order" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="94.0" AnchorPane.topAnchor="48.0" />
-                              <Button mnemonicParsing="false" onAction="#minimizeOptionsPane" prefHeight="25.0" prefWidth="25.0" styleClass="minimize" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0" />
+                              <JFXButton layoutX="7.0" layoutY="160.0" onAction="#openSetupDatabase" prefHeight="48.0" prefWidth="0.0" styleClass="option-button" text="Database" textAlignment="CENTER" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="180.0" />
+                              <Button layoutX="226.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#minimizeOptionsPane" prefHeight="25.0" prefWidth="25.0" styleClass="minimize" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0" />
+                              <JFXToggleButton fx:id="ThemeSwitch" maxHeight="-Infinity" prefHeight="62.0" prefWidth="258.0" styleClass="theme-button" text="  " toggleColor="WHITE" toggleLineColor="BLACK" unToggleColor="BLACK" unToggleLineColor="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                              <Label fx:id="ThemeIcon" layoutX="96.0" layoutY="632.0" prefHeight="32.0" prefWidth="32.0" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="60.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane fx:id="accountPane" prefHeight="680.0" prefWidth="260.0">
@@ -55,25 +52,36 @@
                            </styleClass>
                            <children>
                               <Label layoutX="79.0" layoutY="48.0" styleClass="headings" text="Account" textFill="WHITE" AnchorPane.leftAnchor="79.0" AnchorPane.rightAnchor="79.0" AnchorPane.topAnchor="48.0" />
-                              <JFXButton layoutY="164.0" onAction="#openEditOrgDetails" prefHeight="40.0" prefWidth="258.0" styleClass="option-button" text="Edit Details" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" />
-                              <JFXButton layoutX="1.0" layoutY="213.0" prefHeight="40.0" prefWidth="258.0" styleClass="option-button" text="Email Service" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" />
-                              <JFXButton layoutY="263.0" prefHeight="40.0" prefWidth="258.0" styleClass="option-button" text="Export Configration" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" />
-                              <Button mnemonicParsing="false" onAction="#minimizeOptionsPane" prefHeight="25.0" prefWidth="25.0" styleClass="minimize" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0" />
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane fx:id="dataPane" prefHeight="200.0" prefWidth="260.0">
-                           <styleClass>
-                              <String fx:value="data-pane" />
-                              <String fx:value="option-pane" />
-                           </styleClass>
-                           <children>
-                              <Label layoutX="101.0" layoutY="48.0" styleClass="headings" text="Data" AnchorPane.leftAnchor="101.0" AnchorPane.rightAnchor="101.0" AnchorPane.topAnchor="48.0" />
-                              <JFXButton layoutY="174.0" onAction="#openItemScreen" prefHeight="39.0" prefWidth="259.0" ripplerFill="WHITE" styleClass="option-button" text="Items" />
-                              <JFXButton layoutX="1.0" layoutY="215.0" onAction="#openCustomerScreen" prefHeight="39.0" prefWidth="259.0" ripplerFill="WHITE" styleClass="option-button" text="Customers" />
-                              <Button layoutX="224.0" layoutY="10.0" mnemonicParsing="false" onAction="#minimizeOptionsPane" prefHeight="25.0" prefWidth="25.0" styleClass="minimize" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0" />
+                              <JFXButton layoutY="164.0" onAction="#openEditOrgDetails" prefHeight="48.0" prefWidth="0.0" styleClass="option-button" text="Edit Details" textAlignment="CENTER" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="180.0" />
+                              <JFXButton layoutX="1.0" layoutY="282.0" prefHeight="48.0" prefWidth="0.0" styleClass="option-button" text="Export Configration" textAlignment="CENTER" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" />
+                              <Button minHeight="-Infinity" mnemonicParsing="false" onAction="#minimizeOptionsPane" prefHeight="25.0" prefWidth="25.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0">
+                                 <styleClass>
+                                    <String fx:value="minimize" />
+                                    <String fx:value="svg-button" />
+                                 </styleClass></Button>
+                              <HBox layoutX="90.0" layoutY="231.0" minHeight="-Infinity" prefHeight="48.0" styleClass="option-toggle" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="48.0" prefWidth="140.0" text="Email " />
+                                    <JFXToggleButton fx:id="emailToggle" minHeight="-Infinity" prefHeight="48.0" prefWidth="81.0" style="-fx-background-color: transparent;" text=" " toggleColor="WHITE" toggleLineColor="#777abf" />
+                                    <Button fx:id="advancedEmailSettings" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openAdvancedEmailSettings" prefHeight="22.0" prefWidth="22.0">
+                                       <HBox.margin>
+                                          <Insets top="12.0" />
+                                       </HBox.margin>
+                                       <styleClass>
+                                          <String fx:value="settings" />
+                                          <String fx:value="svg-button" />
+                                          <String fx:value="icon" />
+                                       </styleClass>
+                                    </Button>
+                                 </children>
+                              </HBox>
                            </children>
                         </AnchorPane>
                      </children>
+                     <styleClass>
+                        <String fx:value="option-pane" />
+                        <String fx:value="dark-theme" />
+                     </styleClass>
                   </StackPane>
                   <AnchorPane id="menu-bar" fx:id="menuBar" prefHeight="680.0" prefWidth="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -109,7 +117,7 @@
                         </Pane>
                         <Pane layoutX="5.0" layoutY="299.0" styleClass="menu-button-pane" AnchorPane.bottomAnchor="342.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
-                              <Button fx:id="orderButton" layoutX="6.0" layoutY="6.0" mnemonicParsing="false" onAction="#showOrderPane" prefHeight="38.0" prefWidth="38.0">
+                              <Button fx:id="orderButton" layoutX="6.0" layoutY="6.0" mnemonicParsing="false" onAction="#openInvoiceScreen" prefHeight="38.0" prefWidth="38.0">
                                  <styleClass>
                                     <String fx:value="menu-button" />
                                     <String fx:value="order" />
@@ -119,7 +127,7 @@
                         </Pane>
                         <Pane layoutX="5.0" layoutY="357.0" styleClass="menu-button-pane" AnchorPane.bottomAnchor="284.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                            <children>
-                              <Button fx:id="analyticsButton" layoutX="6.0" layoutY="7.0" mnemonicParsing="false" onAction="#showAnalyticsPane" prefHeight="38.0" prefWidth="38.0">
+                              <Button fx:id="analyticsButton" layoutX="6.0" layoutY="7.0" mnemonicParsing="false" onAction="#showAnalytics" prefHeight="38.0" prefWidth="38.0">
                                  <styleClass>
                                     <String fx:value="menu-button" />
                                     <String fx:value="analytics" />
@@ -141,7 +149,7 @@
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="workSpace" prefHeight="680.0" prefWidth="772.0" HBox.hgrow="ALWAYS" />
+            <AnchorPane fx:id="workSpace" prefHeight="680.0" prefWidth="772.0" styleClass="dark-theme" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
    </children>

@@ -10,6 +10,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.paint.Color?>
@@ -17,19 +18,23 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="680.0" prefWidth="1169.0" stylesheets="@../mainLight.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.itemScreen">
+<AnchorPane prefHeight="680.0" prefWidth="1169.0" styleClass="dark-theme" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.itemScreen">
     <children>
-          <TableView fx:id="itemTable" focusTraversable="false" onScroll="#scroll" prefHeight="634.0" prefWidth="825.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="338.0" AnchorPane.topAnchor="0.0">
-              <columns>
-                  <TableColumn fx:id="ITEM_ID" editable="false" prefWidth="167.33334851264954" styleClass="center" text="Item ID" />
-                  <TableColumn fx:id="ITEM_NAME" editable="false" prefWidth="379.99998474121094" styleClass="left" text="Item Name" />
-                  <TableColumn fx:id="ITEM_PRICE" editable="false" prefWidth="140.66668701171875" styleClass="right" text="Price" />
-                  <TableColumn fx:id="ITEM_SIZE" editable="false" prefWidth="122.666748046875" styleClass="right" text="Size" />
-              </columns>
-              <effect>
-                  <Blend />
-              </effect>
-          </TableView>
+      <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="338.0" AnchorPane.topAnchor="0.0">
+         <children>
+                <TableView fx:id="itemTable" focusTraversable="false" onScroll="#scroll" prefHeight="634.0" prefWidth="825.0" HBox.hgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="ITEM_ID" editable="false" prefWidth="196.6666921377182" styleClass="center" text="Item ID" />
+                        <TableColumn fx:id="ITEM_NAME" prefWidth="326.6666717529297" styleClass="left" text="Item Name" />
+                        <TableColumn fx:id="ITEM_PRICE" editable="false" prefWidth="154.0" styleClass="right" text="Price" />
+                        <TableColumn fx:id="ITEM_SIZE" editable="false" prefWidth="154.0" styleClass="right" text="Size" />
+                    </columns>
+                    <effect>
+                        <Blend />
+                    </effect>
+                </TableView>
+         </children>
+      </HBox>
           <Pane prefHeight="620.0" prefWidth="337.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <children>
                   <StackPane layoutX="16.0" layoutY="594.0">
@@ -87,24 +92,9 @@
                   <Font size="14.0" />
                </font>
             </Label>
-                  <Button layoutX="293.0" layoutY="11.0" mnemonicParsing="false" onAction="#itemScreenClosed" prefHeight="31.0" prefWidth="29.0">
-                      <styleClass>
-                          <String fx:value="cross" />
-                          <String fx:value="dark-grey" />
-                      </styleClass>
-            </Button>
-                  <Button fx:id="refresh" layoutX="251.0" layoutY="11.0" mnemonicParsing="false" onAction="#refreshItemTable" prefHeight="31.0" prefWidth="29.0">
-                      <styleClass>
-                          <String fx:value="refresh" />
-                          <String fx:value="dark-grey" />
-                      </styleClass>
-            </Button>
-                  <Button layoutX="286.0" layoutY="73.0" mnemonicParsing="false" onAction="#performSearch" prefHeight="38.0" prefWidth="38.0">
-                      <styleClass>
-                          <String fx:value="search" />
-                          <String fx:value="dark-grey" />
-                      </styleClass>
-            </Button>
+                  <Button layoutX="293.0" layoutY="11.0" mnemonicParsing="false" onAction="#itemScreenClosed" prefHeight="31.0" prefWidth="29.0" styleClass="cross" />
+                  <Button fx:id="refresh" layoutX="251.0" layoutY="11.0" mnemonicParsing="false" onAction="#refreshItemTable" prefHeight="31.0" prefWidth="29.0" styleClass="refresh" />
+                  <Button layoutX="286.0" layoutY="73.0" mnemonicParsing="false" onAction="#performSearch" prefHeight="38.0" prefWidth="38.0" styleClass="search" />
             <JFXTextField fx:id="searchBar" labelFloat="true" layoutX="9.0" layoutY="66.0" onKeyReleased="#searchEvent" prefHeight="36.0" prefWidth="265.0" promptText="Search">
                <font>
                   <Font size="18.0" />
