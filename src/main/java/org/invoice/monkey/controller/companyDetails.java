@@ -58,6 +58,7 @@ public class companyDetails {
     private static JSONObject address;
     private static JSONObject database;
     private static JSONObject email;
+    private static JSONObject invoice;
 
 
     static{
@@ -67,6 +68,7 @@ public class companyDetails {
         address = new JSONObject();
         database = new JSONObject();
         email = new JSONObject();
+        invoice = new JSONObject();
     }
 
 
@@ -195,12 +197,18 @@ public class companyDetails {
         email.put("custom", false);
         email.put("Advanced", null);
 
+        // Invoice
+        invoice.put("template", "DefaultTemplate");
+        invoice.put("background", "NONE");
+        invoice.put("currency", "NONE");
 
+        // Org Details
         orgDetails.put("Org-Details", orgDetail);
         orgDetails.put("Address", address);
         orgDetails.put("App-Configurations", appConfig);
         orgDetails.put("Database", database);
         orgDetails.put("Email", email);
+        orgDetails.put("Invoice", invoice);
 
 
 //        System.out.println(orgDetails.toJSONString());

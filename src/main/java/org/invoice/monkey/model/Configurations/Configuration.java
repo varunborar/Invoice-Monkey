@@ -26,6 +26,9 @@ public class Configuration {
     // Email details
     EmailDetails emailDetails;
 
+    //Invoice Details
+    InvoiceDetails invoiceDetails;
+
     public Configuration()
     {
         // Reading appConfig.json File to get details
@@ -56,6 +59,9 @@ public class Configuration {
             JSONObject email = (JSONObject) config.get("Email");
             emailDetails = new EmailDetails(email);
 
+            //INVOICE
+            JSONObject invoice = (JSONObject) config.get("Invoice");
+            invoiceDetails = new InvoiceDetails(invoice);
         }catch(Exception e)
         {
             e.printStackTrace();
@@ -90,6 +96,10 @@ public class Configuration {
         return this.appConfigurations;
     }
 
+    public InvoiceDetails getInvoiceDetails(){
+        return this.invoiceDetails;
+    }
+
     @SuppressWarnings("unchecked")
     public void refresh()
     {
@@ -100,6 +110,7 @@ public class Configuration {
         obj.put("Database", databaseDetails.getJSONObject());
         obj.put("App-Configurations", appConfigurations.getJSONObject());
         obj.put("Org-Details", orgDetails.getJSONObject());
+        obj.put("Invoice", invoiceDetails.getJSONObject());
 
         try {
             File appConfigFile = new File("org.data\\appConfig.json");

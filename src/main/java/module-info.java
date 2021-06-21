@@ -29,5 +29,9 @@ module org.invoice.monkey {
     exports org.invoice.monkey.controller;
     exports org.invoice.monkey.model;
     exports org.invoice.monkey.model.Configurations;
+    exports org.invoice.monkey.utils;
+    exports org.invoice.monkey.utils.invoicegenerator.templates;
+    exports org.invoice.monkey.utils.invoicegenerator.background;
+
 
 }

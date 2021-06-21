@@ -280,6 +280,14 @@
 }
 
 /*Advance settings*/
+
+/*Invoice Settings*/
+.invoice-settings .headings{
+    -fx-font-size: 18px;
+    -fx-text-fill: -fx-text-color;
+    -fx-padding: 4px 0px 4px 12px;
+}
+/*Invoice Settings*/
 /* Table View*/
 .table-view{
     -fx-font-family: "Segoe UI";

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane prefHeight="546.0" prefWidth="597.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.InvoiceSettings">
+   <children>
+      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox prefHeight="544.0" prefWidth="620.0">
+               <children>
+                  <Label prefHeight="35.0" prefWidth="595.0" styleClass="headings" text="Background" />
+                  <ScrollPane vbarPolicy="NEVER">
+                     <content>
+                        <HBox fx:id="backgroundCarouselContainer" prefHeight="300.0" prefWidth="595.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+   <styleClass>
+      <String fx:value="invoice-settings" />
+      <String fx:value="dark-theme" />
+   </styleClass>
+</AnchorPane>

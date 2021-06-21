@@ -385,4 +385,16 @@ public class homeScreen {
         }
     }
 
+    public void openInvoiceSettings()
+    {
+        try{
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("invoiceSettings.fxml")));
+            setWorkSpace(root);
+        }catch(Exception e)
+        {
+            //System.out.println("Exception in home-screen:" + e.getClass().getName() + ": " + e.getMessage() + "(" + e.getCause() + ")");
+            e.printStackTrace();
+        }
+    }
+
 }

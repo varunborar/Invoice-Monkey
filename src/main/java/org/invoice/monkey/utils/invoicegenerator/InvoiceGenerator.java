@@ -9,11 +9,15 @@ import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.AreaBreakType;
 import org.invoice.monkey.model.Configurations.Configuration;
+import org.invoice.monkey.model.Configurations.InvoiceDetails;
 import org.invoice.monkey.model.Customer;
 import org.invoice.monkey.model.Invoice;
 import org.invoice.monkey.model.InvoiceItem;
+import org.invoice.monkey.utils.invoicegenerator.background.Background;
+import org.invoice.monkey.utils.invoicegenerator.background.BackgroundType;
 import org.invoice.monkey.utils.invoicegenerator.templates.DefaultInvoiceTemplate;
 import org.invoice.monkey.utils.invoicegenerator.templates.InvoiceTemplate;
+import org.invoice.monkey.utils.invoicegenerator.templates.TemplateType;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -27,13 +31,26 @@ public class InvoiceGenerator {
     private InvoiceTemplate template;
     private String destination;
 
+    private BackgroundType backgroundType;
+
     private PdfDocument pdfDoc;
     private Document document;
 
     public InvoiceGenerator(Invoice invoice) {
         this.invoice = invoice;
         this.configuration = new Configuration();
-        this.template = new DefaultInvoiceTemplate(configuration, invoice);
+        this.backgroundType = configuration.getInvoiceDetails().getBackground();
+
+        TemplateType template = configuration.getInvoiceDetails().getTemplate();
+
+        switch(template)
+        {
+            case DefaultTemplate:
+                this.template = new DefaultInvoiceTemplate(configuration, invoice);
+                break;
+        }
+
+
         this.destination = configuration.getAppConfigurations().getDefaultLocation() + "\\" + invoice.getRawInvoiceID() + ".pdf";
     }
 
@@ -44,8 +61,9 @@ public class InvoiceGenerator {
             pdfDoc = new PdfDocument(writer);
 
 
-            pdfDoc.addEventHandler(PdfDocumentEvent.START_PAGE, template.getFooterEvent());
-            pdfDoc.addEventHandler(PdfDocumentEvent.END_PAGE, template.getHeaderEvent());
+            pdfDoc.addEventHandler(PdfDocumentEvent.END_PAGE, new Background(backgroundType));
+            pdfDoc.addEventHandler(PdfDocumentEvent.END_PAGE, template.getFooterEvent());
+            pdfDoc.addEventHandler(PdfDocumentEvent.START_PAGE, template.getHeaderEvent());
 
             pdfDoc.setDefaultPageSize(PageSize.A4);
             pdfDoc.addNewPage();

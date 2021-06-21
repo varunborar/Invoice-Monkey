@@ -43,6 +43,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
     private final String subTotal;
     private final String discount;
     private final String total;
+    private final String currency;
 
     public DefaultInvoiceTemplate(Configuration configuration, Invoice invoice)
     {
@@ -59,6 +60,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
         this.subTotal = String.format("%.2f",invoice.getSubTotal());
         this.discount = String.format("%.2f",invoice.getDiscount());
         this.total = String.format("%.2f",invoice.getTotal());
+        this.currency = configuration.getInvoiceDetails().getCurrency().getCurrencySymbol();
     }
 
     private Cell getCell(String content, Float Size)
@@ -220,7 +222,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                 );
 
                 itemTableTemplate.addCell(new Cell().add(
-                        new Paragraph(String.format("%.2f", items[i].getPrice()))
+                        new Paragraph(String.format("%s%.2f",currency, items[i].getPrice()))
                         ).setTextAlignment(TextAlignment.RIGHT)
                                 .setBorderTop(Border.NO_BORDER)
                                 .setHeight(toPoints(0.7f))
@@ -236,7 +238,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                 );
 
                 itemTableTemplate.addCell(new Cell().add(
-                        new Paragraph(String.format("%.2f", items[i].getTotal()))
+                        new Paragraph(String.format("%s%.2f",currency, items[i].getTotal()))
                         ).setTextAlignment(TextAlignment.RIGHT)
                                 .setBorderTop(Border.NO_BORDER)
                                 .setHeight(toPoints(0.7f))
@@ -255,7 +257,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                 );
 
                 itemTableTemplate.addCell(new Cell().add(
-                        new Paragraph(String.format("%.2f", items[i].getPrice()))
+                        new Paragraph(String.format("%s%.2f",currency, items[i].getPrice()))
                         ).setTextAlignment(TextAlignment.RIGHT)
                                 .setBorderBottom(Border.NO_BORDER)
                                 .setBorderTop(Border.NO_BORDER)
@@ -273,7 +275,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                 );
 
                 itemTableTemplate.addCell(new Cell().add(
-                        new Paragraph(String.format("%.2f", items[i].getTotal()))
+                        new Paragraph(String.format("%s%.2f",currency, items[i].getTotal()))
                         ).setTextAlignment(TextAlignment.RIGHT)
                                 .setBorderBottom(Border.NO_BORDER)
                                 .setBorderTop(Border.NO_BORDER)
@@ -298,7 +300,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                     );
 
                     itemTableTemplate.addCell(new Cell().add(
-                            new Paragraph(String.format("%.2f", items[i].getPrice()))
+                            new Paragraph(String.format("%s%.2f",currency, items[i].getPrice()))
                             ).setTextAlignment(TextAlignment.RIGHT)
                                     .setBorderTop(Border.NO_BORDER)
                                     .setHeight(toPoints(0.7f))
@@ -314,7 +316,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                     );
 
                     itemTableTemplate.addCell(new Cell().add(
-                            new Paragraph(String.format("%.2f", items[i].getTotal()))
+                            new Paragraph(String.format("%s%.2f",currency, items[i].getTotal()))
                             ).setTextAlignment(TextAlignment.RIGHT)
                                     .setBorderTop(Border.NO_BORDER)
                                     .setHeight(toPoints(0.7f))
@@ -333,7 +335,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                     );
 
                     itemTableTemplate.addCell(new Cell().add(
-                            new Paragraph(String.format("%.2f", items[i].getPrice()))
+                            new Paragraph(String.format("%s%.2f",currency, items[i].getPrice()))
                             ).setTextAlignment(TextAlignment.RIGHT)
                                     .setBorderBottom(Border.NO_BORDER)
                                     .setBorderTop(Border.NO_BORDER)
@@ -351,7 +353,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                     );
 
                     itemTableTemplate.addCell(new Cell().add(
-                            new Paragraph(String.format("%.2f", items[i].getTotal()))
+                            new Paragraph(String.format("%s%.2f",currency, items[i].getTotal()))
                             ).setTextAlignment(TextAlignment.RIGHT)
                                     .setBorderBottom(Border.NO_BORDER)
                                     .setBorderTop(Border.NO_BORDER)
@@ -368,23 +370,19 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
         tables.lastElement().addCell(getCell("", 10f));
         tables.lastElement().addCell(getCell("", 10f));
         tables.lastElement().addCell(getCell("Sub-Total: ", 10f).setTextAlignment(TextAlignment.RIGHT));
-        tables.lastElement().addCell(getCell(subTotal, 10f).setTextAlignment(TextAlignment.RIGHT));
+        tables.lastElement().addCell(getCell(currency + " " + subTotal, 10f).setTextAlignment(TextAlignment.RIGHT));
 
         tables.lastElement().addCell(getCell("", 10f));
         tables.lastElement().addCell(getCell("", 10f));
         tables.lastElement().addCell(getCell("Discount: ", 10f).setTextAlignment(TextAlignment.RIGHT));
-        tables.lastElement().addCell(getCell(discount, 10f).setTextAlignment(TextAlignment.RIGHT));
+        tables.lastElement().addCell(getCell(currency + " " + discount, 10f).setTextAlignment(TextAlignment.RIGHT));
 
         tables.lastElement().addCell(getCell("", 10f));
         tables.lastElement().addCell(getCell("", 10f));
         tables.lastElement().addCell(getCell("Total: ", 10f).setTextAlignment(TextAlignment.RIGHT));
-        tables.lastElement().addCell(getCell(total, 10f).setTextAlignment(TextAlignment.RIGHT));
+        tables.lastElement().addCell(getCell(currency + " " + total, 10f).setTextAlignment(TextAlignment.RIGHT));
 
         return tables;
-    }
-
-    public IEventHandler getBackgroundEventHandler() {
-        return null;
     }
 
     public IEventHandler getHeaderEvent()

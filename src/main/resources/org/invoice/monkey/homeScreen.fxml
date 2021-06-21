@@ -32,19 +32,6 @@
                               <JFXButton layoutY="284.0" onAction="#openExpenseScreen" prefHeight="48.0" prefWidth="0.0" ripplerFill="WHITE" styleClass="option-button" text="Expense" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="settingsPane" prefHeight="200.0" prefWidth="260.0">
-                           <styleClass>
-                              <String fx:value="settings-pane" />
-                              <String fx:value="option-pane" />
-                           </styleClass>
-                           <children>
-                              <Label layoutX="80.0" layoutY="48.0" styleClass="headings" text="Settings" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="48.0" />
-                              <JFXButton layoutX="7.0" layoutY="160.0" onAction="#openSetupDatabase" prefHeight="48.0" prefWidth="0.0" styleClass="option-button" text="Database" textAlignment="CENTER" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="180.0" />
-                              <Button layoutX="226.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#minimizeOptionsPane" prefHeight="25.0" prefWidth="25.0" styleClass="minimize" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0" />
-                              <JFXToggleButton fx:id="ThemeSwitch" maxHeight="-Infinity" prefHeight="62.0" prefWidth="258.0" styleClass="theme-button" text="  " toggleColor="WHITE" toggleLineColor="BLACK" unToggleColor="BLACK" unToggleLineColor="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                              <Label fx:id="ThemeIcon" layoutX="96.0" layoutY="632.0" prefHeight="32.0" prefWidth="32.0" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="60.0" />
-                           </children>
-                        </AnchorPane>
                         <AnchorPane fx:id="accountPane" prefHeight="680.0" prefWidth="260.0">
                            <styleClass>
                               <String fx:value="account-pane" />
@@ -75,6 +62,20 @@
                                     </Button>
                                  </children>
                               </HBox>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="settingsPane" prefHeight="200.0" prefWidth="260.0">
+                           <styleClass>
+                              <String fx:value="settings-pane" />
+                              <String fx:value="option-pane" />
+                           </styleClass>
+                           <children>
+                              <JFXButton layoutX="7.0" layoutY="160.0" onAction="#openSetupDatabase" prefHeight="48.0" prefWidth="0.0" styleClass="option-button" text="Database" textAlignment="CENTER" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="180.0" />
+                              <Button layoutX="226.0" layoutY="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#minimizeOptionsPane" prefHeight="25.0" prefWidth="25.0" styleClass="minimize" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0" />
+                              <JFXToggleButton fx:id="ThemeSwitch" maxHeight="-Infinity" prefHeight="62.0" prefWidth="258.0" styleClass="theme-button" text="  " toggleColor="WHITE" toggleLineColor="BLACK" unToggleColor="BLACK" unToggleLineColor="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                              <Label fx:id="ThemeIcon" layoutX="96.0" layoutY="632.0" prefHeight="32.0" prefWidth="32.0" AnchorPane.bottomAnchor="16.0" AnchorPane.rightAnchor="60.0" />
+                              <Label layoutX="80.0" layoutY="48.0" styleClass="headings" text="Settings" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="48.0" />
+                              <JFXButton layoutX="5.0" layoutY="235.0" onAction="#openInvoiceSettings" prefHeight="48.0" prefWidth="38.0" styleClass="option-button" text="Invoice" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                            </children>
                         </AnchorPane>
                      </children>
