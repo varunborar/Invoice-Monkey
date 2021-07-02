@@ -246,7 +246,7 @@ public class itemScreen {
 
     public void itemScreenClosed()
     {
-        homeScreen.setWorkSpaceArea("defaultWidgetScreen.fxml");
+        homeScreen.setWorkSpaceArea("home.fxml", false);
     }
 
     public void scroll(ScrollEvent sc)

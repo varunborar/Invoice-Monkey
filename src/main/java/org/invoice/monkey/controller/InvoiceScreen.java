@@ -1,6 +1,7 @@
 package org.invoice.monkey.controller;
 
 import com.jfoenix.controls.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -175,7 +176,7 @@ public class InvoiceScreen {
         }
     }
 
-    public void generateInvoice()
+    public void generateInvoice(ActionEvent event)
     {
         if (discount.getText().equals("")) {
             discount.setText("0.0");
@@ -224,6 +225,30 @@ public class InvoiceScreen {
             }
         }
 
+        cancel(event);
+    }
 
+    public void cancel(ActionEvent event)
+    {
+        customer.setText("");
+        due.setValue("");
+        type.setValue("");
+
+        date.setValue(java.time.LocalDate.now());
+        time.setValue(java.time.LocalTime.now());
+
+        itemDescription.setText("");
+        quantity.setText("");
+        rate.setText("");
+
+        discount.setText("");
+        notes.setText("");
+
+        SubTotal.setText("");
+        Discount.setText("");
+        Total.setText("");
+
+        invoiceItemTable.getItems().clear();
+        addItem.setDisable(true);
     }
 }

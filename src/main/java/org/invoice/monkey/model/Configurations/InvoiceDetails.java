@@ -30,7 +30,7 @@ public class InvoiceDetails {
 
     public void setCurrency(CurrencyType currency)
     {
-        this.currency = currency.toString();
+        this.currency = currency.getCurrencyCode();
     }
 
     public TemplateType getTemplate()

@@ -39,10 +39,10 @@
             <JFXTextField fx:id="rate" editable="false" labelFloat="true" layoutX="310.0" layoutY="238.0" prefHeight="31.0" prefWidth="80.0" promptText="Rate" />
             <JFXButton fx:id="addItem" layoutX="399.0" layoutY="241.0" onAction="#addItem" prefHeight="31.0" prefWidth="80.0" styleClass="supp-color" text="Add" />
             <JFXTextField fx:id="discount" labelFloat="true" layoutX="22.0" layoutY="315.0" onKeyReleased="#addDiscount" promptText="Discount" />
-            <JFXComboBox fx:id="discountType" labelFloat="true" layoutX="218.0" layoutY="315.0" onAction="#addDiscount" prefHeight="31.0" prefWidth="80.0" />
+            <JFXComboBox fx:id="discountType" labelFloat="true" layoutX="218.0" layoutY="309.0" onAction="#addDiscount" prefHeight="31.0" prefWidth="80.0" />
             <Separator layoutX="1.0" layoutY="401.0" prefHeight="3.0" prefWidth="495.0" />
             <JFXTextArea fx:id="notes" labelFloat="true" layoutX="16.0" layoutY="417.0" prefHeight="142.0" prefWidth="473.0" promptText="Notes/Terms" />
-            <JFXButton fx:id="cancel" layoutX="269.0" layoutY="635.0" prefHeight="31.0" prefWidth="100.0" ripplerFill="BLACK" styleClass="red" text="Cancel" />
+            <JFXButton fx:id="cancel" layoutX="269.0" layoutY="635.0" onAction="#cancel" prefHeight="31.0" prefWidth="100.0" ripplerFill="BLACK" styleClass="red" text="Cancel" />
             <JFXButton fx:id="save" layoutX="379.0" layoutY="635.0" onAction="#generateInvoice" prefHeight="31.0" prefWidth="100.0" ripplerFill="BLACK" styleClass="green" text="Save" />
             <JFXComboBox fx:id="due" labelFloat="true" layoutX="20.0" layoutY="116.0" prefHeight="31.0" prefWidth="93.0" promptText="Due" />
             <JFXComboBox fx:id="type" labelFloat="true" layoutX="124.0" layoutY="116.0" prefHeight="31.0" prefWidth="123.0" promptText="Type" />

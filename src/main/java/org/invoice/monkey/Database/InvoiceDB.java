@@ -4,8 +4,6 @@ import org.invoice.monkey.model.Invoice;
 import org.invoice.monkey.model.InvoiceItem;
 
 import java.sql.*;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Vector;
 
 public class InvoiceDB extends database{
@@ -111,22 +109,136 @@ public class InvoiceDB extends database{
         }
     }
 
-    public Vector<Invoice> getInvoices(Integer limit)
+    public Vector<Invoice> getInvoices(Integer limit, Boolean dueType) throws SQLException
     {
         Vector<Invoice> invoiceList = new Vector<>();
 
+        String getQuery;
 
+        if (limit == -1 && dueType)
+        {
+            getQuery = "SELECT * FROM Invoice " +
+                    "WHERE Invoice_Due = 'DUE';";
+        }
+        else if (limit != -1 && dueType)
+        {
+            getQuery = "SELECT * FROM Invoice " +
+                    "WHERE Invoice_Due = 'DUE' " +
+                    "LIMIT ?;";
+        }
+        else if (limit == -1)
+        {
+            getQuery = "SELECT * FROM Invoice ";
+        }
+        else
+        {
+            getQuery = "SELECT * FROM Invoice " +
+                    "LIMIT ?";
+        }
+
+        Connection con = getCon();
+        PreparedStatement query = con.prepareStatement(getQuery);
+
+        if(limit != -1)
+            query.setInt(1, limit);
+
+        ResultSet rs = query.executeQuery();
+
+        while(rs.next())
+        {
+            Invoice invoice = new Invoice();
+
+            invoice.setInvoiceID(rs.getLong("Invoice_ID"));
+            invoice.setCustomer(new CustomerDB().getCustomer(rs.getLong("Customer_ID")));
+            invoice.setDate(rs.getDate("Invoice_Date"));
+            invoice.setTime(rs.getTime("Invoice_Time"));
+            invoice.setType(rs.getString("Invoice_Type"));
+            invoice.setDue(rs.getString("Invoice_Due"));
+            invoice.setSubTotal(rs.getFloat("Sub_Total"));
+            invoice.setDiscount(rs.getFloat("Discount"));
+            invoice.calTotal();
+            invoice.addAllItems(new InvoiceItemDB().getItems(invoice.getRawInvoiceID()));
+
+            invoiceList.add(invoice);
+        }
 
         return invoiceList;
     }
 
-    public Vector<Invoice> getInvoiceByDate(Date start, Date end)
+    public Vector<Invoice> getScheduledInvoices(Integer limit) throws SQLException
     {
         Vector<Invoice> invoiceList = new Vector<>();
+
+        String getQuery;
+
+        if (limit == -1)
+        {
+            getQuery = "SELECT * FROM Invoice " +
+                    "WHERE Invoice_Type = 'Scheduled';";
+        }
+        else {
+            getQuery = "SELECT * FROM Invoice " +
+                    "WHERE Invoice_Type = 'Scheduled' " +
+                    "LIMIT ?;";
+        }
+
+
+        Connection con = getCon();
+        PreparedStatement query = con.prepareStatement(getQuery);
+
+        if(limit != -1)
+            query.setInt(1, limit);
+
+        ResultSet rs = query.executeQuery();
+
+        while(rs.next())
+        {
+            Invoice invoice = new Invoice();
+
+            invoice.setInvoiceID(rs.getLong("Invoice_ID"));
+            invoice.setCustomer(new CustomerDB().getCustomer(rs.getLong("Customer_ID")));
+            invoice.setDate(rs.getDate("Invoice_Date"));
+            invoice.setTime(rs.getTime("Invoice_Time"));
+            invoice.setType(rs.getString("Invoice_Type"));
+            invoice.setDue(rs.getString("Invoice_Due"));
+            invoice.setSubTotal(rs.getFloat("Sub_Total"));
+            invoice.setDiscount(rs.getFloat("Discount"));
+            invoice.calTotal();
+            invoice.addAllItems(new InvoiceItemDB().getItems(invoice.getRawInvoiceID()));
+
+            invoiceList.add(invoice);
+        }
 
         return invoiceList;
     }
 
+    public void updateInvoiceDue(Long invoiceID) throws SQLException
+    {
+        String updateQuery = "UPDATE Invoice " +
+                "SET Invoice_Due = 'PAID' " +
+                "WHERE Invoice_ID = ?";
+
+        Connection con = getCon();
+        PreparedStatement query = con.prepareStatement(updateQuery);
+        query.setLong(1, invoiceID);
+        query.executeUpdate();
+        query.close();
+        con.close();
+    }
+
+    public void updateInvoiceSchedule(Long invoiceID) throws SQLException
+    {
+        String updateQuery = "UPDATE Invoice " +
+                "SET Invoice_Type = 'Receipt' " +
+                "WHERE Invoice_ID = ?";
+
+        Connection con = getCon();
+        PreparedStatement query = con.prepareStatement(updateQuery);
+        query.setLong(1, invoiceID);
+        query.executeUpdate();
+        query.close();
+        con.close();
+    }
 }
 
 

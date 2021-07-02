@@ -8,10 +8,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import org.invoice.monkey.Database.database;
 import org.invoice.monkey.model.Configurations.Configuration;
-import org.invoice.monkey.utils.UIExceptions.DatabaseConnectionException;
+import org.invoice.monkey.utils.UI.DatabaseConnectionException;
 import org.invoice.monkey.utils.Validator;
-
-import java.sql.SQLException;
 
 public class SetupDatabase {
 

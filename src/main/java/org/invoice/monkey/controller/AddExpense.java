@@ -30,7 +30,7 @@ public class AddExpense {
 
     public void initialize()
     {
-        category.getItems().addAll("RENT", "EQUIPMENT", "INVENTORY", "LICENSE", "INSURANCE", "MARKETING", "STAFF");
+        category.getItems().addAll("RENT", "EQUIPMENT", "INVENTORY", "LICENSE", "INSURANCE", "MARKETING", "STAFF", "OTHERS");
     }
 
 

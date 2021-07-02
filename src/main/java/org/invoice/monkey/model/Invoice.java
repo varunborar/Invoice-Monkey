@@ -37,6 +37,23 @@ public class Invoice {
         description = "";
     }
 
+    public Invoice(Invoice invoice)
+    {
+        this.invoiceID = invoice.invoiceID;
+        this.customer = invoice.customer;
+        this.itemList = invoice.itemList;
+        this.type = invoice.type;
+        this.due = invoice.due;
+        this.subTotal = invoice.subTotal;
+        this.discount = invoice.discount;
+        this.total = invoice.total;
+        this.date = invoice.date;
+        this.time = invoice.time;
+        this.description = invoice.description;
+    }
+
+
+
     public void setInvoiceID(Long invoiceID)
     {
         this.invoiceID = invoiceID;

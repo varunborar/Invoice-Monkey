@@ -2,7 +2,7 @@ package org.invoice.monkey.Database;
 
 import org.invoice.monkey.App;
 import org.invoice.monkey.model.Configurations.Configuration;
-import org.invoice.monkey.utils.UIExceptions.DatabaseConnectionException;
+import org.invoice.monkey.utils.UI.DatabaseConnectionException;
 
 
 import java.sql.*;

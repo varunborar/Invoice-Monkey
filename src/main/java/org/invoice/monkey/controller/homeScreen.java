@@ -18,8 +18,9 @@ import org.invoice.monkey.App;
 import org.invoice.monkey.Database.database;
 import org.invoice.monkey.model.Configurations.Configuration;
 import org.invoice.monkey.utils.Animation;
-import org.invoice.monkey.utils.UIExceptions.DatabaseConnectionException;
 import org.invoice.monkey.utils.mail.MailerFactory;
+import org.invoice.monkey.utils.notification.ErrorNotification;
+import org.invoice.monkey.utils.notification.Notification;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -77,9 +78,10 @@ public class homeScreen {
 
     private Boolean isOptionStackVisible;
 
-    public static void setWorkSpaceArea(String fxml)
+    public static void setWorkSpaceArea(String fxml, Boolean minimize)
     {
-
+        if(minimize)
+            HomeScreen.minimizeOptionsPane();
         try{
             AnchorPane test = FXMLLoader.load(Objects.requireNonNull(homeScreen.class.getResource(fxml)));
             HomeScreen.setWorkSpace(test);
@@ -168,14 +170,14 @@ public class homeScreen {
 
         try
         {
-            AnchorPane test = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("defaultWidgetScreen.fxml")));
+            AnchorPane test = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("home.fxml")));
             setWorkSpace(test);
 
             database.checkConnection(App.getConfiguration());
         }
         catch(Exception e)
         {
-            System.out.println(e.getClass().getName() + ": " + e.getCause() + ", " + e.getMessage());
+            Notification.sendErrorNotification(ErrorNotification.DatabaseConnectionError);
         }
     }
 
@@ -218,11 +220,12 @@ public class homeScreen {
     public void homeButton(ActionEvent event)
     {
         try{
-            AnchorPane test = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("defaultWidgetScreen.fxml")));
+            AnchorPane test = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("home.fxml")));
             setWorkSpace(test);
         }
         catch(Exception e)
         {
+            e.printStackTrace();
             System.out.println(e.getClass().getName() + ": " + e.getMessage() + "(" + e.getCause() + ")");
         }
     }
@@ -358,6 +361,14 @@ public class homeScreen {
     {
         menuButtonClicked(event);
         minimizeOptionsPane();
+        try{
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("analytics.fxml")));
+            setWorkSpace(root);
+        }catch(Exception e)
+        {
+            //System.out.println("Exception in home-screen:" + e.getClass().getName() + ": " + e.getMessage() + "(" + e.getCause() + ")");
+            e.printStackTrace();
+        }
     }
 
     public void openAdvancedEmailSettings()

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="CarouselNode" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="330.0" prefWidth="210.0" stylesheets="@CarouselNode.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="ImageContainer" cache="true" cacheHint="QUALITY" fitHeight="297.0" fitWidth="210.0" pickOnBounds="true" preserveRatio="true">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin></ImageView>
+      <JFXRadioButton fx:id="CheckBox" text=" ">
+         <VBox.margin>
+            <Insets left="98.0" top="6.0" />
+         </VBox.margin>
+      </JFXRadioButton>
+   </children>
+</VBox>

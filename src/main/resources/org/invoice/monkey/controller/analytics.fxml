@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="680.0" prefWidth="1073.0" styleClass="dark-theme" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.invoice.monkey.controller.Analytics">
+   <children>
+      <VBox layoutX="38.0" layoutY="28.0" prefHeight="680.0" prefWidth="1080.0" spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="TOP_RIGHT" prefHeight="40.0" prefWidth="1073.0" spacing="20.0">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <children>
+                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="50.0" text="FROM" textAlignment="RIGHT">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="4.0" top="4.0" />
+                     </HBox.margin>
+                  </Label>
+                  <JFXDatePicker fx:id="FROM">
+                     <HBox.margin>
+                        <Insets top="4.0" />
+                     </HBox.margin>
+                  </JFXDatePicker>
+                  <Label alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="26.0" text="TO" textAlignment="RIGHT">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="4.0" top="4.0" />
+                     </HBox.margin>
+                  </Label>
+                  <JFXDatePicker fx:id="TO">
+                     <HBox.margin>
+                        <Insets right="24.0" top="4.0" />
+                     </HBox.margin>
+                  </JFXDatePicker>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="180.0" prefWidth="1073.0" spacing="60.0">
+               <children>
+                  <AnchorPane prefHeight="160.0" prefWidth="200.0" style="-fx-background-radius: 8px;; -fx-background-color: #d0ffc2;;">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="78.0" prefWidth="207.0" text="Total Orders" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="TotalOrders" alignment="CENTER" layoutX="26.0" layoutY="82.0" prefHeight="124.0" prefWidth="207.0" text="250" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <font>
+                              <Font size="40.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </HBox.margin>
+                  </AnchorPane>
+                  <AnchorPane prefWidth="200.0" style="-fx-background-radius: 8px;; -fx-background-color: #ffefc2;;">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="78.0" prefWidth="207.0" text="Sales" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="Sales" alignment="CENTER" layoutX="26.0" layoutY="82.0" prefHeight="124.0" prefWidth="207.0" text="50000" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <font>
+                              <Font size="40.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </HBox.margin>
+                  </AnchorPane>
+                  <AnchorPane prefWidth="200.0" style="-fx-background-radius: 8px;; -fx-background-color: #ffc2e7;;">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="78.0" prefWidth="207.0" text="Expense" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="Expense" alignment="CENTER" layoutX="26.0" layoutY="82.0" prefHeight="124.0" prefWidth="207.0" text="32000" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <font>
+                              <Font size="40.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </HBox.margin>
+                  </AnchorPane>
+                  <AnchorPane prefWidth="200.0" style="-fx-background-radius: 8px;; -fx-background-color: #ffc2c2;;">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="78.0" prefWidth="207.0" text="Due" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="Due" alignment="CENTER" layoutX="26.0" layoutY="82.0" prefHeight="124.0" prefWidth="207.0" text="6000" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <font>
+                              <Font size="40.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </HBox.margin>
+                  </AnchorPane>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="430.0" prefWidth="1073.0">
+               <children>
+                  <PieChart fx:id="ExpensesChart" prefHeight="323.0" prefWidth="354.0" />
+                  <PieChart fx:id="OrdersChart" prefHeight="323.0" prefWidth="354.0" />
+                  <PieChart fx:id="SalesChart" prefHeight="323.0" prefWidth="354.0" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

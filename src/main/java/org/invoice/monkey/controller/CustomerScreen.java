@@ -216,7 +216,7 @@ public class CustomerScreen {
 
     public void screenClosed()
     {
-        homeScreen.setWorkSpaceArea("defaultWidgetScreen.fxml");
+        homeScreen.setWorkSpaceArea("home.fxml", false);
     }
 
     public void scroll(ScrollEvent sc)

@@ -1,4 +1,4 @@
-package org.invoice.monkey.utils.UIExceptions;
+package org.invoice.monkey.utils.UI;
 
 public class DatabaseConnectionException extends Exception{
     private String msg;

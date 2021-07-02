@@ -3,6 +3,7 @@ package org.invoice.monkey.utils.invoicegenerator.templates;
 import com.itextpdf.io.font.FontProgramFactory;
 import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.colors.ColorConstants;
 import com.itextpdf.kernel.events.Event;
 import com.itextpdf.kernel.events.IEventHandler;
 import com.itextpdf.kernel.events.PdfDocumentEvent;
@@ -20,24 +21,20 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.VerticalAlignment;
-import org.invoice.monkey.App;
 import org.invoice.monkey.model.Configurations.Address;
 import org.invoice.monkey.model.Configurations.Configuration;
 import org.invoice.monkey.model.Configurations.OrgDetails;
 import org.invoice.monkey.model.Customer;
 import org.invoice.monkey.model.Invoice;
 import org.invoice.monkey.model.InvoiceItem;
-import org.invoice.monkey.utils.invoicegenerator.InvoiceGenerator;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
-import java.util.Set;
 import java.util.Vector;
 
-
-public class DefaultInvoiceTemplate implements InvoiceTemplate{
+public class TemplateA implements InvoiceTemplate{
 
     private final OrgDetails orgDetails;
     private final Address address;
@@ -55,7 +52,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
     private final String currency;
     private PdfFont font;
 
-    public DefaultInvoiceTemplate(Configuration configuration, Invoice invoice)
+    public TemplateA(Configuration configuration, Invoice invoice)
     {
         this.orgDetails = configuration.getOrgDetails();
         this.address = configuration.getAddress();
@@ -90,9 +87,48 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
 
     public Table getHeader()
     {
-        float[] colWidths = {221.102f, 176.315f, 128.693f};
+        float[] colWidths = {toPoints(5.25f), toPoints(13.20f)};
         Table header = new Table(colWidths);
-        header.setMarginBottom(35f);
+        header.setMarginBottom(15f);
+
+        try {
+            header.addCell(new Cell(2, 1)
+                    .add(new Image(ImageDataFactory.create(logo))
+                            .setAutoScale(true)
+                            .setMarginLeft(9f))
+                    .setBorder(Border.NO_BORDER)
+                    .setHeight(toPoints(4f)));
+        }catch(MalformedURLException mf)
+        {
+            System.out.println(mf.getClass().getName() + ": " + mf.getMessage());
+        }
+
+        header.addCell(getCell(orgDetails.getOrgName().toUpperCase(),16f)
+                .setTextAlignment(TextAlignment.RIGHT)
+                .setVerticalAlignment(VerticalAlignment.BOTTOM));
+
+        header.addCell(getCell( String.format("%s,\n%s, %s,\n Postal-Code: %s\n%s\n%s",
+                address.getOrgAddress(),
+                address.getOrgCity(),
+                address.getOrgState(),
+                address.getOrgPostalCode(),
+                orgDetails.getOrgNumber(),
+                orgDetails.getOrgEmail()),
+                9f)
+                .setTextAlignment(TextAlignment.RIGHT)
+                .setVerticalAlignment(VerticalAlignment.BOTTOM));
+
+        header.setBorder(Border.NO_BORDER);
+
+        return header;
+    }
+
+    public Table getDetails()
+    {
+
+        float[] colWidths = {toPoints(9.2f), toPoints(9.2f)};
+        Table header = new Table(colWidths);
+        header.setMarginBottom(15f);
 
         header.addCell(getCell("Invoice ID:" + String.format("#%s", InvoiceID),
                 9f )
@@ -100,53 +136,23 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                 .setTextAlignment(TextAlignment.LEFT)
                 .setVerticalAlignment(VerticalAlignment.MIDDLE));
 
-        header.addCell(getCell(orgDetails.getOrgName().toUpperCase(),16f)
+        header.addCell(getCell(String.format("Date: %s", this.Date), 9f)
                 .setTextAlignment(TextAlignment.RIGHT)
                 .setVerticalAlignment(VerticalAlignment.MIDDLE));
 
-        try {
-            header.addCell(new Cell(4, 1)
-                    .add(new Image(ImageDataFactory.create(logo))
-                            .setAutoScale(true)
-                            .setMarginLeft(9f))
-                    .setBorder(Border.NO_BORDER));
-        }catch(MalformedURLException mf)
-        {
-            System.out.println(mf.getClass().getName() + ": " + mf.getMessage());
-        }
-
-        header.addCell(getCell(String.format("Date: %s \nTime: %s", this.Date, this.Time), 9f)
-                .setTextAlignment(TextAlignment.LEFT)
-                .setVerticalAlignment(VerticalAlignment.BOTTOM));
-
-        header.addCell(getCell("", 9f));
-
         header.addCell(getCell("Billed To,\n" +
-                    String.format(" %s\n", customer.getName()) +
-                    String.format(" %s", customer.getPhoneNumber().equals("")?customer.getEmail():customer.getPhoneNumber()), 9f)
+                String.format(" %s\n", customer.getName()) +
+                String.format(" %s", customer.getPhoneNumber().equals("")?customer.getEmail():customer.getPhoneNumber()) +
+                String.format("\n%s - %s", Due, Type),
+                9f)
                 .setTextAlignment(TextAlignment.LEFT)
                 .setVerticalAlignment(VerticalAlignment.BOTTOM));
 
-        header.addCell(getCell( String.format("%s,\n%s, %s,\n Postal-Code: %s",
-                        address.getOrgAddress(),
-                        address.getOrgCity(),
-                        address.getOrgState(),
-                        address.getOrgPostalCode()),
-                9f)
+        header.addCell(getCell(customer.getAddress(), 9f)
                 .setTextAlignment(TextAlignment.RIGHT)
-                .setVerticalAlignment(VerticalAlignment.BOTTOM));
-
-        header.addCell(getCell(String.format("%s - %s", Due, Type), 9f));
-
-        header.addCell(getCell(String.format("%s\n%s",
-                        orgDetails.getOrgNumber(),
-                        orgDetails.getOrgEmail()),
-                9f)
-                .setTextAlignment(TextAlignment.RIGHT)
-                .setVerticalAlignment(VerticalAlignment.TOP));
+                .setVerticalAlignment(VerticalAlignment.MIDDLE));
 
         header.setBorder(Border.NO_BORDER);
-
         return header;
     }
 
@@ -192,8 +198,9 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                     ).setTextAlignment(TextAlignment.CENTER)
                             .setVerticalAlignment(VerticalAlignment.MIDDLE)
                             .setBold()
-                            .setBorderLeft(Border.NO_BORDER)
-                            .setBorderRight(Border.NO_BORDER)
+                            .setBorder(Border.NO_BORDER)
+                            .setBackgroundColor(ColorConstants.DARK_GRAY)
+                            .setFontColor(ColorConstants.WHITE)
                             .setHeight(toPoints(0.8f))
                             .setFontSize(10f)
             );
@@ -203,8 +210,9 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                     ).setTextAlignment(TextAlignment.CENTER)
                             .setVerticalAlignment(VerticalAlignment.MIDDLE)
                             .setBold()
-                            .setBorderLeft(Border.NO_BORDER)
-                            .setBorderRight(Border.NO_BORDER)
+                            .setBorder(Border.NO_BORDER)
+                            .setBackgroundColor(ColorConstants.DARK_GRAY)
+                            .setFontColor(ColorConstants.WHITE)
                             .setHeight(toPoints(0.8f))
                             .setFontSize(10f)
             );
@@ -212,10 +220,11 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
             itemTableTemplate.addCell(new Cell().add(
                     new Paragraph("Quantity")
                     ).setTextAlignment(TextAlignment.CENTER)
-                    .setVerticalAlignment(VerticalAlignment.MIDDLE)
+                            .setVerticalAlignment(VerticalAlignment.MIDDLE)
                             .setBold()
-                            .setBorderLeft(Border.NO_BORDER)
-                            .setBorderRight(Border.NO_BORDER)
+                            .setBorder(Border.NO_BORDER)
+                            .setBackgroundColor(ColorConstants.DARK_GRAY)
+                            .setFontColor(ColorConstants.WHITE)
                             .setHeight(toPoints(0.8f))
                             .setFontSize(10f)
             );
@@ -223,10 +232,11 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
             itemTableTemplate.addCell(new Cell().add(
                     new Paragraph("Amount")
                     ).setTextAlignment(TextAlignment.CENTER)
-                    .setVerticalAlignment(VerticalAlignment.MIDDLE)
+                            .setVerticalAlignment(VerticalAlignment.MIDDLE)
                             .setBold()
-                            .setBorderLeft(Border.NO_BORDER)
-                            .setBorderRight(Border.NO_BORDER)
+                            .setBorder(Border.NO_BORDER)
+                            .setBackgroundColor(ColorConstants.DARK_GRAY)
+                            .setFontColor(ColorConstants.WHITE)
                             .setHeight(toPoints(0.8f))
                             .setFontSize(10f)
             );
@@ -234,9 +244,9 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
             if(n%15 == 1)
             {
                 itemTableTemplate.addCell(new Cell().add(
-                        new Paragraph("\t" + items[i].getDescription())
+                        new Paragraph("\t\t" + items[i].getDescription())
                         ).setTextAlignment(TextAlignment.LEFT)
-                                .setBorderTop(Border.NO_BORDER)
+                                .setBorder(Border.NO_BORDER)
                                 .setHeight(toPoints(0.8f))
                                 .setFontSize(10f)
                 );
@@ -244,7 +254,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                 itemTableTemplate.addCell(new Cell().add(
                         new Paragraph(String.format("%s%.2f",currency, items[i].getPrice()))
                         ).setTextAlignment(TextAlignment.RIGHT)
-                                .setBorderTop(Border.NO_BORDER)
+                                .setBorder(Border.NO_BORDER)
                                 .setHeight(toPoints(0.8f))
                                 .setFontSize(10f)
                 );
@@ -252,7 +262,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                 itemTableTemplate.addCell(new Cell().add(
                         new Paragraph(String.format("%d", items[i].getQuantity()))
                         ).setTextAlignment(TextAlignment.CENTER)
-                                .setBorderTop(Border.NO_BORDER)
+                                .setBorder(Border.NO_BORDER)
                                 .setHeight(toPoints(0.8f))
                                 .setFontSize(10f)
                 );
@@ -260,7 +270,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                 itemTableTemplate.addCell(new Cell().add(
                         new Paragraph(String.format("%s%.2f",currency, items[i].getTotal()))
                         ).setTextAlignment(TextAlignment.RIGHT)
-                                .setBorderTop(Border.NO_BORDER)
+                                .setBorder(Border.NO_BORDER)
                                 .setHeight(toPoints(0.8f))
                                 .setFontSize(10f)
                 );
@@ -270,8 +280,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                 itemTableTemplate.addCell(new Cell().add(
                         new Paragraph("\t" + items[i].getDescription())
                         ).setTextAlignment(TextAlignment.LEFT)
-                                .setBorderBottom(Border.NO_BORDER)
-                                .setBorderTop(Border.NO_BORDER)
+                                .setBorder(Border.NO_BORDER)
                                 .setHeight(toPoints(0.8f))
                                 .setFontSize(10f)
                 );
@@ -279,8 +288,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                 itemTableTemplate.addCell(new Cell().add(
                         new Paragraph(String.format("%s%.2f",currency, items[i].getPrice()))
                         ).setTextAlignment(TextAlignment.RIGHT)
-                                .setBorderBottom(Border.NO_BORDER)
-                                .setBorderTop(Border.NO_BORDER)
+                                .setBorder(Border.NO_BORDER)
                                 .setHeight(toPoints(0.8f))
                                 .setFontSize(10f)
                 );
@@ -288,8 +296,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                 itemTableTemplate.addCell(new Cell().add(
                         new Paragraph(String.format("%d", items[i].getQuantity()))
                         ).setTextAlignment(TextAlignment.CENTER)
-                                .setBorderBottom(Border.NO_BORDER)
-                                .setBorderTop(Border.NO_BORDER)
+                                .setBorder(Border.NO_BORDER)
                                 .setHeight(toPoints(0.8f))
                                 .setFontSize(10f)
                 );
@@ -297,8 +304,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                 itemTableTemplate.addCell(new Cell().add(
                         new Paragraph(String.format("%s%.2f",currency, items[i].getTotal()))
                         ).setTextAlignment(TextAlignment.RIGHT)
-                                .setBorderBottom(Border.NO_BORDER)
-                                .setBorderTop(Border.NO_BORDER)
+                                .setBorder(Border.NO_BORDER)
                                 .setHeight(toPoints(0.8f))
                                 .setFontSize(10f)
                 );
@@ -314,7 +320,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                     itemTableTemplate.addCell(new Cell().add(
                             new Paragraph("\t" + items[i].getDescription())
                             ).setTextAlignment(TextAlignment.LEFT)
-                                    .setBorderTop(Border.NO_BORDER)
+                                    .setBorder(Border.NO_BORDER)
                                     .setHeight(toPoints(0.8f))
                                     .setFontSize(10f)
                     );
@@ -322,7 +328,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                     itemTableTemplate.addCell(new Cell().add(
                             new Paragraph(String.format("%s%.2f",currency, items[i].getPrice()))
                             ).setTextAlignment(TextAlignment.RIGHT)
-                                    .setBorderTop(Border.NO_BORDER)
+                                    .setBorder(Border.NO_BORDER)
                                     .setHeight(toPoints(0.8f))
                                     .setFontSize(10f)
                     );
@@ -330,7 +336,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                     itemTableTemplate.addCell(new Cell().add(
                             new Paragraph(String.format("%d", items[i].getQuantity()))
                             ).setTextAlignment(TextAlignment.CENTER)
-                                    .setBorderTop(Border.NO_BORDER)
+                                    .setBorder(Border.NO_BORDER)
                                     .setHeight(toPoints(0.8f))
                                     .setFontSize(10f)
                     );
@@ -338,7 +344,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                     itemTableTemplate.addCell(new Cell().add(
                             new Paragraph(String.format("%s%.2f",currency, items[i].getTotal()))
                             ).setTextAlignment(TextAlignment.RIGHT)
-                                    .setBorderTop(Border.NO_BORDER)
+                                    .setBorder(Border.NO_BORDER)
                                     .setHeight(toPoints(0.8f))
                                     .setFontSize(10f)
                     );
@@ -348,8 +354,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                     itemTableTemplate.addCell(new Cell().add(
                             new Paragraph("\t" + items[i].getDescription())
                             ).setTextAlignment(TextAlignment.LEFT)
-                                    .setBorderBottom(Border.NO_BORDER)
-                                    .setBorderTop(Border.NO_BORDER)
+                                    .setBorder(Border.NO_BORDER)
                                     .setHeight(toPoints(0.8f))
                                     .setFontSize(10f)
                     );
@@ -357,8 +362,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                     itemTableTemplate.addCell(new Cell().add(
                             new Paragraph(String.format("%s%.2f",currency, items[i].getPrice()))
                             ).setTextAlignment(TextAlignment.RIGHT)
-                                    .setBorderBottom(Border.NO_BORDER)
-                                    .setBorderTop(Border.NO_BORDER)
+                                    .setBorder(Border.NO_BORDER)
                                     .setHeight(toPoints(0.8f))
                                     .setFontSize(10f)
                     );
@@ -366,8 +370,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                     itemTableTemplate.addCell(new Cell().add(
                             new Paragraph(String.format("%d", items[i].getQuantity()))
                             ).setTextAlignment(TextAlignment.CENTER)
-                                    .setBorderBottom(Border.NO_BORDER)
-                                    .setBorderTop(Border.NO_BORDER)
+                                    .setBorder(Border.NO_BORDER)
                                     .setHeight(toPoints(0.8f))
                                     .setFontSize(10f)
                     );
@@ -375,8 +378,7 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
                     itemTableTemplate.addCell(new Cell().add(
                             new Paragraph(String.format("%s%.2f",currency, items[i].getTotal()))
                             ).setTextAlignment(TextAlignment.RIGHT)
-                                    .setBorderBottom(Border.NO_BORDER)
-                                    .setBorderTop(Border.NO_BORDER)
+                                    .setBorder(Border.NO_BORDER)
                                     .setHeight(toPoints(0.8f))
                                     .setFontSize(10f)
                     );
@@ -413,19 +415,21 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
 
     public IEventHandler getHeaderEvent()
     {
-        return new HeaderEvent(getHeader());
+        return new TemplateA.HeaderEvent(getHeader(), getDetails());
     }
 
     public IEventHandler getFooterEvent()
     {
-        return new FooterEvent(getFooter());
+        return new TemplateA.FooterEvent(getFooter());
     }
 
     private class HeaderEvent implements IEventHandler{
-        private final Table table;
+        private final Table table1;
+        private final Table table2;
 
-        public HeaderEvent(Table table) {
-            this.table = table;
+        public HeaderEvent(Table table1, Table table2) {
+            this.table1 = table1;
+            this.table2 = table2;
         }
 
         @Override
@@ -438,10 +442,11 @@ public class DefaultInvoiceTemplate implements InvoiceTemplate{
 
             new Canvas(canvas, new Rectangle(
                     toPoints(1.27f),
-                    page.getPageSize().getHeight() - toPoints(6.5f) - toPoints(2.5f),
+                    page.getPageSize().getHeight() - toPoints(8f) - toPoints(2.5f),
                     page.getPageSize().getWidth() - 72,
-                    toPoints(5.4f) + toPoints(1.27f)))
-                    .add(table)
+                    toPoints(8f) + toPoints(1.27f)))
+                    .add(table1)
+                    .add(table2)
                     .close();
         }
     }

@@ -30,4 +30,14 @@ public enum BackgroundType {
     {
         return Background.class.getResource(this.Type).toString();
     }
+
+    public static BackgroundType getByURL(String URL)
+    {
+        for(BackgroundType b: BackgroundType.values())
+        {
+            if(b.getURL().equals(URL))
+                return b;
+        }
+        return null;
+    }
 }

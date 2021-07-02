@@ -124,7 +124,7 @@ public class EditCompanyDetails {
 
     public void cancel(ActionEvent event)
     {
-        homeScreen.setWorkSpaceArea("defaultWidgetScreen.fxml");
+        homeScreen.setWorkSpaceArea("home.fxml", false);
     }
 
     public void isNumeric(KeyEvent ke)

@@ -24,6 +24,7 @@ module org.invoice.monkey {
     opens org.invoice.monkey.model to javafx.base;
     opens org.invoice.monkey.controller to javafx.fxml;
     opens org.invoice.monkey.model.Configurations to javafx.base;
+    opens org.invoice.monkey.utils.UI.Carousel to javafx.fxml;
 
     exports org.invoice.monkey;
     exports org.invoice.monkey.controller;
@@ -32,6 +33,9 @@ module org.invoice.monkey {
     exports org.invoice.monkey.utils;
     exports org.invoice.monkey.utils.invoicegenerator.templates;
     exports org.invoice.monkey.utils.invoicegenerator.background;
+    exports org.invoice.monkey.utils.notification;
+    exports org.invoice.monkey.utils.UI.tableview;
+    opens org.invoice.monkey.utils.UI.tableview to javafx.base;
 
 
 }
