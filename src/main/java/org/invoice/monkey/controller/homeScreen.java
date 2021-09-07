@@ -155,11 +155,6 @@ public class homeScreen {
             {
                 advancedEmailSettings.setVisible(true);
                 configuration.getEmailDetails().setEmailServiceReady(true);
-                try {
-                    MailerFactory.getService();
-                } catch (GeneralSecurityException | IOException e) {
-                    e.printStackTrace();
-                }
             }
             else{
                 advancedEmailSettings.setVisible(false);

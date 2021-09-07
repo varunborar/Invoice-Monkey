@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
 import org.invoice.monkey.Database.InvoiceDB;
-import org.invoice.monkey.controller.Home;
+import org.invoice.monkey.controller.homeScreen;
 import org.invoice.monkey.model.Invoice;
 import org.invoice.monkey.utils.notification.ErrorNotification;
 import org.invoice.monkey.utils.notification.Notification;
@@ -29,7 +29,7 @@ public class InvoiceScheduled {
 
         Label icon = new Label();
         icon.setMinHeight(12);
-        icon.setMinWidth(16);
+        icon.setMinWidth(20);
         icon.getStyleClass().addAll("tick");
 
         this.Delivered = new SimpleObjectProperty<>(new JFXButton("", icon));
@@ -45,7 +45,7 @@ public class InvoiceScheduled {
             InvoiceDB idb = new InvoiceDB();
             try {
                 idb.updateInvoiceSchedule(this.getIdentifier());
-                Home.refresh();
+                homeScreen.setWorkSpaceArea("home.fxml", false);
             } catch (SQLException throwable) {
                 Notification.sendErrorNotification(ErrorNotification.DatabaseConnectionError);
             }

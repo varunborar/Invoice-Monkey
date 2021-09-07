@@ -21,7 +21,7 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <JFXTextField fx:id="subject" labelFloat="true" layoutX="15.0" layoutY="49.0" prefHeight="28.0" prefWidth="350.0" promptText="Subject" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
-                        <JFXTextArea fx:id="message" labelFloat="true" layoutX="15.0" layoutY="121.0" prefHeight="203.0" prefWidth="350.0" promptText="Message" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+                        <JFXTextArea fx:id="message" labelFloat="true" layoutX="15.0" layoutY="121.0" onKeyTyped="#enableSave" prefHeight="203.0" prefWidth="350.0" promptText="Message" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
                         <JFXCheckBox fx:id="link" layoutX="15.0" layoutY="357.0" selected="true" text="Include link to application site" />
                         <JFXButton fx:id="saveMessage" layoutX="226.0" layoutY="410.0" onAction="#saveMessage" prefHeight="28.0" prefWidth="66.0" text="Save" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="90.0" />
                         <JFXButton fx:id="cancelMessage" layoutX="292.0" layoutY="410.0" onAction="#cancel" prefHeight="28.0" prefWidth="66.0" text="Cancel" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0" />

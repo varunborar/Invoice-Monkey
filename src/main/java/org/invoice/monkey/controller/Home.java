@@ -46,11 +46,14 @@ public class Home {
 
     public static void refresh()
     {
+        System.out.println("Refreshing Home Screen");
         activeController.refreshInvoiceDue();
         activeController.refreshInvoiceSchedule();
     }
 
     public void refreshInvoiceDue() {
+
+        InvoiceDueTable.getItems().clear();
         try {
             InvoiceDB idb = new InvoiceDB();
 
@@ -70,6 +73,7 @@ public class Home {
 
     public void refreshInvoiceSchedule()
     {
+        InvoiceScheduledTable.getItems().clear();
         try{
 
             InvoiceDB idb = new InvoiceDB();

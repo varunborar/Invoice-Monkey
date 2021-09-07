@@ -250,5 +250,6 @@ public class InvoiceScreen {
 
         invoiceItemTable.getItems().clear();
         addItem.setDisable(true);
+        invoice = new Invoice();
     }
 }

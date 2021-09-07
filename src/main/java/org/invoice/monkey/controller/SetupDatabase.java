@@ -68,6 +68,12 @@ public class SetupDatabase {
         }
         else
         {
+            databaseName.setDisable(true);
+            host.setDisable(true);
+            port.setDisable(true);
+            userName.setDisable(true);
+            password.setDisable(true);
+
             Database.selectToggle(localDatabase);
             connect.setVisible(false);
         }

@@ -18,6 +18,8 @@ module org.invoice.monkey {
     requires google.api.services.gmail.v1.rev83;
     requires java.mail;
     requires activation;
+//    requires com.google.api.client.extensions.jetty.auth;
+//    requires com.google.api.client;
 
 
     opens org.invoice.monkey to javafx.fxml;
@@ -25,6 +27,7 @@ module org.invoice.monkey {
     opens org.invoice.monkey.controller to javafx.fxml;
     opens org.invoice.monkey.model.Configurations to javafx.base;
     opens org.invoice.monkey.utils.UI.Carousel to javafx.fxml;
+    opens org.invoice.monkey.utils.UI.tableview to javafx.base;
 
     exports org.invoice.monkey;
     exports org.invoice.monkey.controller;
@@ -35,7 +38,4 @@ module org.invoice.monkey {
     exports org.invoice.monkey.utils.invoicegenerator.background;
     exports org.invoice.monkey.utils.notification;
     exports org.invoice.monkey.utils.UI.tableview;
-    opens org.invoice.monkey.utils.UI.tableview to javafx.base;
-
-
 }

@@ -171,4 +171,8 @@ public class AdvancedEmailSettings {
         stage.close();
     }
 
+    public void enableSave()
+    {
+        saveMessage.setDisable(false);
+    }
 }

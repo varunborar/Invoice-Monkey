@@ -5,7 +5,6 @@ import org.invoice.monkey.model.Invoice;
 public class InvoiceGeneratorThread extends Thread{
 
     private InvoiceGenerator invoiceGenerator;
-    private String invoiceLocation;
 
     public InvoiceGeneratorThread(InvoiceGenerator invoiceGenerator)
     {
